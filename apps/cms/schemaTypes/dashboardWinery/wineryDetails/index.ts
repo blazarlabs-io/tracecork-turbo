@@ -102,12 +102,6 @@ export const wineryDetails = defineType({
           type: 'string',
         }),
         defineField({
-          name: 'item',
-          title: 'Item',
-          type: 'array',
-          of: [{type: 'string'}],
-        }),
-        defineField({
           name: 'errorMessages',
           title: 'Error Messages',
           type: 'object',
@@ -173,6 +167,16 @@ export const wineryDetails = defineType({
       title: 'Winery Representative',
       type: 'object',
       fields: [
+        defineField({
+          name: 'label',
+          title: 'Label',
+          type: 'string',
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'string',
+        }),
         defineField({
           name: 'email',
           title: 'Email',

@@ -61,7 +61,19 @@ export const topBar = defineType({
         defineField({
           name: 'item',
           title: 'Item',
-          type: 'string',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'label',
+              title: 'Label',
+              type: 'string',
+            }),
+            defineField({
+              name: 'icon',
+              title: 'Icon',
+              type: 'string',
+            }),
+          ],
         }),
       ],
     }),

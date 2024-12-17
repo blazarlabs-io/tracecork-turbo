@@ -44,9 +44,6 @@ export const filters = defineField({
           of: [
             {
               type: 'string',
-              options: {
-                list: ['Draft', 'Published', 'Archived'],
-              },
             },
           ],
         }),

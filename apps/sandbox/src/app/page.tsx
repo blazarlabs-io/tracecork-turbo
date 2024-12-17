@@ -17,6 +17,11 @@ export default async function Page(): Promise<JSX.Element> {
     return posts;
   }
 
+  async function getDocByType(type: string) {
+    const posts = await client.fetch(`*[_type == "${type}"]`);
+    return posts;
+  }
+
   async function updateDocument(_id: string) {
     const docs = await getSystemVariables();
     console.log(docs[0].countries);
@@ -29,7 +34,11 @@ export default async function Page(): Promise<JSX.Element> {
     });
   }
 
-  // await updateDocument(systemVariablesId);
+  console.log(await getDocByType("publicPages"));
 
-  return <></>;
+  return (
+    <>
+      <span className="text-white">sandbox</span>
+    </>
+  );
 }
