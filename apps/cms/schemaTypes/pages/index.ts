@@ -3,9 +3,9 @@ import {homePage} from './homePage'
 import {pricingPage} from './pricingPage'
 import {contactPage} from './contactPage'
 
-export const pages = defineType({
-  name: 'pages',
-  title: 'Pages',
+export const publicPages = defineType({
+  name: 'publicPages',
+  title: 'Public Pages',
   type: 'document',
   fields: [
     defineField({

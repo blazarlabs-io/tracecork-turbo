@@ -3,6 +3,7 @@ import {footer} from './footer'
 import {topBar} from './topBar'
 import {login} from './login'
 import {signup} from './signup'
+import slug from '../slug'
 
 export const publicComponents = defineType({
   name: 'publicComponents',

@@ -59,6 +59,11 @@ export const dialogs = defineField({
           type: 'object',
           fields: [
             defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+            }),
+            defineField({
               name: 'buttons',
               title: 'Buttons',
               type: 'object',
@@ -81,7 +86,36 @@ export const dialogs = defineField({
           name: 'qrCodeUnavailable',
           title: 'QR Code Unavailable',
           type: 'object',
-          fields: [...dialog.fields.map((f) => defineField(f))],
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'array',
+              of: [{type: 'block'}],
+            }),
+            defineField({
+              name: 'buttons',
+              title: 'Buttons',
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'downloadButtonLabel',
+                  title: 'Download Button Label',
+                  type: 'string',
+                }),
+                defineField({
+                  name: 'okButtonLabel',
+                  title: 'Ok Button Label',
+                  type: 'string',
+                }),
+              ],
+            }),
+          ],
         }),
       ],
     }),

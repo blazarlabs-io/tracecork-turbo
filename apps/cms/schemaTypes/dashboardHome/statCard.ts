@@ -11,6 +11,11 @@ export const statCard = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'icon',
+      title: 'Icon',
+      type: 'string',
+    }),
+    defineField({
       name: 'description',
       title: 'Description',
       type: 'string',

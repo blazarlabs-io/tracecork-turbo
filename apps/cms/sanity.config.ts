@@ -20,7 +20,7 @@ export default defineConfig({
       supportedLanguages: i18n.languages,
       schemaTypes: [
         'systemVariables',
-        'pages',
+        'publicPages',
         'publicComponents',
         'dashboardHome',
         'wineryDetails',

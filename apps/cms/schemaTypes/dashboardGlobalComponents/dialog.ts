@@ -13,7 +13,8 @@ export const dialog = defineType({
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'string',
+      type: 'array',
+      of: [{type: 'block'}],
     }),
     defineField({
       name: 'buttons',
@@ -27,7 +28,7 @@ export const dialog = defineType({
         }),
         defineField({
           name: 'confirmButtonLabel',
-          title: 'Cinfirm Button Label',
+          title: 'Confirm Button Label',
           type: 'string',
         }),
       ],

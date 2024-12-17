@@ -6,13 +6,13 @@ import {generalSettings} from './dashboardSettings/generalSettings'
 import {myWines} from './dashboardWinery/myWines'
 import {wineStepper} from './dashboardWinery/myWines/stepper'
 import {wineryDetails} from './dashboardWinery/wineryDetails'
-import {pages} from './pages'
+import {publicPages} from './pages'
 import {publicComponents} from './publicComponents'
 import {systemVariables} from './systemVariables'
 
 export const schemaTypes = [
   systemVariables,
-  pages,
+  publicPages,
   publicComponents,
   dashboardGlobalComponents,
   dashboardHome,

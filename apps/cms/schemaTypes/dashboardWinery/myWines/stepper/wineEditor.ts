@@ -202,5 +202,22 @@ export const wineEditor = defineType({
         }),
       ],
     }),
+    defineField({
+      name: 'buttons',
+      title: 'Buttons',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'nextButtonLabel',
+          title: 'Next Button Label',
+          type: 'string',
+        }),
+        defineField({
+          name: 'backButtonLabel',
+          title: 'Back Button Label',
+          type: 'string',
+        }),
+      ],
+    }),
   ],
 })
