@@ -1,19 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Header } from "../sections/header";
-import { useWineries } from "../../context/wineries";
 import {
   Table,
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@repo/ui/components/ui/table";
 import { useRouter } from "next/navigation";
+import { useWineries } from "../../context/wineries";
+import { Header } from "../sections/header";
 
 export const DashboardWineriesPage = () => {
   const { wineries } = useWineries();
@@ -60,9 +59,10 @@ export const DashboardWineriesPage = () => {
                   <TableCell className="text-right">
                     <button
                       className="text-primary font-medium underline"
-                      onClick={() =>
-                        router.push(`/dashboard/winery/${winery.id}`)
-                      }
+                      onClick={() => {
+                        console.log("ID", winery.id);
+                        router.push(`/dashboard/winery/${winery.id}`);
+                      }}
                     >
                       Edit
                     </button>

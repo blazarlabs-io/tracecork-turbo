@@ -17,6 +17,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@repo/ui/components/ui/avatar";
+import { useEffect } from "react";
 
 type DashboardWineryPageProps = {
   winery: any;
@@ -47,6 +48,10 @@ export const DashboardWineryPage = ({
       });
     }
   };
+
+  useEffect(() => {
+    console.log(winery, systemVariables);
+  }, [winery]);
 
   return (
     <>
