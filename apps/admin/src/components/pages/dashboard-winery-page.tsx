@@ -72,11 +72,11 @@ export const DashboardWineryPage = ({
               <span className="text-sm font-medium">Current Plan</span>
               <Select onValueChange={handleUpdatePlan}>
                 <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder={winery.billing.level} />
+                  <SelectValue placeholder={winery?.billing?.level} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    {systemVariables.pricing.map((plan: any) => (
+                    {systemVariables?.pricing.map((plan: any) => (
                       <SelectItem key={plan._key} value={plan.name}>
                         {plan.name}
                       </SelectItem>
