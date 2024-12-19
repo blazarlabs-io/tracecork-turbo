@@ -54,7 +54,7 @@ export const DashboardWineryPage = ({
         <div>
           <div className="flex items-center justify-start gap-4">
             <Avatar className="h-16 w-16">
-              <AvatarImage src={winery.info.avatar} />
+              <AvatarImage src={winery?.info?.avatar} />
               <AvatarFallback>
                 {winery.info.name.charAt(0).toUpperCase() || "?"}
               </AvatarFallback>
