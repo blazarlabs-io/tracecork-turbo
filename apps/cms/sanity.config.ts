@@ -8,7 +8,7 @@ import {documentInternationalization} from '@sanity/document-internationalizatio
 
 export default defineConfig({
   name: 'default',
-  title: 'tracecork',
+  title: 'tracecork-cms',
 
   projectId: '00hinjno',
   dataset: 'production',
