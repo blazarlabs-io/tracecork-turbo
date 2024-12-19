@@ -49,76 +49,82 @@ export const DashboardWineryPage = ({
   };
 
   return (
-    <div>
-      <div className="flex items-center justify-start gap-4">
-        <Avatar className="h-16 w-16">
-          <AvatarImage src={winery.info.avatar} />
-          <AvatarFallback>
-            {winery.info.name.charAt(0).toUpperCase() || "?"}
-          </AvatarFallback>
-        </Avatar>
-        <Header title={winery.info.name} description={winery.id} />
-      </div>
-      <Separator className="my-4" />
-      <div className="flex flex-col items-start justify-start gap-8 p-4">
-        <div className="flex flex-col items-start justify-start gap-2">
-          <span className="text-sm font-medium">Current Plan</span>
-          <Select onValueChange={handleUpdatePlan}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder={winery.billing.level} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {systemVariables.pricing.map((plan: any) => (
-                  <SelectItem key={plan._key} value={plan.name}>
-                    {plan.name}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+    <>
+      {winery && winery !== undefined && (
+        <div>
+          <div className="flex items-center justify-start gap-4">
+            <Avatar className="h-16 w-16">
+              <AvatarImage src={winery.info.avatar} />
+              <AvatarFallback>
+                {winery.info.name.charAt(0).toUpperCase() || "?"}
+              </AvatarFallback>
+            </Avatar>
+            <Header title={winery.info.name} description={winery.id} />
+          </div>
+          <Separator className="my-4" />
+          <div className="flex flex-col items-start justify-start gap-8 p-4">
+            <div className="flex flex-col items-start justify-start gap-2">
+              <span className="text-sm font-medium">Current Plan</span>
+              <Select onValueChange={handleUpdatePlan}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder={winery.billing.level} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {systemVariables.pricing.map((plan: any) => (
+                      <SelectItem key={plan._key} value={plan.name}>
+                        {plan.name}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex flex-col items-start justify-start gap-2">
+              <span className="text-sm font-medium">Founded in</span>
+              <span className="text-muted-foreground">
+                {winery.info.foundedIn}
+              </span>
+            </div>
+            <div className="flex flex-col items-start justify-start gap-2">
+              <span className="text-sm font-medium">Collections</span>
+              <span className="text-muted-foreground">
+                {winery.info.wineCollections}
+              </span>
+            </div>
+            <div className="flex flex-col items-start justify-start gap-2">
+              <span className="text-sm font-medium">Grape Varieties</span>
+              <span className="text-muted-foreground">
+                {winery.info.grapeVarieties}
+              </span>
+            </div>
+            <div className="flex flex-col items-start justify-start gap-2">
+              <span className="text-sm font-medium">Vineyards Surface</span>
+              <span className="text-muted-foreground">
+                {winery.info.vineyardsSurface}
+              </span>
+            </div>
+            <div className="flex flex-col items-start justify-start gap-2">
+              <span className="text-sm font-medium">Bottles Produced</span>
+              <span className="text-muted-foreground">
+                {winery.info.bottlesProduced}
+              </span>
+            </div>
+            <div className="flex flex-col items-start justify-start gap-2">
+              <span className="text-sm font-medium">Representative</span>
+              <span className="text-muted-foreground">
+                {winery.info.representative.name}
+              </span>
+              <span className="text-muted-foreground">
+                {winery.info.representative.email}
+              </span>
+              <span className="text-muted-foreground">
+                {winery.info.representative.phone}
+              </span>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col items-start justify-start gap-2">
-          <span className="text-sm font-medium">Founded in</span>
-          <span className="text-muted-foreground">{winery.info.foundedIn}</span>
-        </div>
-        <div className="flex flex-col items-start justify-start gap-2">
-          <span className="text-sm font-medium">Collections</span>
-          <span className="text-muted-foreground">
-            {winery.info.wineCollections}
-          </span>
-        </div>
-        <div className="flex flex-col items-start justify-start gap-2">
-          <span className="text-sm font-medium">Grape Varieties</span>
-          <span className="text-muted-foreground">
-            {winery.info.grapeVarieties}
-          </span>
-        </div>
-        <div className="flex flex-col items-start justify-start gap-2">
-          <span className="text-sm font-medium">Vineyards Surface</span>
-          <span className="text-muted-foreground">
-            {winery.info.vineyardsSurface}
-          </span>
-        </div>
-        <div className="flex flex-col items-start justify-start gap-2">
-          <span className="text-sm font-medium">Bottles Produced</span>
-          <span className="text-muted-foreground">
-            {winery.info.bottlesProduced}
-          </span>
-        </div>
-        <div className="flex flex-col items-start justify-start gap-2">
-          <span className="text-sm font-medium">Representative</span>
-          <span className="text-muted-foreground">
-            {winery.info.representative.name}
-          </span>
-          <span className="text-muted-foreground">
-            {winery.info.representative.email}
-          </span>
-          <span className="text-muted-foreground">
-            {winery.info.representative.phone}
-          </span>
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
