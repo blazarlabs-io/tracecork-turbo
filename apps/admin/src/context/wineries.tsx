@@ -34,6 +34,8 @@ export const WineriesProvider = ({
   const value = { wineries };
 
   useEffect(() => {
+    setWineries([]);
+
     const unsubscribeWinery = onSnapshot(
       collection(db, "wineries"),
       async (snapshot) => {
