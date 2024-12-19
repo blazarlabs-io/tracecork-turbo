@@ -61,10 +61,10 @@ export const DashboardWineryPage = ({
             <Avatar className="h-16 w-16">
               <AvatarImage src={winery?.info?.avatar} />
               <AvatarFallback>
-                {winery.info.name.charAt(0).toUpperCase() || "?"}
+                {winery?.info?.name.charAt(0).toUpperCase() || "?"}
               </AvatarFallback>
             </Avatar>
-            <Header title={winery.info.name} description={winery.id} />
+            <Header title={winery?.info?.name} description={winery.id} />
           </div>
           <Separator className="my-4" />
           <div className="flex flex-col items-start justify-start gap-8 p-4">
@@ -88,43 +88,43 @@ export const DashboardWineryPage = ({
             <div className="flex flex-col items-start justify-start gap-2">
               <span className="text-sm font-medium">Founded in</span>
               <span className="text-muted-foreground">
-                {winery.info.foundedIn}
+                {winery?.info?.foundedIn}
               </span>
             </div>
             <div className="flex flex-col items-start justify-start gap-2">
               <span className="text-sm font-medium">Collections</span>
               <span className="text-muted-foreground">
-                {winery.info.wineCollections}
+                {winery?.info?.wineCollections}
               </span>
             </div>
             <div className="flex flex-col items-start justify-start gap-2">
               <span className="text-sm font-medium">Grape Varieties</span>
               <span className="text-muted-foreground">
-                {winery.info.grapeVarieties}
+                {winery?.info?.grapeVarieties}
               </span>
             </div>
             <div className="flex flex-col items-start justify-start gap-2">
               <span className="text-sm font-medium">Vineyards Surface</span>
               <span className="text-muted-foreground">
-                {winery.info.vineyardsSurface}
+                {winery?.info?.vineyardsSurface}
               </span>
             </div>
             <div className="flex flex-col items-start justify-start gap-2">
               <span className="text-sm font-medium">Bottles Produced</span>
               <span className="text-muted-foreground">
-                {winery.info.bottlesProduced}
+                {winery?.info?.bottlesProduced}
               </span>
             </div>
             <div className="flex flex-col items-start justify-start gap-2">
               <span className="text-sm font-medium">Representative</span>
               <span className="text-muted-foreground">
-                {winery.info.representative.name}
+                {winery?.info?.representative.name}
               </span>
               <span className="text-muted-foreground">
-                {winery.info.representative.email}
+                {winery?.info?.representative.email}
               </span>
               <span className="text-muted-foreground">
-                {winery.info.representative.phone}
+                {winery?.info?.representative.phone}
               </span>
             </div>
           </div>
