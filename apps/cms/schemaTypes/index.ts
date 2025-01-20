@@ -9,6 +9,7 @@ import {wineryDetails} from './dashboardWinery/wineryDetails'
 import {publicPages} from './pages'
 import {publicComponents} from './publicComponents'
 import {systemVariables} from './systemVariables'
+import {wineDetails} from './wineDetails'
 
 export const schemaTypes = [
   systemVariables,
@@ -22,4 +23,5 @@ export const schemaTypes = [
   subscription,
   manageAccount,
   generalSettings,
+  wineDetails,
 ]

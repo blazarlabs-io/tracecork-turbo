@@ -1,0 +1,109 @@
+"use client";
+
+import { useAuth } from "@/context/auth";
+import { useWinery } from "@/context/winery";
+import { useQRCodesLimit } from "@/hooks/use-qr-codes-limit";
+import { useResponsiveSize } from "@/hooks/use-responsive-size";
+import { Wine } from "@/types/db";
+import { generateWineId } from "@/utils/wine-utils";
+import { Plus, QrCode } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { z } from "zod";
+import winesSaple from "@/data/wines-sample.json";
+import { UpgradePlanDialog } from "../dialogs/upgrade-plan-dialog";
+import { PageHeader } from "@/components/layouts/page-header";
+import { Button } from "@repo/ui/components/ui/button";
+import { Separator } from "@repo/ui/components/ui/separator";
+import { WinesTable } from "@/components/widgets/wines-table";
+import { columns } from "@/components/widgets/wines-table/columns";
+import { taskSchema } from "@/components/widgets/wines-table/data/schema";
+
+export const MyWinesPage = () => {
+  // * HOOKS
+  const router = useRouter();
+  const { user } = useAuth();
+  const { wines } = useWinery();
+  const { qrCodesLimit, qrCodesLeft } = useQRCodesLimit();
+  const { device } = useResponsiveSize();
+
+  // * STATES
+  const [localWines, setLocalWines] = useState<any[]>([]);
+
+  // * FUNCTIONS
+  const getLocalWines = () => {
+    return z.array(taskSchema).parse(winesSaple);
+  };
+
+  useEffect(() => {
+    if (user && wines) {
+      if (process.env.NEXT_PUBLIC_USE_LOCAL_DATA === "true") {
+        setLocalWines(() => getLocalWines());
+      } else {
+        setLocalWines(wines as Wine[]);
+      }
+    }
+  }, [user, wines]);
+
+  return (
+    <div className="flex w-full flex-col gap-6">
+      <div className="flex w-full items-center justify-between">
+        <PageHeader title="My Wines" subtitle="View and manage your wines." />
+        {qrCodesLimit && (
+          <div className="flex flex-col items-end gap-2">
+            <UpgradePlanDialog />
+            <div className="flex items-center justify-end gap-1">
+              {qrCodesLeft === 0 ? (
+                <>
+                  <QrCode size={14} className="text-destructive" />
+                  {device === "mobile" ? (
+                    <p className="pr-2 text-xs text-destructive">
+                      {qrCodesLeft} of {qrCodesLimit}
+                    </p>
+                  ) : (
+                    <p className="text-xs text-destructive">
+                      {qrCodesLeft} of {qrCodesLimit} labels remaining
+                    </p>
+                  )}
+                </>
+              ) : (
+                <>
+                  <QrCode size={14} className="text-muted-foreground" />
+                  {device === "mobile" ? (
+                    <p className="pr-2 text-xs text-muted-foreground">
+                      {qrCodesLeft} of {qrCodesLimit}
+                    </p>
+                  ) : (
+                    <p className="text-xs text-muted-foreground">
+                      {qrCodesLeft} of {qrCodesLimit} labels remaining
+                    </p>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+      <Separator className="w-full" />
+      <div className="flex items-center gap-4">
+        <Button
+          variant="dashed"
+          onClick={() =>
+            router.push(`/dashboard/my-wines/editor/${generateWineId()}`)
+          }
+        >
+          <Plus size={16} className="text-foreground" />
+          Add New Wine
+        </Button>
+      </div>
+      {/* *TABLE */}
+      {localWines && (
+        <WinesTable
+          data={localWines}
+          columns={columns}
+          qrCodesLeft={qrCodesLeft}
+        />
+      )}
+    </div>
+  );
+};
