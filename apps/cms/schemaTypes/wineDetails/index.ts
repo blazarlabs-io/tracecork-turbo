@@ -6,6 +6,12 @@ export const wineDetails = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'language',
+      type: 'string',
+      title: 'Language',
+      readOnly: true,
+    }),
+    defineField({
       name: 'ingredientsTitle',
       title: 'Ingredients Title',
       type: 'string',
