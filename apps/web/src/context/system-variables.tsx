@@ -1,12 +1,8 @@
 "use client";
 
 import { DbResponse, PricingLevel, Sweetness } from "@/types/db";
-
-// LIBS
 import { db } from "@/lib/firebase/services/db";
 import { createContext, useContext, useEffect, useState } from "react";
-import { sweetness as sweetnessData } from "@/data/systemVariables";
-import { set } from "date-fns";
 
 export interface SystemVariablesContextInterface {
   pricing: PricingLevel[];
