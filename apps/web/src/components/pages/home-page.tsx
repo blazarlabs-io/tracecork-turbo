@@ -5,7 +5,6 @@ import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
 import { useAuth } from "@/context/auth";
-import { useEffect } from "react";
 
 export const HomePage = () => {
   const { device } = useResponsiveSize();
