@@ -2,10 +2,14 @@ import { SanityDocument } from "@sanity/client";
 import { client } from "../../lib/sanity/client";
 import { cleanedObj, setObjectContent } from "../utils/objectHandlres";
 
-export const useSetSanityMessages = async () => {
+export const useSetSanityMessages = async (locale: string) => {
   const sanityData = await client.fetch<SanityDocument>(
-    '*[_type == "publicPages" || _type == "publicComponents"]',
+    `*[_type in ["publicPages", "publicComponents"]]`,
   );
+  // const sanityData = await client.fetch<SanityDocument>(
+  //   `*[_type in ["publicPages", "publicComponents"] && language == ${JSON.stringify(locale)}]`,
+  // );
+
   // const publicPages = await client.fetch("*");
 
   const mainData: any = {

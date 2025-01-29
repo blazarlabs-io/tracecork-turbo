@@ -1,11 +1,10 @@
 import { getRequestConfig } from "next-intl/server";
 import { useSetSanityMessages } from "./hooks/useSetSanityMessages";
+import { getUserLocale } from "../services/locale";
 
 export default getRequestConfig(async () => {
-  // Provide a static locale, fetch a user setting,
-  // read from `cookies()`, `headers()`, etc.
-  const locale = "en";
-  const messages = await useSetSanityMessages();
+  const locale = await getUserLocale();
+  const messages = await useSetSanityMessages(locale);
 
   return {
     locale,
