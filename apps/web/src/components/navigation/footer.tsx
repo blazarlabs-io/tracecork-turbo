@@ -4,8 +4,10 @@ import Link from "next/link";
 import { Logo } from "../assets/logo";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
+import { useTranslationHandler } from "@/hooks/useTranslationHandler";
 
 export const Footer = () => {
+  const { t } = useTranslationHandler();
   const { device } = useResponsiveSize();
 
   return (
@@ -54,13 +56,13 @@ export const Footer = () => {
             </div>
             <div className="flex items-start gap-8">
               <Link href="/explore" className="text-sm">
-                Explore
+                {t("topBar.links.explore.label")}
               </Link>
               <Link href="/pricing" className="text-sm">
-                Pricing
+                {t("topBar.links.pricing.label")}
               </Link>
               <Link href="/contact" className="text-sm">
-                Contact Us
+                {t("topBar.links.contact.label")}
               </Link>
               <Link href="/legal/terms-and-conditions" className="text-sm">
                 Terms & Conditions

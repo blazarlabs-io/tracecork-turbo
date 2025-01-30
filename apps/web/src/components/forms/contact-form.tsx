@@ -28,7 +28,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@repo/ui/components/ui/dialog";
-import { useTranslationHandler } from "../../hooks/useTranslationHandler";
+import { useTranslationHandler } from "@/hooks/useTranslationHandler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 import "./contact-form-styles.css";
 

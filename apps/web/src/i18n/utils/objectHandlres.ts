@@ -1,4 +1,4 @@
-import { sanityBlockToMarkdown } from "./sanityDataParser";
+import { parseLinkSanityData, sanityBlockToMarkdown } from "./sanityDataParser";
 
 export const deepCopyObject = (obj: object) => JSON.parse(JSON.stringify(obj));
 
@@ -19,7 +19,12 @@ export const setObjectContent = (obj: any) => {
       const fieldValue = docField[`${fieldKey}`];
       if (!Array.isArray(fieldValue)) return;
       const mdData = sanityBlockToMarkdown(fieldValue);
-      baseData[`${docKey}`][`${fieldKey}`] = mdData;
+      if (!!mdData) {
+        baseData[`${docKey}`][`${fieldKey}`] = mdData;
+        return;
+      }
+      const linkData = parseLinkSanityData(fieldValue);
+      baseData[`${docKey}`][`${fieldKey}`] = linkData;
     });
   });
   return baseData;

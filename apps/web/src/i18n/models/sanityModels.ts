@@ -18,3 +18,10 @@ export type SanityBlockType = {
   markDefs: MarkRefType[];
   style: string;
 };
+
+export type SanityLinkType = {
+  _key: string;
+  _type: "link";
+  label: string;
+  url: string;
+};
