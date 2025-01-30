@@ -1,5 +1,5 @@
 import { ContactForm } from "@/components/forms/contact-form";
-import { useTranslationHandler } from "../../hooks/useTranslationHandler";
+import { useTranslationHandler } from "@/hooks/useTranslationHandler";
 
 export interface ContactPageProps {}
 

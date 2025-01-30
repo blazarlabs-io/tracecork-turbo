@@ -28,8 +28,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@repo/ui/components/ui/tooltip";
+import { useTranslationHandler } from "@/hooks/useTranslationHandler";
+import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
+import "./login-form-styles.css";
 
 export const LoginForm = () => {
+  const { t } = useTranslationHandler();
   const provider = new GoogleAuthProvider();
 
   // * HOOKS
@@ -137,7 +141,7 @@ export const LoginForm = () => {
     <div className="flex w-full min-w-[360px] max-w-[360px] flex-col gap-3 rounded-[12px] border p-6">
       <div className="mb-4">
         <h1 className="text-center text-2xl font-semibold">
-          Login to Wine App
+          {t("login.title")}
         </h1>
       </div>
       <TooltipProvider>
@@ -155,7 +159,7 @@ export const LoginForm = () => {
               height={24}
               className={cn(!isVerified && "opacity-30 grayscale")}
             />
-            Continue With Google
+            {t("login.googleButtonLabel")}
           </TooltipTrigger>
           <TooltipContent>
             <p>Please check the I&apos;m not a robot checkbox</p>
@@ -164,7 +168,7 @@ export const LoginForm = () => {
       </TooltipProvider>
       <div className="flex items-center justify-center gap-4 py-2">
         <div className="h-[1px] w-full bg-border" />
-        <span className="min-w-fit">or log in with</span>
+        <span className="min-w-fit">{t("login.separatorText")}</span>
         <div className="h-[1px] w-full bg-border" />
       </div>
       <Form {...form}>
@@ -174,13 +178,13 @@ export const LoginForm = () => {
         >
           <AuthInputField
             name="email"
-            placeholder="Email"
+            placeholder={t("login.email.placeholder")}
             inputType="email"
             formControl={form.control}
           />
           <PasswordInputField
             name="password"
-            placeholder="Password"
+            placeholder={t("login.password.placeholder")}
             formControl={form.control}
           />
           <div className="flex w-full items-center justify-end text-sm">
@@ -190,7 +194,7 @@ export const LoginForm = () => {
               className="text-sm font-medium text-primary underline"
               onClick={handleForgotPassword}
             >
-              Forgot password?
+              {t("login.forgotPassword.label")}
             </button>
           </div>
           <div className="flex w-full items-center justify-center">
@@ -209,37 +213,22 @@ export const LoginForm = () => {
             type="submit"
             className="w-full"
           >
-            Login
+            {t("login.loginButtonLabel")}
           </Button>
         </form>
       </Form>
       <div className="mt-4 flex items-center justify-center gap-2">
-        <span className="text-sm">Don&apos;t have an account?</span>
+        <span className="text-sm">{t("login.register.text")}</span>
         <Link
           href="/signup"
           className="text-sm font-medium text-primary underline"
         >
-          Sign Up
+          {t("login.register.buttonLabel")}
         </Link>
       </div>
       <div className="mt-[16px] min-w-[320px] max-w-[320px]">
-        <p className="text-xs leading-[20px] text-muted-foreground">
-          By clicking on Login, Continue With Google or Continue With Facebook,
-          I state that I have read and understood the
-          <Link
-            href="/legal/terms-and-conditions"
-            className="font-bold text-primary underline"
-          >
-            Terms and Conditions
-          </Link>{" "}
-          and{" "}
-          <Link
-            href="/legal/privacy-policy"
-            className="font-bold text-primary underline"
-          >
-            Privacy Policy
-          </Link>
-          .
+        <p className="text-xs leading-[20px] text-muted-foreground legal-text-container">
+          <MarkdownPreviewer content={t("login.legalText")} />
         </p>
       </div>
     </div>
