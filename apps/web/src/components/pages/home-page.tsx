@@ -3,17 +3,16 @@
 import Image from "next/image";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
-import { useLocale, useTranslations } from "next-intl";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
 import { useAuth } from "@/context/auth";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 import "./home-page-styles.css";
+import { useTranslationHandler } from "../../hooks/useTranslationHandler";
 
 export const HomePage = () => {
   const { device } = useResponsiveSize();
   const { user } = useAuth();
-  const locale = useLocale();
-  const t = useTranslations(locale);
+  const { t } = useTranslationHandler();
 
   return (
     <>
