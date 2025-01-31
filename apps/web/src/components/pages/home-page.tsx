@@ -7,7 +7,7 @@ import { useResponsiveSize } from "@/hooks/use-responsive-size";
 import { useAuth } from "@/context/auth";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 import "./home-page-styles.css";
-import { useTranslationHandler } from "@/hooks/useTranslationHandler";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const HomePage = () => {
   const { device } = useResponsiveSize();

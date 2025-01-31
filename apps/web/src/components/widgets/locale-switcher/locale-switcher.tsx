@@ -2,13 +2,12 @@
 
 import { LocaleSwitcherSelect } from "./locale-switcher-select";
 import { useMemo } from "react";
-import { useTranslationHandler } from "~/src/hooks/useTranslationHandler";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const LocaleSwitcher = () => {
-  const { t, locale, msg } = useTranslationHandler();
+  const { locale, msg } = useTranslationHandler();
 
   const items = useMemo(() => {
-    console.log(msg["LocaleSwitcher"]);
     if (!msg["LocaleSwitcher"]) return [];
     return Object.keys(msg["LocaleSwitcher"])
       .filter((key) => key.length <= 2)
@@ -21,11 +20,15 @@ export const LocaleSwitcher = () => {
       });
   }, [msg["LocaleSwitcher"]]);
 
+  const label = useMemo(() => {
+    if (!msg["LocaleSwitcher"] || typeof msg["LocaleSwitcher"] === "string")
+      return "Language";
+    const { label } = msg["LocaleSwitcher"];
+    if (!label || typeof label != "string") return "Language";
+    return label;
+  }, [msg["LocaleSwitcher"]]);
+
   return (
-    <LocaleSwitcherSelect
-      defaultValue={locale}
-      items={items}
-      label={t("LocaleSwitcher.label")}
-    />
+    <LocaleSwitcherSelect defaultValue={locale} items={items} label={label} />
   );
 };

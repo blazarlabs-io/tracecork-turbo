@@ -13,7 +13,7 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { useAuth } from "@/context/auth";
-import { useTranslationHandler } from "@/hooks/useTranslationHandler";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const UpgradePlanDialog = () => {
   const { t } = useTranslationHandler();

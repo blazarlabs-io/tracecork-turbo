@@ -20,24 +20,13 @@ import {
   AvatarImage,
 } from "@repo/ui/components/ui/avatar";
 import { Separator } from "@repo/ui/components/ui/separator";
-import { useTranslationHandler } from "@/hooks/useTranslationHandler";
-import { useMemo } from "react";
+import { useDashboardHomeTranslations } from "@/hooks/dashboard-home/use-dasboard-home-translations";
 
 export const DashboardHomePage = () => {
-  const { t, msg, locale } = useTranslationHandler();
+  const { t, statCards } = useDashboardHomeTranslations();
   const { user } = useAuth();
   const { winery } = useWinery();
   const { qrCodesLeft } = useQRCodesLimit();
-
-  const statCards = useMemo(() => {
-    const localMsg = msg[`${locale}`];
-    if (!localMsg || typeof localMsg === "string") return [];
-    const { dashboardHome } = localMsg;
-    if (!dashboardHome || typeof dashboardHome === "string") return [];
-    const { statCards } = dashboardHome;
-    if (!Array.isArray(statCards)) return [];
-    return statCards;
-  }, [msg, locale]);
 
   return (
     <div className="flex w-full flex-col gap-6">

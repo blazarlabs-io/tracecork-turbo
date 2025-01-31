@@ -12,7 +12,7 @@ import { Logo } from "../assets/logo";
 import { useAuth } from "@/context/auth";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { LocaleSwitcher } from "@/components/widgets/locale-switcher/locale-switcher";
-import { useTranslationHandler } from "@/hooks/useTranslationHandler";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const NavigationBar = () => {
   const { t } = useTranslationHandler();
