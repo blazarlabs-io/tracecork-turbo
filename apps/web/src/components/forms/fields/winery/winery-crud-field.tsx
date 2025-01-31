@@ -18,6 +18,7 @@ export interface WineryCrudFieldProps {
   name: string;
   label: string;
   description: string;
+  addButtonLabel: string;
   onSubmit: (data: z.infer<typeof wineryInfoFormSchema>) => void;
   autosave: boolean;
 }
@@ -27,6 +28,7 @@ export const WineryCrudField = ({
   name,
   label,
   description,
+  addButtonLabel,
   onSubmit,
   autosave,
 }: WineryCrudFieldProps) => {
@@ -84,7 +86,7 @@ export const WineryCrudField = ({
         className=""
       >
         <Plus />
-        Add
+        {addButtonLabel}
       </Button>
     </div>
   );
