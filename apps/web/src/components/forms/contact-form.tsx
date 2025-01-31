@@ -28,8 +28,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@repo/ui/components/ui/dialog";
+import { useTranslationHandler } from "@/hooks/useTranslationHandler";
+import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
+import "./contact-form-styles.css";
 
 export const ContactForm = () => {
+  const { t } = useTranslationHandler();
   // * HOOKS
   const form = useForm<z.infer<typeof contactFormSchema>>({
     resolver: zodResolver(contactFormSchema),
@@ -116,12 +120,16 @@ export const ContactForm = () => {
               return (
                 <FormItem className="flex flex-col items-start justify-start">
                   <div className="space-y-0.5">
-                    <FormLabel className="text-sm">Your Email</FormLabel>
+                    <FormLabel className="text-sm">
+                      {t("publicPages.contactPage.form.email.label")}
+                    </FormLabel>
                   </div>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder="Email address"
+                      placeholder={t(
+                        "publicPages.contactPage.form.email.placeholder",
+                      )}
                       className="w-full shadow-none"
                       value={field.value || ""}
                       onChange={field.onChange}
@@ -140,12 +148,14 @@ export const ContactForm = () => {
                 <FormItem className="flex flex-col items-start justify-start">
                   <div className="space-y-0.5">
                     <FormLabel className="text-sm">
-                      How can we help you?
+                      {t("publicPages.contactPage.form.message.label")}
                     </FormLabel>
                   </div>
                   <FormControl>
                     <Textarea
-                      placeholder="Tell us more about your needs..."
+                      placeholder={t(
+                        "publicPages.contactPage.form.message.placeholder",
+                      )}
                       className="min-h-40 w-full shadow-none"
                       value={field.value || ""}
                       onChange={field.onChange}
@@ -157,29 +167,17 @@ export const ContactForm = () => {
             }}
           />
           <div className="flex w-full items-center gap-2">
-            <span className="text-sm text-muted-foreground">
-              By submitting this form, you consent to have read and accepted our{" "}
-              <Link
-                href="/legal/terms-and-conditions"
-                className="font-medium text-primary underline underline-offset-4"
-              >
-                Terms and Conditions
-              </Link>{" "}
-              and{" "}
-              <Link
-                href="/legal/privacy-policy"
-                className="font-medium text-primary underline underline-offset-4"
-              >
-                Privacy Policy
-              </Link>
-              .
+            <span className="text-sm text-muted-foreground copyright-container">
+              <MarkdownPreviewer
+                content={t("publicPages.contactPage.copyright")}
+              />
             </span>
             <div className="flex items-center justify-end">
               <Button size="lg" type="submit" className="">
                 {sending ? (
                   <LoaderCircle className="animate-spin text-primary-foreground" />
                 ) : (
-                  "Send"
+                  t("contactPage.buttonLabel")
                 )}
               </Button>
             </div>
