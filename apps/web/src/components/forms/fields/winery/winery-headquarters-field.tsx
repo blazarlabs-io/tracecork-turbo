@@ -11,6 +11,7 @@ import { Input } from "@repo/ui/components/ui/input";
 import { wineryInfoFormSchema } from "@/data/form-schemas";
 import { Coordinates } from "@/types/db";
 import { z } from "zod";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export interface WineryHeadquartersFieldProps {
   form: any;
@@ -27,12 +28,16 @@ export const WineryHeadquartersField = ({
   onSubmit,
   autosave,
 }: WineryHeadquartersFieldProps) => {
+  const { t } = useTranslationHandler();
+
   return (
     <div className="col-span-1 flex w-full flex-col gap-3 rounded-lg border p-4">
       <div className="space-y-0.5">
-        <FormLabel className="text-xl">Headquarters</FormLabel>
+        <FormLabel className="text-xl">
+          {t("wineryDetails.wineryHeadquarters.label")}
+        </FormLabel>
         <FormDescription className="text-sm">
-          Add the coordinates of your headquarters or find it on the map.
+          {t("wineryDetails.wineryHeadquarters.description")}
         </FormDescription>
       </div>
       <div className="flex w-full items-start justify-between gap-3">
@@ -41,7 +46,9 @@ export const WineryHeadquartersField = ({
           name="headquarters.lat"
           render={({ field }) => (
             <FormItem className="flex w-full flex-col items-start justify-start gap-[1.5px]">
-              <FormLabel className="text-sm">Latitude</FormLabel>
+              <FormLabel className="text-sm">
+                {t("wineryDetails.wineryHeadquarters.latitude.label")}
+              </FormLabel>
               <FormControl className="">
                 <Input
                   value={(field.value as string) || ""}
@@ -63,7 +70,9 @@ export const WineryHeadquartersField = ({
           name="headquarters.lng"
           render={({ field }) => (
             <FormItem className="flex w-full flex-col items-start justify-start gap-[1.5px]">
-              <FormLabel className="text-sm">Longitude</FormLabel>
+              <FormLabel className="text-sm">
+                {t("wineryDetails.wineryHeadquarters.longitude.label")}
+              </FormLabel>
               <FormControl className="">
                 <Input
                   value={(field.value as string) || ""}
