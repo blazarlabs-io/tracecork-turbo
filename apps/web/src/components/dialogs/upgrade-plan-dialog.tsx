@@ -13,8 +13,10 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { useAuth } from "@/context/auth";
+import { useTranslationHandler } from "@/hooks/useTranslationHandler";
 
 export const UpgradePlanDialog = () => {
+  const { t } = useTranslationHandler();
   // * HOOKS
   const { user } = useAuth();
 
@@ -61,7 +63,7 @@ export const UpgradePlanDialog = () => {
         <Dialog>
           <DialogTitle></DialogTitle>
           <DialogTrigger className="max-w-fit rounded-full bg-gradient-to-br from-primary to-[#AAFF7F] px-4 py-2 text-xs text-foreground">
-            Upgrade Plan
+            {t("dashboardHome.avatarCard.upgradeButtonLabel")}
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
