@@ -21,14 +21,23 @@ import {
 } from "@repo/ui/components/ui/avatar";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { useTranslationHandler } from "@/hooks/useTranslationHandler";
+import { useMemo } from "react";
 
 export const DashboardHomePage = () => {
-  const { t, msg } = useTranslationHandler();
+  const { t, msg, locale } = useTranslationHandler();
   const { user } = useAuth();
   const { winery } = useWinery();
   const { qrCodesLeft } = useQRCodesLimit();
 
-  console.log({ msg });
+  const statCards = useMemo(() => {
+    const localMsg = msg[`${locale}`];
+    if (!localMsg || typeof localMsg === "string") return [];
+    const { dashboardHome } = localMsg;
+    if (!dashboardHome || typeof dashboardHome === "string") return [];
+    const { statCards } = dashboardHome;
+    if (!Array.isArray(statCards)) return [];
+    return statCards;
+  }, [msg, locale]);
 
   return (
     <div className="flex w-full flex-col gap-6">
@@ -87,7 +96,7 @@ export const DashboardHomePage = () => {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card className="shadow-none">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>Wine Collections</CardTitle>
+            <CardTitle>{statCards[0].title}</CardTitle>
             <Wine className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -100,30 +109,32 @@ export const DashboardHomePage = () => {
               Collections created since {winery?.info?.foundedIn || "N/A"}
             </p> */}
             <p className="text-sm text-muted-foreground">
-              Collections created last year
+              {statCards[0].description}
             </p>
           </CardFooter>
         </Card>
         <Card className="shadow-none">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>Vineyards Surface</CardTitle>
+            <CardTitle>{statCards[1].title}</CardTitle>
             <LandPlot className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent className="flex flex-row items-center justify-start gap-2">
             <p className="text-4xl font-bold">
               {winery?.info?.vineyardsSurface || "N/A"}
             </p>
-            <p className="text-4xl font-bold text-muted-foreground">Ha</p>
+            <p className="text-4xl font-bold text-muted-foreground">
+              {statCards[1].unit}
+            </p>
           </CardContent>
           <CardFooter>
             <p className="text-sm text-muted-foreground">
-              Overall surface area of your winery vineyards
+              {statCards[1].description}
             </p>
           </CardFooter>
         </Card>
         <Card className="shadow-none">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>Grape Varieties</CardTitle>
+            <CardTitle>{statCards[2].title}</CardTitle>
             <Grape className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -133,7 +144,7 @@ export const DashboardHomePage = () => {
           </CardContent>
           <CardFooter>
             <p className="text-sm text-muted-foreground">
-              Grape types grown by you
+              {statCards[2].description}
             </p>
           </CardFooter>
         </Card>

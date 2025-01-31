@@ -54,6 +54,7 @@ import { Button } from "@repo/ui/components/ui/button";
 import { cn } from "@/utils/shadcn";
 import { useState } from "react";
 import { LocaleSwitcher } from "../widgets/locale-switcher/locale-switcher";
+import { useTranslationHandler } from "~/src/hooks/useTranslationHandler";
 
 // Menu items.
 const dataTemplate = {
@@ -123,6 +124,7 @@ const dataTemplate = {
 };
 export function AppSidebar({ children }: { children: React.ReactNode }) {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const { user } = useAuth();
   const { winery } = useWinery();
   const router = useRouter();
@@ -247,7 +249,7 @@ export function AppSidebar({ children }: { children: React.ReactNode }) {
               size="sm"
               onClick={() => router.push("/explore")}
             >
-              Explore Wines
+              {t("dashboardGlobalComponents.topBar.buttons.exploreWines.label")}
             </Button>
             <Separator orientation="vertical" className="h-6" />
             {user && winery && (

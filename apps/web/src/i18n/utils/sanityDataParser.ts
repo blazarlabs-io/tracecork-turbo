@@ -5,6 +5,8 @@ import {
   SanityStatCardType,
 } from "../models/sanityModels";
 
+/* This function parse the fields that are block data to string in markdown format
+ */
 export function sanityBlockToMarkdown(blocks: SanityBlockType[]) {
   const mkTextArray = blocks.map((block) => {
     if (!block.children) return ""; // Skip if no children
@@ -53,8 +55,10 @@ export function sanityBlockToMarkdown(blocks: SanityBlockType[]) {
   return mkTextArray.join("\n\n"); // Separate blocks with new lines
 }
 
+type LinksObjType = { [key: string]: { label: string; url: string } };
+
 export function parseLinkSanityData(data: SanityLinkType[]) {
-  const linksObj: any = {};
+  const linksObj: LinksObjType = {};
   data.forEach((d, i) => {
     if (d._type !== "link") return;
     if (!d.label) return;
@@ -65,17 +69,21 @@ export function parseLinkSanityData(data: SanityLinkType[]) {
       url: d.url,
     };
   });
+  if (!Object.keys(linksObj).length) return;
   return linksObj;
 }
 
+type StatCardType = { [key: string]: { [key: string]: string } };
+
 export function parseStatCardSanityData(data: SanityStatCardType[]) {
-  const linksObj: any = {};
+  const linksObj: StatCardType = {};
   data.forEach((d, i) => {
     if (d._type !== "statCard") return;
-    const newKey = toCamelCase(d.icon || `${i}`);
+    const newKey = `${i}`;
     linksObj[`${newKey}`] = {
       ...d,
     };
   });
+  if (!Object.keys(linksObj).length) return;
   return linksObj;
 }

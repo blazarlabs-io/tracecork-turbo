@@ -1,4 +1,8 @@
-import { parseLinkSanityData, sanityBlockToMarkdown } from "./sanityDataParser";
+import {
+  parseLinkSanityData,
+  parseStatCardSanityData,
+  sanityBlockToMarkdown,
+} from "./sanityDataParser";
 
 export const deepCopyObject = (obj: object) => JSON.parse(JSON.stringify(obj));
 
@@ -7,10 +11,6 @@ export const cleanedObj = (obj: object) =>
     Object.entries(obj).filter(([key]) => !key.startsWith("_")),
   );
 
-/*
-This function parse the fields that are block data to string in markdown format
-
-*/
 export const setObjectContent = (obj: any) => {
   const baseData: { [k: string]: any } = deepCopyObject(obj);
   Object.keys(obj).forEach((docKey) => {
@@ -24,7 +24,15 @@ export const setObjectContent = (obj: any) => {
         return;
       }
       const linkData = parseLinkSanityData(fieldValue);
-      baseData[`${docKey}`][`${fieldKey}`] = linkData;
+      if (!!linkData) {
+        baseData[`${docKey}`][`${fieldKey}`] = linkData;
+        return;
+      }
+      const statCardData = parseStatCardSanityData(fieldValue);
+      if (!!statCardData) {
+        baseData[`${docKey}`][`${fieldKey}`] = statCardData;
+        return;
+      }
     });
   });
   return baseData;
