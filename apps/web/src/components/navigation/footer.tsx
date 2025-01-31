@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Logo } from "../assets/logo";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
-import { useTranslationHandler } from "@/hooks/useTranslationHandler";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const Footer = () => {
   const { t } = useTranslationHandler();
