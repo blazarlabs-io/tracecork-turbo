@@ -54,7 +54,7 @@ export const LoginForm = () => {
 
   // * STATES
   const recaptchaRef = useRef<typeof ReCAPTCHA>(null);
-  const [isVerified, setIsVerified] = useState(true);
+  const [isVerified, setIsVerified] = useState(false);
 
   // * HANDLERS
   const onSubmit = (values: z.infer<typeof loginFormSchema>) => {
