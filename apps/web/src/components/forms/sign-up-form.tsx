@@ -20,8 +20,12 @@ import { Button } from "@repo/ui/components/ui/button";
 import { Form } from "@repo/ui/components/ui/form";
 import { SignUpInputField } from "./fields/signup-input-field";
 import { SignUpPasswordInputField } from "./signup-password-input-field";
+import { useTranslationHandler } from "@/hooks/useTranslationHandler";
+import "./login-form-styles.css";
+import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 
 export const SignUpForm = () => {
+  const { t } = useTranslationHandler();
   const provider = new GoogleAuthProvider();
 
   // * HOOKS
@@ -120,7 +124,7 @@ export const SignUpForm = () => {
   return (
     <div className="mb-4 flex w-full min-w-[360px] max-w-[360px] flex-col gap-3 rounded-[12px] border p-6">
       <h1 className="pb-4 text-center text-2xl font-semibold">
-        Your first EU labeled wine is only one sign-up away
+        {t("publicComponents.signup.title")}
       </h1>
       <Form {...form}>
         <form
@@ -129,7 +133,7 @@ export const SignUpForm = () => {
         >
           <SignUpInputField
             name="email"
-            placeholder="Email"
+            placeholder={t("publicComponents.signup.email.placeholder")}
             inputType="email"
             formControl={
               form.control as Control<z.infer<typeof signUpFormSchema>>
@@ -137,14 +141,16 @@ export const SignUpForm = () => {
           />
           <SignUpPasswordInputField
             name="password"
-            placeholder="Password"
+            placeholder={t("publicComponents.signup.password.placeholder")}
             formControl={
               form.control as Control<z.infer<typeof signUpFormSchema>>
             }
           />
           <SignUpPasswordInputField
             name="confirmPassword"
-            placeholder="Confirm Password"
+            placeholder={t(
+              "publicComponents.signup.confirmPassword.placeholder",
+            )}
             formControl={
               form.control as Control<z.infer<typeof signUpFormSchema>>
             }
@@ -165,17 +171,17 @@ export const SignUpForm = () => {
             type="submit"
             className="w-full"
           >
-            Signup
+            {t("publicComponents.signup.signUpButtonLabel")}
           </Button>
           <div className="flex items-center justify-center gap-3">
             <p className="text-sm leading-[20px] text-muted-foreground">
-              Already have an account?
+              {t("publicComponents.signup.loginText.text")}
             </p>
             <Link
               href="/login"
               className="text-sm font-bold text-primary underline"
             >
-              Login
+              {t("publicComponents.signup.loginText.buttonLabel")}
             </Link>
           </div>
         </form>
@@ -197,26 +203,11 @@ export const SignUpForm = () => {
           height={24}
           className={cn(!isVerified && "opacity-30 grayscale")}
         />
-        Continue With Google
+        {t("publicComponents.signup.googleButtonLabel")}
       </button>
       <div className="mt-[16px]">
-        <p className="text-xs leading-[20px] text-muted-foreground">
-          By clicking on Sign Up, Continue With Google or Continue With
-          Facebook, I state that I have read and understood the
-          <Link
-            href="/legal/terms-and-conditions"
-            className="font-bold text-primary underline"
-          >
-            Terms and Conditions
-          </Link>{" "}
-          and{" "}
-          <Link
-            href="/legal/privacy-policy"
-            className="font-bold text-primary underline"
-          >
-            Privacy Policy
-          </Link>
-          .
+        <p className="text-xs leading-[20px] text-muted-foreground legal-text-container">
+          <MarkdownPreviewer content={t("publicComponents.login.legalText")} />
         </p>
       </div>
     </div>

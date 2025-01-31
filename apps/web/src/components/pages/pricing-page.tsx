@@ -4,19 +4,23 @@ import { PricingLevel } from "@/types/db";
 import { cn } from "@/utils/shadcn";
 import { CircleCheck, CircleX } from "lucide-react";
 import { UpgradePlanDialog } from "../dialogs/upgrade-plan-dialog";
+import { useTranslationHandler } from "@/hooks/useTranslationHandler";
 
 export interface PricingPageProps {
   pricing: { data: PricingLevel[] };
 }
 
 export const PricingPage = ({ pricing }: PricingPageProps) => {
+  const { t } = useTranslationHandler();
+
   return (
     <div className="flex w-full flex-col items-center justify-center gap-8 py-8">
       <div className="flex w-full flex-col items-center justify-center gap-4 px-4">
-        <h2 className="text-3xl font-bold">Pricing</h2>
+        <h2 className="text-3xl font-bold">
+          {t("publicPages.pricingPage.headline")}
+        </h2>
         <p className="max-w-lg text-center">
-          From early-stage wineries to growing enterprises, Tracecork has you
-          covered. You can upgrade your plan at any time.
+          {t("publicPages.pricingPage.subHeadline")}
         </p>
         <UpgradePlanDialog />
       </div>

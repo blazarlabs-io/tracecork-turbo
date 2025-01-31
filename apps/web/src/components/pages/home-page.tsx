@@ -3,17 +3,16 @@
 import Image from "next/image";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
-import { useLocale, useTranslations } from "next-intl";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
 import { useAuth } from "@/context/auth";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 import "./home-page-styles.css";
+import { useTranslationHandler } from "@/hooks/useTranslationHandler";
 
 export const HomePage = () => {
   const { device } = useResponsiveSize();
   const { user } = useAuth();
-  const locale = useLocale();
-  const t = useTranslations(locale);
+  const { t } = useTranslationHandler();
 
   return (
     <>
@@ -23,14 +22,16 @@ export const HomePage = () => {
             <div className="grid w-full grid-cols-2 items-center justify-center gap-16">
               <div className="">
                 <h1 className="text-5xl font-medium leading-[64px] header-style">
-                  <MarkdownPreviewer content={t("homePage.headline")} />
+                  <MarkdownPreviewer
+                    content={t("publicPages.homePage.headline")}
+                  />
                 </h1>
                 <p className="py-6 text-xl font-normal text-muted-foreground">
-                  {t("homePage.subHeadline")}
+                  {t("publicPages.homePage.subHeadline")}
                 </p>
                 <Button size="lg">
                   <Link href={user ? "/dashboard/home" : "/signup"}>
-                    {t("homePage.buttonLabel")}
+                    {t("publicPages.homePage.buttonLabel")}
                   </Link>
                 </Button>
               </div>
@@ -83,15 +84,17 @@ export const HomePage = () => {
             <div className="grid w-full grid-cols-2 items-center justify-center gap-16">
               <div className="">
                 <h1 className="text-4xl font-medium leading-[48px] header-style">
-                  <MarkdownPreviewer content={t("homePage.headline")} />
+                  <MarkdownPreviewer
+                    content={t("publicPages.homePage.headline")}
+                  />
                 </h1>
                 <p className="w-full py-6 text-lg font-normal text-muted-foreground">
-                  {t("homePage.subHeadline")}
+                  {t("publicPages.homePage.subHeadline")}
                 </p>
 
                 <Button size="lg">
                   <Link href={user ? "/dashboard/home" : "/signup"}>
-                    {t("homePage.buttonLabel")}
+                    {t("publicPages.homePage.buttonLabel")}
                   </Link>
                 </Button>
               </div>
@@ -151,14 +154,16 @@ export const HomePage = () => {
             </div>
             <div className="mt-6 w-full">
               <h1 className="text-4xl font-medium leading-[44px] header-style">
-                <MarkdownPreviewer content={t("homePage.headline")} />
+                <MarkdownPreviewer
+                  content={t("publicPages.homePage.headline")}
+                />
               </h1>
               <p className="py-6 text-xl font-normal text-muted-foreground">
-                {t("homePage.subHeadline")}
+                {t("publicPages.homePage.subHeadline")}
               </p>
               <Button size="lg">
                 <Link href={user ? "/dashboard/home" : "/signup"}>
-                  {t("homePage.buttonLabel")}
+                  {t("publicPages.homePage.buttonLabel")}
                 </Link>
               </Button>
             </div>

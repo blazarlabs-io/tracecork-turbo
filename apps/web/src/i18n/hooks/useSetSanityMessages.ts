@@ -1,16 +1,21 @@
 import { SanityDocument } from "@sanity/client";
 import { client } from "../../lib/sanity/client";
-import { cleanedObj, setObjectContent } from "../utils/objectHandlres";
+import {
+  cleanedObj,
+  setLanguageObject,
+  setLanguagesArray,
+  setObjectContent,
+} from "../utils/objectHandlres";
 
 export const useSetSanityMessages = async (locale: string) => {
-  const sanityData = await client.fetch<SanityDocument>(
-    `*[_type in ["publicPages", "publicComponents"]]`,
-  );
+  // const sanityData = await client.fetch<SanityDocument>(
+  //   `*[_type in ["publicPages", "publicComponents"]]`,
+  // );
   // const sanityData = await client.fetch<SanityDocument>(
   //   `*[_type in ["publicPages", "publicComponents"] && language == ${JSON.stringify(locale)}]`,
   // );
 
-  // const publicPages = await client.fetch("*");
+  const sanityData = await client.fetch<SanityDocument>("*");
 
   const mainData: any = {
     LocaleSwitcher: {
@@ -18,18 +23,24 @@ export const useSetSanityMessages = async (locale: string) => {
     },
   };
 
+  const langObject: { [key: string]: Set<string> } = {};
+
   sanityData.forEach((page: any) => {
     if (!page["language"]) return;
+    if (page["_type"] === "pages") return;
     const lang = page["language"];
-    // console.log(lang);
-    mainData["LocaleSwitcher"][`${lang}`] = page["language"];
     const cleanedData = cleanedObj(page);
     const formatedData = setObjectContent(cleanedData);
     mainData[`${lang}`] = {
       ...mainData[`${lang}`],
-      ...formatedData,
+      [`${page["_type"]}`]: {
+        ...formatedData,
+      },
     };
+    setLanguageObject(page["_type"], lang, langObject);
   });
+
+  setLanguagesArray(mainData, langObject);
 
   return mainData;
 };
