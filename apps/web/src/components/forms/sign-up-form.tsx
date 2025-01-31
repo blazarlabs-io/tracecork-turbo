@@ -124,7 +124,7 @@ export const SignUpForm = () => {
   return (
     <div className="mb-4 flex w-full min-w-[360px] max-w-[360px] flex-col gap-3 rounded-[12px] border p-6">
       <h1 className="pb-4 text-center text-2xl font-semibold">
-        {t("signup.title")}
+        {t("publicComponents.signup.title")}
       </h1>
       <Form {...form}>
         <form
@@ -133,7 +133,7 @@ export const SignUpForm = () => {
         >
           <SignUpInputField
             name="email"
-            placeholder={t("signup.email.placeholder")}
+            placeholder={t("publicComponents.signup.email.placeholder")}
             inputType="email"
             formControl={
               form.control as Control<z.infer<typeof signUpFormSchema>>
@@ -141,14 +141,16 @@ export const SignUpForm = () => {
           />
           <SignUpPasswordInputField
             name="password"
-            placeholder={t("signup.password.placeholder")}
+            placeholder={t("publicComponents.signup.password.placeholder")}
             formControl={
               form.control as Control<z.infer<typeof signUpFormSchema>>
             }
           />
           <SignUpPasswordInputField
             name="confirmPassword"
-            placeholder={t("signup.confirmPassword.placeholder")}
+            placeholder={t(
+              "publicComponents.signup.confirmPassword.placeholder",
+            )}
             formControl={
               form.control as Control<z.infer<typeof signUpFormSchema>>
             }
@@ -169,17 +171,17 @@ export const SignUpForm = () => {
             type="submit"
             className="w-full"
           >
-            {t("signup.signUpButtonLabel")}
+            {t("publicComponents.signup.signUpButtonLabel")}
           </Button>
           <div className="flex items-center justify-center gap-3">
             <p className="text-sm leading-[20px] text-muted-foreground">
-              {t("signup.loginText.text")}
+              {t("publicComponents.signup.loginText.text")}
             </p>
             <Link
               href="/login"
               className="text-sm font-bold text-primary underline"
             >
-              {t("signup.loginText.buttonLabel")}
+              {t("publicComponents.signup.loginText.buttonLabel")}
             </Link>
           </div>
         </form>
@@ -201,11 +203,11 @@ export const SignUpForm = () => {
           height={24}
           className={cn(!isVerified && "opacity-30 grayscale")}
         />
-        {t("signup.googleButtonLabel")}
+        {t("publicComponents.signup.googleButtonLabel")}
       </button>
       <div className="mt-[16px]">
         <p className="text-xs leading-[20px] text-muted-foreground legal-text-container">
-          <MarkdownPreviewer content={t("login.legalText")} />
+          <MarkdownPreviewer content={t("publicComponents.login.legalText")} />
         </p>
       </div>
     </div>

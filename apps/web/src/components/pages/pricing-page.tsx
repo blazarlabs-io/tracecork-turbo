@@ -16,8 +16,12 @@ export const PricingPage = ({ pricing }: PricingPageProps) => {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-8 py-8">
       <div className="flex w-full flex-col items-center justify-center gap-4 px-4">
-        <h2 className="text-3xl font-bold">{t("pricingPage.headline")}</h2>
-        <p className="max-w-lg text-center">{t("pricingPage.subHeadline")}</p>
+        <h2 className="text-3xl font-bold">
+          {t("publicPages.pricingPage.headline")}
+        </h2>
+        <p className="max-w-lg text-center">
+          {t("publicPages.pricingPage.subHeadline")}
+        </p>
         <UpgradePlanDialog />
       </div>
       <div className="flex w-full flex-wrap items-center justify-center gap-8">

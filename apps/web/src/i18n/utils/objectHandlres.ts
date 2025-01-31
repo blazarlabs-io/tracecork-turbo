@@ -29,3 +29,29 @@ export const setObjectContent = (obj: any) => {
   });
   return baseData;
 };
+
+export const setLanguageObject = (
+  dataKey: string,
+  lang: string,
+  langObject: { [key: string]: Set<string> },
+) => {
+  if (langObject[`${dataKey}`]) {
+    langObject[`${dataKey}`]?.add(lang);
+  } else {
+    const a = new Set([lang]);
+    langObject[`${dataKey}`] = new Set([lang]);
+  }
+};
+
+export const setLanguagesArray = (
+  mainData: any,
+  langObject: { [key: string]: Set<string> },
+) => {
+  const sets = Object.values(langObject);
+  const commonLang = [...(sets[0] || [])].filter((value) =>
+    sets.every((set) => set.has(value)),
+  );
+  commonLang.forEach((lang) => {
+    mainData["LocaleSwitcher"][`${lang}`] = lang;
+  });
+};

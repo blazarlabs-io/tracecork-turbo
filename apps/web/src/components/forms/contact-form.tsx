@@ -121,13 +121,15 @@ export const ContactForm = () => {
                 <FormItem className="flex flex-col items-start justify-start">
                   <div className="space-y-0.5">
                     <FormLabel className="text-sm">
-                      {t("contactPage.form.email.label")}
+                      {t("publicPages.contactPage.form.email.label")}
                     </FormLabel>
                   </div>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder={t("contactPage.form.email.placeholder")}
+                      placeholder={t(
+                        "publicPages.contactPage.form.email.placeholder",
+                      )}
                       className="w-full shadow-none"
                       value={field.value || ""}
                       onChange={field.onChange}
@@ -146,12 +148,14 @@ export const ContactForm = () => {
                 <FormItem className="flex flex-col items-start justify-start">
                   <div className="space-y-0.5">
                     <FormLabel className="text-sm">
-                      {t("contactPage.form.message.label")}
+                      {t("publicPages.contactPage.form.message.label")}
                     </FormLabel>
                   </div>
                   <FormControl>
                     <Textarea
-                      placeholder={t("contactPage.form.message.placeholder")}
+                      placeholder={t(
+                        "publicPages.contactPage.form.message.placeholder",
+                      )}
                       className="min-h-40 w-full shadow-none"
                       value={field.value || ""}
                       onChange={field.onChange}
@@ -164,7 +168,9 @@ export const ContactForm = () => {
           />
           <div className="flex w-full items-center gap-2">
             <span className="text-sm text-muted-foreground copyright-container">
-              <MarkdownPreviewer content={t("contactPage.copyright")} />
+              <MarkdownPreviewer
+                content={t("publicPages.contactPage.copyright")}
+              />
             </span>
             <div className="flex items-center justify-end">
               <Button size="lg" type="submit" className="">

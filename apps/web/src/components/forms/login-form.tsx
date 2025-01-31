@@ -54,7 +54,7 @@ export const LoginForm = () => {
 
   // * STATES
   const recaptchaRef = useRef<typeof ReCAPTCHA>(null);
-  const [isVerified, setIsVerified] = useState(false);
+  const [isVerified, setIsVerified] = useState(true);
 
   // * HANDLERS
   const onSubmit = (values: z.infer<typeof loginFormSchema>) => {
@@ -141,7 +141,7 @@ export const LoginForm = () => {
     <div className="flex w-full min-w-[360px] max-w-[360px] flex-col gap-3 rounded-[12px] border p-6">
       <div className="mb-4">
         <h1 className="text-center text-2xl font-semibold">
-          {t("login.title")}
+          {t("publicComponents.login.title")}
         </h1>
       </div>
       <TooltipProvider>
@@ -159,7 +159,7 @@ export const LoginForm = () => {
               height={24}
               className={cn(!isVerified && "opacity-30 grayscale")}
             />
-            {t("login.googleButtonLabel")}
+            {t("publicComponents.login.googleButtonLabel")}
           </TooltipTrigger>
           <TooltipContent>
             <p>Please check the I&apos;m not a robot checkbox</p>
@@ -168,7 +168,9 @@ export const LoginForm = () => {
       </TooltipProvider>
       <div className="flex items-center justify-center gap-4 py-2">
         <div className="h-[1px] w-full bg-border" />
-        <span className="min-w-fit">{t("login.separatorText")}</span>
+        <span className="min-w-fit">
+          {t("publicComponents.login.separatorText")}
+        </span>
         <div className="h-[1px] w-full bg-border" />
       </div>
       <Form {...form}>
@@ -178,13 +180,13 @@ export const LoginForm = () => {
         >
           <AuthInputField
             name="email"
-            placeholder={t("login.email.placeholder")}
+            placeholder={t("publicComponents.login.email.placeholder")}
             inputType="email"
             formControl={form.control}
           />
           <PasswordInputField
             name="password"
-            placeholder={t("login.password.placeholder")}
+            placeholder={t("publicComponents.login.password.placeholder")}
             formControl={form.control}
           />
           <div className="flex w-full items-center justify-end text-sm">
@@ -194,7 +196,7 @@ export const LoginForm = () => {
               className="text-sm font-medium text-primary underline"
               onClick={handleForgotPassword}
             >
-              {t("login.forgotPassword.label")}
+              {t("publicComponents.login.forgotPassword.label")}
             </button>
           </div>
           <div className="flex w-full items-center justify-center">
@@ -213,22 +215,24 @@ export const LoginForm = () => {
             type="submit"
             className="w-full"
           >
-            {t("login.loginButtonLabel")}
+            {t("publicComponents.login.loginButtonLabel")}
           </Button>
         </form>
       </Form>
       <div className="mt-4 flex items-center justify-center gap-2">
-        <span className="text-sm">{t("login.register.text")}</span>
+        <span className="text-sm">
+          {t("publicComponents.login.register.text")}
+        </span>
         <Link
           href="/signup"
           className="text-sm font-medium text-primary underline"
         >
-          {t("login.register.buttonLabel")}
+          {t("publicComponents.login.register.buttonLabel")}
         </Link>
       </div>
       <div className="mt-[16px] min-w-[320px] max-w-[320px]">
         <p className="text-xs leading-[20px] text-muted-foreground legal-text-container">
-          <MarkdownPreviewer content={t("login.legalText")} />
+          <MarkdownPreviewer content={t("publicComponents.login.legalText")} />
         </p>
       </div>
     </div>

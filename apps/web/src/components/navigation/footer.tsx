@@ -56,13 +56,13 @@ export const Footer = () => {
             </div>
             <div className="flex items-start gap-8">
               <Link href="/explore" className="text-sm">
-                {t("topBar.links.explore.label")}
+                {t("publicComponents.topBar.links.explore.label")}
               </Link>
               <Link href="/pricing" className="text-sm">
-                {t("topBar.links.pricing.label")}
+                {t("publicComponents.topBar.links.pricing.label")}
               </Link>
               <Link href="/contact" className="text-sm">
-                {t("topBar.links.contact.label")}
+                {t("publicComponents.topBar.links.contact.label")}
               </Link>
               <Link href="/legal/terms-and-conditions" className="text-sm">
                 Terms & Conditions
