@@ -1,32 +1,31 @@
 "use client";
 
-import { useLocale, useTranslations, useMessages } from "next-intl";
 import { LocaleSwitcherSelect } from "./locale-switcher-select";
 import { useMemo } from "react";
+import { useTranslationHandler } from "~/src/hooks/useTranslationHandler";
 
 export const LocaleSwitcher = () => {
-  const t = useTranslations("LocaleSwitcher");
-  const locale = useLocale();
-  const messages = useMessages(); // Get all messages
+  const { t, locale, msg } = useTranslationHandler();
 
   const items = useMemo(() => {
-    messages["LocaleSwitcher"];
-    if (!messages["LocaleSwitcher"]) return [];
-    return Object.keys(messages["LocaleSwitcher"])
+    console.log(msg["LocaleSwitcher"]);
+    if (!msg["LocaleSwitcher"]) return [];
+    return Object.keys(msg["LocaleSwitcher"])
       .filter((key) => key.length <= 2)
       .map((key) => {
         return {
           value: key,
-          label: t(`${key}`),
+
+          label: key,
         };
       });
-  }, [messages["LocaleSwitcher"]]);
+  }, [msg["LocaleSwitcher"]]);
 
   return (
     <LocaleSwitcherSelect
       defaultValue={locale}
       items={items}
-      label={t("label")}
+      label={t("LocaleSwitcher.label")}
     />
   );
 };

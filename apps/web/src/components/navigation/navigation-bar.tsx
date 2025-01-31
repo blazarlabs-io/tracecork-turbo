@@ -37,28 +37,28 @@ export const NavigationBar = () => {
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
             >
-              {t("topBar.links.home.label")}
+              {t("publicComponents.topBar.links.home.label")}
             </Link>
             <Link
               href="/explore"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
             >
-              {t("topBar.links.explore.label")}
+              {t("publicComponents.topBar.links.explore.label")}
             </Link>
             <Link
               href="/pricing"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
             >
-              {t("topBar.links.pricing.label")}
+              {t("publicComponents.topBar.links.pricing.label")}
             </Link>
             <Link
               href="/contact"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
             >
-              {t("topBar.links.contact.label")}
+              {t("publicComponents.topBar.links.contact.label")}
             </Link>
           </div>
         </SheetContent>
@@ -78,28 +78,28 @@ export const NavigationBar = () => {
               className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
               prefetch={false}
             >
-              {t("topBar.links.home.label")}
+              {t("publicComponents.topBar.links.home.label")}
             </Link>
             <Link
               href="/explore"
               className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
               prefetch={false}
             >
-              {t("topBar.links.explore.label")}
+              {t("publicComponents.topBar.links.explore.label")}
             </Link>
             <Link
               href="/pricing"
               className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
               prefetch={false}
             >
-              {t("topBar.links.pricing.label")}
+              {t("publicComponents.topBar.links.pricing.label")}
             </Link>
             <Link
               href="/contact"
               className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
               prefetch={false}
             >
-              {t("topBar.links.contact.label")}
+              {t("publicComponents.topBar.links.contact.label")}
             </Link>
           </nav>
         </div>
@@ -108,16 +108,20 @@ export const NavigationBar = () => {
           {user && user.emailVerified ? (
             <Button variant="outline" size="sm">
               <Link href="/dashboard/home">
-                {t("topBar.buttons.backToDashboard.label")}
+                {t("publicComponents.topBar.buttons.backToDashboard.label")}
               </Link>
             </Button>
           ) : (
             <div className="flex gap-4">
               <Button variant="outline">
-                <Link href="/login">{t("topBar.buttons.logIn.label")}</Link>
+                <Link href="/login">
+                  {t("publicComponents.topBar.buttons.logIn.label")}
+                </Link>
               </Button>
               <Button>
-                <Link href="/signup">{t("topBar.buttons.signUp.label")}</Link>
+                <Link href="/signup">
+                  {t("publicComponents.topBar.buttons.signUp.label")}
+                </Link>
               </Button>
             </div>
           )}

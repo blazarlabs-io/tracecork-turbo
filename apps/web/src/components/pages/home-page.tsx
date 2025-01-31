@@ -22,14 +22,16 @@ export const HomePage = () => {
             <div className="grid w-full grid-cols-2 items-center justify-center gap-16">
               <div className="">
                 <h1 className="text-5xl font-medium leading-[64px] header-style">
-                  <MarkdownPreviewer content={t("homePage.headline")} />
+                  <MarkdownPreviewer
+                    content={t("publicPages.homePage.headline")}
+                  />
                 </h1>
                 <p className="py-6 text-xl font-normal text-muted-foreground">
-                  {t("homePage.subHeadline")}
+                  {t("publicPages.homePage.subHeadline")}
                 </p>
                 <Button size="lg">
                   <Link href={user ? "/dashboard/home" : "/signup"}>
-                    {t("homePage.buttonLabel")}
+                    {t("publicPages.homePage.buttonLabel")}
                   </Link>
                 </Button>
               </div>
@@ -82,15 +84,17 @@ export const HomePage = () => {
             <div className="grid w-full grid-cols-2 items-center justify-center gap-16">
               <div className="">
                 <h1 className="text-4xl font-medium leading-[48px] header-style">
-                  <MarkdownPreviewer content={t("homePage.headline")} />
+                  <MarkdownPreviewer
+                    content={t("publicPages.homePage.headline")}
+                  />
                 </h1>
                 <p className="w-full py-6 text-lg font-normal text-muted-foreground">
-                  {t("homePage.subHeadline")}
+                  {t("publicPages.homePage.subHeadline")}
                 </p>
 
                 <Button size="lg">
                   <Link href={user ? "/dashboard/home" : "/signup"}>
-                    {t("homePage.buttonLabel")}
+                    {t("publicPages.homePage.buttonLabel")}
                   </Link>
                 </Button>
               </div>
@@ -150,14 +154,16 @@ export const HomePage = () => {
             </div>
             <div className="mt-6 w-full">
               <h1 className="text-4xl font-medium leading-[44px] header-style">
-                <MarkdownPreviewer content={t("homePage.headline")} />
+                <MarkdownPreviewer
+                  content={t("publicPages.homePage.headline")}
+                />
               </h1>
               <p className="py-6 text-xl font-normal text-muted-foreground">
-                {t("homePage.subHeadline")}
+                {t("publicPages.homePage.subHeadline")}
               </p>
               <Button size="lg">
                 <Link href={user ? "/dashboard/home" : "/signup"}>
-                  {t("homePage.buttonLabel")}
+                  {t("publicPages.homePage.buttonLabel")}
                 </Link>
               </Button>
             </div>

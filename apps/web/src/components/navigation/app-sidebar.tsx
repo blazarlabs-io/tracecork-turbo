@@ -53,6 +53,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@repo/ui/components/ui/button";
 import { cn } from "@/utils/shadcn";
 import { useState } from "react";
+import { LocaleSwitcher } from "../widgets/locale-switcher/locale-switcher";
 
 // Menu items.
 const dataTemplate = {
@@ -240,6 +241,7 @@ export function AppSidebar({ children }: { children: React.ReactNode }) {
             <Separator orientation="vertical" className="mr-2 h-6" />
           </div>
           <div className="flex h-full w-full items-center justify-end gap-4 pr-4">
+            <LocaleSwitcher />
             <Button
               variant="outline"
               size="sm"
