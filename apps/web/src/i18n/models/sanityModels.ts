@@ -25,3 +25,11 @@ export type SanityLinkType = {
   label: string;
   url: string;
 };
+
+export type SanityStatCardType = {
+  title: string;
+  _type: "statCard";
+  icon: string;
+  description: string;
+  _key: string;
+};

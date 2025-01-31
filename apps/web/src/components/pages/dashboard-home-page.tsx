@@ -20,17 +20,21 @@ import {
   AvatarImage,
 } from "@repo/ui/components/ui/avatar";
 import { Separator } from "@repo/ui/components/ui/separator";
+import { useTranslationHandler } from "@/hooks/useTranslationHandler";
 
 export const DashboardHomePage = () => {
+  const { t, msg } = useTranslationHandler();
   const { user } = useAuth();
   const { winery } = useWinery();
   const { qrCodesLeft } = useQRCodesLimit();
 
+  console.log({ msg });
+
   return (
     <div className="flex w-full flex-col gap-6">
       <PageHeader
-        title="Home"
-        subtitle={`Welcome back ${user?.displayName || user?.email || ""}`}
+        title={t("dashboardHome.headline")}
+        subtitle={`${t("dashboardHome.subHeadline")} ${user?.displayName || user?.email || ""}`}
       />
       <Separator className="w-full" />
       <div>
@@ -51,13 +55,15 @@ export const DashboardHomePage = () => {
                     {winery?.info?.name || "Winery Name"}
                   </p>
                   <p className="text-base text-muted-foreground">
-                    Founded in {winery?.info?.foundedIn || "N/A"}
+                    {`${t("dashboardHome.avatarCard.foundedInText")} ${winery?.info?.foundedIn || "N/A"}`}
                   </p>
                 </div>
               </div>
               <div className="flex w-full flex-col items-center justify-center gap-3 lg:items-end">
                 <div className="flex items-center justify-start gap-1">
-                  <p className="text-xs text-muted-foreground">Plan</p>
+                  <p className="text-xs text-muted-foreground">
+                    {t("dashboardHome.avatarCard.planText")}
+                  </p>
                   <div className="flex items-center justify-center rounded-md bg-foreground px-2 py-1">
                     <p className="text-xs capitalize text-background">
                       {winery?.billing?.level || "N/A"}
@@ -66,7 +72,7 @@ export const DashboardHomePage = () => {
                 </div>
                 <div>
                   <p className="text-xs font-medium text-muted-foreground">
-                    {qrCodesLeft} QR Codes Remaining
+                    {`${qrCodesLeft} ${t("dashboardHome.avatarCard.qrCodesRemainingText")}`}
                   </p>
                 </div>
                 <div>

@@ -1,5 +1,9 @@
 import { toCamelCase } from "@/utils/data-handlers";
-import { SanityBlockType, SanityLinkType } from "../models/sanityModels";
+import {
+  SanityBlockType,
+  SanityLinkType,
+  SanityStatCardType,
+} from "../models/sanityModels";
 
 export function sanityBlockToMarkdown(blocks: SanityBlockType[]) {
   const mkTextArray = blocks.map((block) => {
@@ -59,6 +63,18 @@ export function parseLinkSanityData(data: SanityLinkType[]) {
     linksObj[`${newKey}`] = {
       label: d.label,
       url: d.url,
+    };
+  });
+  return linksObj;
+}
+
+export function parseStatCardSanityData(data: SanityStatCardType[]) {
+  const linksObj: any = {};
+  data.forEach((d, i) => {
+    if (d._type !== "statCard") return;
+    const newKey = toCamelCase(d.icon || `${i}`);
+    linksObj[`${newKey}`] = {
+      ...d,
     };
   });
   return linksObj;
