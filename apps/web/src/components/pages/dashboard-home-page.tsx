@@ -20,10 +20,10 @@ import {
   AvatarImage,
 } from "@repo/ui/components/ui/avatar";
 import { Separator } from "@repo/ui/components/ui/separator";
-import { useDashboardHomeTranslations } from "@/hooks/dashboard-home/use-dasboard-home-translations";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const DashboardHomePage = () => {
-  const { t, statCards } = useDashboardHomeTranslations();
+  const { t } = useTranslationHandler();
   const { user } = useAuth();
   const { winery } = useWinery();
   const { qrCodesLeft } = useQRCodesLimit();
@@ -85,7 +85,7 @@ export const DashboardHomePage = () => {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card className="shadow-none">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>{statCards[0].title}</CardTitle>
+            <CardTitle>{t("dashboardHome.statCards.0.title")}</CardTitle>
             <Wine className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -98,13 +98,13 @@ export const DashboardHomePage = () => {
               Collections created since {winery?.info?.foundedIn || "N/A"}
             </p> */}
             <p className="text-sm text-muted-foreground">
-              {statCards[0].description}
+              {t("dashboardHome.statCards.0.description")}
             </p>
           </CardFooter>
         </Card>
         <Card className="shadow-none">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>{statCards[1].title}</CardTitle>
+            <CardTitle>{t("dashboardHome.statCards.1.title")}</CardTitle>
             <LandPlot className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent className="flex flex-row items-center justify-start gap-2">
@@ -112,18 +112,18 @@ export const DashboardHomePage = () => {
               {winery?.info?.vineyardsSurface || "N/A"}
             </p>
             <p className="text-4xl font-bold text-muted-foreground">
-              {statCards[1].unit}
+              {t("dashboardHome.statCards.1.unit")}
             </p>
           </CardContent>
           <CardFooter>
             <p className="text-sm text-muted-foreground">
-              {statCards[1].description}
+              {t("dashboardHome.statCards.1.description")}
             </p>
           </CardFooter>
         </Card>
         <Card className="shadow-none">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>{statCards[2].title}</CardTitle>
+            <CardTitle>{t("dashboardHome.statCards.2.title")}</CardTitle>
             <Grape className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -133,7 +133,7 @@ export const DashboardHomePage = () => {
           </CardContent>
           <CardFooter>
             <p className="text-sm text-muted-foreground">
-              {statCards[2].description}
+              {t("dashboardHome.statCards.2.description")}
             </p>
           </CardFooter>
         </Card>

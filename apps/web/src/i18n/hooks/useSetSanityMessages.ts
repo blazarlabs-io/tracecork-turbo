@@ -7,13 +7,13 @@ import {
   setObjectContent,
 } from "../utils/objectHandlres";
 
-export const useSetSanityMessages = async (locale: string) => {
+export const useSetSanityMessages = async () => {
   // const sanityData = await client.fetch<SanityDocument>(
-  //   `*[_type in ["publicPages", "publicComponents"]]`,
+  //   `*[_type in ["publicPages"]]`,
   // );
-  // const sanityData = await client.fetch<SanityDocument>(
-  //   `*[_type in ["publicPages", "publicComponents"] && language == ${JSON.stringify(locale)}]`,
-  // );
+  // // const sanityData = await client.fetch<SanityDocument>(
+  // //   `*[_type in ["publicPages", "publicComponents"] && language == ${JSON.stringify(locale)}]`,
+  // // );
 
   const sanityData = await client.fetch<SanityDocument>("*");
 

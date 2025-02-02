@@ -18,14 +18,18 @@ import { Separator } from "@repo/ui/components/ui/separator";
 import { WinesTable } from "@/components/widgets/wines-table";
 import { columns } from "@/components/widgets/wines-table/columns";
 import { taskSchema } from "@/components/widgets/wines-table/data/schema";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const MyWinesPage = () => {
   // * HOOKS
+  const { t, msg } = useTranslationHandler();
   const router = useRouter();
   const { user } = useAuth();
   const { wines } = useWinery();
   const { qrCodesLimit, qrCodesLeft } = useQRCodesLimit();
   const { device } = useResponsiveSize();
+
+  console.log({ msg });
 
   // * STATES
   const [localWines, setLocalWines] = useState<any[]>([]);
@@ -48,7 +52,10 @@ export const MyWinesPage = () => {
   return (
     <div className="flex w-full flex-col gap-6">
       <div className="flex w-full items-center justify-between">
-        <PageHeader title="My Wines" subtitle="View and manage your wines." />
+        <PageHeader
+          title={t("myWines.headline")}
+          subtitle={t("myWines.subHeadline")}
+        />
         {qrCodesLimit && (
           <div className="flex flex-col items-end gap-2">
             <UpgradePlanDialog />
@@ -62,7 +69,7 @@ export const MyWinesPage = () => {
                     </p>
                   ) : (
                     <p className="text-xs text-destructive">
-                      {qrCodesLeft} of {qrCodesLimit} labels remaining
+                      {`${qrCodesLeft} of ${qrCodesLimit} ${t("myWines.qrCodesRemainingText")}`}
                     </p>
                   )}
                 </>
@@ -75,7 +82,7 @@ export const MyWinesPage = () => {
                     </p>
                   ) : (
                     <p className="text-xs text-muted-foreground">
-                      {qrCodesLeft} of {qrCodesLimit} labels remaining
+                      {`${qrCodesLeft} of ${qrCodesLimit} ${t("myWines.qrCodesRemainingText")}`}
                     </p>
                   )}
                 </>
@@ -93,7 +100,7 @@ export const MyWinesPage = () => {
           }
         >
           <Plus size={16} className="text-foreground" />
-          Add New Wine
+          {t("myWines.addNewWineButtonLabel")}
         </Button>
       </div>
       {/* *TABLE */}
