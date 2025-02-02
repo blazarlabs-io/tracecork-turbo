@@ -12,23 +12,23 @@ export function sanityBlockToMarkdown(blocks: SanityBlockType[]) {
     if (!block.children) return ""; // Skip if no children
 
     const markDefs = block.markDefs || []; // Store link definitions
-
+    const arrLength = block.children.length;
     const text = block.children
-      .map((child) => {
-        let content = child.text;
-
+      .map((child, i) => {
+        let content = child.text ? child.text.trim() : "";
         if (child.marks) {
           child.marks.forEach((mark) => {
             const markDef = markDefs.find((m) => m._key === mark); // Find link definition
             if (markDef && markDef._type === "link") {
               content = `[${content}](${markDef.href})`;
             }
-            if (mark === "strong") content = `**${content}**`;
-            if (mark === "em") content = `*${content}*`;
+            if (mark === "strong") content = `**${content.trim()}**`;
+            if (mark === "em") content = `*${content.trim()}*`;
           });
         }
-
-        return content;
+        if (i === 0) return `${content} `;
+        if (i === arrLength - 1) return ` ${content}`;
+        return ` ${content} `;
       })
       .join("");
 

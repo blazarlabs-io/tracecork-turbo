@@ -22,14 +22,12 @@ import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const MyWinesPage = () => {
   // * HOOKS
-  const { t, msg } = useTranslationHandler();
+  const { t } = useTranslationHandler();
   const router = useRouter();
   const { user } = useAuth();
   const { wines } = useWinery();
   const { qrCodesLimit, qrCodesLeft } = useQRCodesLimit();
   const { device } = useResponsiveSize();
-
-  console.log({ msg });
 
   // * STATES
   const [localWines, setLocalWines] = useState<any[]>([]);
@@ -107,7 +105,7 @@ export const MyWinesPage = () => {
       {localWines && (
         <WinesTable
           data={localWines}
-          columns={columns}
+          columns={columns()}
           qrCodesLeft={qrCodesLeft}
         />
       )}
