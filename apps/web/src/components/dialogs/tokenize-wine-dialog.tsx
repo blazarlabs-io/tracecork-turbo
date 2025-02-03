@@ -15,8 +15,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@repo/ui/components/ui/tooltip";
-import { toast } from "@/hooks/use-toast";
-import { db } from "@/lib/firebase/services/db";
+// import { toast } from "@/hooks/use-toast";
+// import { db } from "@/lib/firebase/services/db";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 
 export interface TokenizeWineDialogProps {
   uid: string;
@@ -31,6 +33,7 @@ export const TokenizeWineDialog = ({
   collectionName,
   children,
 }: TokenizeWineDialogProps) => {
+  const { t } = useTranslationHandler();
   const handleTokenize = async () => {
     // TODO: add tokination logic
     // * TOAST
@@ -58,6 +61,7 @@ export const TokenizeWineDialog = ({
               <p>
                 Batch tokenization for supply chain tracking will be implemented
                 soon
+                {/* {t("myWines.table.rowsActions.3.tooltip")} */}
               </p>
             </TooltipContent>
           </Tooltip>
@@ -65,18 +69,33 @@ export const TokenizeWineDialog = ({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Tokenize Wine?</DialogTitle>
+          <DialogTitle>
+            {t("dashboardGlobalComponents.dialogs.tokenizeWineDialog.title")}
+          </DialogTitle>
           <DialogDescription>
-            By confirming, you accept to tokenize your wine on the{" "}
-            <span className="font-bold">Cardano</span> blockchain.
+            {/* By confirming, you accept to tokenize your wine on the{" "}
+            <span className="font-bold">Cardano</span> blockchain. */}
+            <MarkdownPreviewer
+              content={t(
+                "dashboardGlobalComponents.dialogs.tokenizeWineDialog.description",
+              )}
+            />
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">
+              {t(
+                "dashboardGlobalComponents.dialogs.tokenizeWineDialog.buttons.cancelButtonLabel",
+              )}
+            </Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button onClick={handleTokenize}>Confirm</Button>
+            <Button onClick={handleTokenize}>
+              {t(
+                "dashboardGlobalComponents.dialogs.tokenizeWineDialog.buttons.confirmButtonLabel",
+              )}
+            </Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

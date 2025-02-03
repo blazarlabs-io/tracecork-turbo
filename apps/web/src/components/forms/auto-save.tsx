@@ -19,9 +19,11 @@ import { useAuth } from "@/context/auth";
 import { DbResponse } from "@/types/db";
 import { useWinery } from "@/context/winery";
 import { useEffect, useRef } from "react";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const AutoSave = () => {
   // * HOOKs
+  const { t } = useTranslationHandler();
   const { user } = useAuth();
   const { winery } = useWinery();
 
@@ -70,7 +72,9 @@ export const AutoSave = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
         <div>
-          <h3 className="mb-4 text-lg font-medium">Save Settings</h3>
+          <h3 className="mb-4 text-lg font-medium">
+            {t("generalSettings.saveSettings.title")}
+          </h3>
           <div className="space-y-4">
             <FormField
               control={form.control}
@@ -78,9 +82,11 @@ export const AutoSave = () => {
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
                   <div className="space-y-0.5">
-                    <FormLabel>Autosave</FormLabel>
+                    <FormLabel>
+                      {t("generalSettings.saveSettings.switchCard.label")}
+                    </FormLabel>
                     <FormDescription>
-                      Enable autosave for your account.
+                      {t("generalSettings.saveSettings.switchCard.description")}
                     </FormDescription>
                   </div>
                   <FormControl>

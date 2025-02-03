@@ -24,6 +24,8 @@ import { storage } from "@/lib/firebase/services/storage";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { DynamicQrCodeGenerator } from "@/components/widgets/dynamic-qr-code-generator";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 
 export interface SecurePublishWineDialogProps {
   uid: string;
@@ -134,6 +136,7 @@ const PublishOldWineDialog = ({
   onAction,
 }: PublishOldWineDialogProps) => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const { user } = useAuth();
 
   // * HANDLE PUBLISH WINE
@@ -179,32 +182,43 @@ const PublishOldWineDialog = ({
                 {children}
               </TooltipTrigger>
               <TooltipContent>
-                <p>Publish wine</p>
+                <p>{t("myWines.table.rowsActions.1.tooltip")}</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Publish Wine</DialogTitle>
+            <DialogTitle>
+              {t("dashboardGlobalComponents.dialogs.publishWineDialog.title")}
+            </DialogTitle>
             <DialogDescription>
-              By confirming, you accept to make public your registered wine,
+              {/* By confirming, you accept to make public your registered wine,
               following all{" "}
               <span className="italic">EU Wine Labeling Regulations</span>. Your
               wine will be accessible by scanning our{" "}
               <span className="font-bold">Tracecork</span> generated QR code or
-              by using our public and free wine explorer APP.
+              by using our public and free wine explorer APP. */}
+              <MarkdownPreviewer
+                content={t(
+                  "dashboardGlobalComponents.dialogs.publishWineDialog.description",
+                )}
+              />
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="flex justify-end">
             <DialogClose asChild>
               <span className="flex h-10 cursor-pointer items-center justify-center rounded-md px-6 text-foreground transition duration-200 ease-in-out hover:bg-muted">
-                Cancel
+                {t(
+                  "dashboardGlobalComponents.dialogs.publishWineDialog.buttons.cancelButtonLabel",
+                )}
               </span>
             </DialogClose>
             <DialogClose asChild onClick={handlePublish}>
               <span className="flex h-10 cursor-pointer items-center justify-center rounded-md bg-primary px-6 text-primary-foreground transition duration-200 ease-in-out hover:bg-primary/80">
-                Confirm
+                {t(
+                  "dashboardGlobalComponents.dialogs.publishWineDialog.buttons.confirmButtonLabel",
+                )}
               </span>
             </DialogClose>
           </DialogFooter>
@@ -223,6 +237,7 @@ const PublishNewWineDialog = ({
   onAction,
 }: SecurePublishWineDialogProps) => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const router = useRouter();
   const { user } = useAuth();
 
@@ -325,21 +340,28 @@ const PublishNewWineDialog = ({
                 {children}
               </TooltipTrigger>
               <TooltipContent>
-                <p>Publish wine</p>
+                <p>{t("myWines.table.rowsActions.1.tooltip")}</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Publish Wine</DialogTitle>
+            <DialogTitle>
+              {t("dashboardGlobalComponents.dialogs.publishWineDialog.title")}
+            </DialogTitle>
             <DialogDescription>
-              By confirming, you accept to make public your registered wine,
+              {/* By confirming, you accept to make public your registered wine,
               following all{" "}
               <span className="italic">EU Wine Labeling Regulations</span>. Your
               wine will be accessible by scanning our{" "}
               <span className="font-bold">Tracecork</span> generated QR code or
-              by using our public and free wine explorer APP.
+              by using our public and free wine explorer APP. */}
+              <MarkdownPreviewer
+                content={t(
+                  "dashboardGlobalComponents.dialogs.publishWineDialog.description",
+                )}
+              />
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="flex justify-end">
@@ -351,12 +373,16 @@ const PublishNewWineDialog = ({
             />
             <DialogClose asChild>
               <span className="flex h-10 cursor-pointer items-center justify-center rounded-md px-6 text-foreground transition duration-200 ease-in-out hover:bg-muted">
-                Cancel
+                {t(
+                  "dashboardGlobalComponents.dialogs.publishWineDialog.buttons.cancelButtonLabel",
+                )}
               </span>
             </DialogClose>
             <DialogClose asChild onClick={handlePublish}>
               <span className="flex h-10 cursor-pointer items-center justify-center rounded-md bg-primary px-6 text-primary-foreground transition duration-200 ease-in-out hover:bg-primary/80">
-                Confirm
+                {t(
+                  "dashboardGlobalComponents.dialogs.publishWineDialog.buttons.confirmButtonLabel",
+                )}
               </span>
             </DialogClose>
           </DialogFooter>
@@ -375,6 +401,7 @@ const QrCodeQuaotaExceededDialog = ({
   children,
   onAction = () => {},
 }: QrCodeQuaotaExceededDialogProps) => {
+  const { t } = useTranslationHandler();
   const router = useRouter();
 
   return (
@@ -387,7 +414,7 @@ const QrCodeQuaotaExceededDialog = ({
                 {children}
               </TooltipTrigger>
               <TooltipContent>
-                <p>Publish wine</p>
+                <p>{t("myWines.table.rowsActions.1.tooltip")}</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -438,6 +465,7 @@ const MissingFieldsDialog = ({
   onAction = () => {},
 }: MissingFieldsDialogProps) => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const router = useRouter();
 
   // * HANDLE EDIT WINE
@@ -456,7 +484,7 @@ const MissingFieldsDialog = ({
                 {children}
               </TooltipTrigger>
               <TooltipContent>
-                <p>Publish wine</p>
+                <p>{t("myWines.table.rowsActions.1.tooltip")}</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>

@@ -20,7 +20,7 @@ import { Button } from "@repo/ui/components/ui/button";
 import { Form } from "@repo/ui/components/ui/form";
 import { SignUpInputField } from "./fields/signup-input-field";
 import { SignUpPasswordInputField } from "./signup-password-input-field";
-import { useTranslationHandler } from "@/hooks/useTranslationHandler";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import "./login-form-styles.css";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 

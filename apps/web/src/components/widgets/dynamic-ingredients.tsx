@@ -3,6 +3,8 @@ import { useSortIngredients } from "@/hooks/use-sort-ingredients";
 import { Wine } from "@/types/db";
 import { it } from "node:test";
 import { useEffect, useState } from "react";
+import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export interface DynamicIngredientsProps {
   wine: Wine;
@@ -10,6 +12,7 @@ export interface DynamicIngredientsProps {
 
 export const DynamicIngredients = ({ wine }: DynamicIngredientsProps) => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const { allergens } = useSystemVariables();
   const { acidityRegulators, stabilizers, finingAgents, antioxidants } =
     useSortIngredients(wine, allergens);
@@ -95,12 +98,13 @@ export const DynamicIngredients = ({ wine }: DynamicIngredientsProps) => {
                 ;{" "}
               </span>
             )}
-            bottled in a protective atmosphere.
+            {t("wineStepper.previewWine.bottledText")}
           </span>
         )}
       <span className="text-sm">
-        * Reminder: <span className="font-bold">Bold ingredients</span> are
-        allergens - Handle with care
+        <MarkdownPreviewer
+          content={t("wineStepper.previewWine.reminderText")}
+        />
       </span>
     </>
   );

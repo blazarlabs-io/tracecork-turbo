@@ -4,7 +4,7 @@ import { PricingLevel } from "@/types/db";
 import { cn } from "@/utils/shadcn";
 import { CircleCheck, CircleX } from "lucide-react";
 import { UpgradePlanDialog } from "../dialogs/upgrade-plan-dialog";
-import { useTranslationHandler } from "@/hooks/useTranslationHandler";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export interface PricingPageProps {
   pricing: { data: PricingLevel[] };
