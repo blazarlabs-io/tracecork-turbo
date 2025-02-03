@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "@repo/ui/components/ui/select";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
@@ -23,6 +24,7 @@ interface DataTablePaginationProps<TData> {
 export function DataTablePagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
+  const { t } = useTranslationHandler();
   const { device } = useResponsiveSize();
 
   return (
@@ -30,7 +32,9 @@ export function DataTablePagination<TData>({
       <div className="flex items-center space-x-6 lg:space-x-8">
         {device !== "mobile" && (
           <div className="flex items-center space-x-2">
-            <p className="text-sm font-medium">Rows per page</p>
+            <p className="text-sm font-medium">
+              {t("myWines.pagination.rowsPerPage")}
+            </p>
             <Select
               value={`${table.getState().pagination.pageSize}`}
               onValueChange={(value) => {
@@ -53,8 +57,7 @@ export function DataTablePagination<TData>({
           </div>
         )}
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-          Page {table.getState().pagination.pageIndex + 1} of{" "}
-          {table.getPageCount()}
+          {`${t("myWines.pagination.currentPage")} ${table.getState().pagination.pageIndex + 1} of ${table.getPageCount()}`}
         </div>
         <div className="flex items-center space-x-2">
           <Button

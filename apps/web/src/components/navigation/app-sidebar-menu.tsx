@@ -19,7 +19,7 @@ import {
 import { ChevronRight, Grape, Home, Settings, UserPen } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { useAppSidebarHeaderTranslations } from "~/src/hooks/private-routes-layout/use-app-sidebar-header-translations";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 type MenuItemType = {
   title: string;
@@ -95,7 +95,7 @@ const dataTemplate: MenuType[] = [
 ];
 export function AppSidebarMenu() {
   // * HOOKS
-  const { t } = useAppSidebarHeaderTranslations();
+  const { t } = useTranslationHandler();
 
   // * STATES
   const [data, setData] = useState<MenuType[]>(dataTemplate);

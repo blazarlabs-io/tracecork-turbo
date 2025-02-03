@@ -18,6 +18,8 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { db } from "@/lib/firebase/services/db";
 import { useRouter } from "next/navigation";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 
 export interface EditWineDialogProps {
   uid: string;
@@ -34,6 +36,7 @@ export const EditWineDialog = ({
   status = "published",
   children,
 }: EditWineDialogProps) => {
+  const { t } = useTranslationHandler();
   const router = useRouter();
 
   const handleUnpublish = async () => {
@@ -73,25 +76,35 @@ export const EditWineDialog = ({
                   {children}
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Edit wine</p>
+                  <p>{t("myWines.table.rowsActions.0.tooltip")}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Edit Published Wine</DialogTitle>
+              <DialogTitle>
+                {t("dashboardGlobalComponents.dialogs.editWineDialog.title")}
+              </DialogTitle>
               <DialogDescription>
-                By confirming, your wine will be first{" "}
+                {/* By confirming, your wine will be first{" "}
                 <span className="font-bold">unpublished</span>. Then you can
                 edit it as a <span className="font-bold">draft</span>. Please
                 remember to publish your wine again once you are ready.
+                Mark */}
+                <MarkdownPreviewer
+                  content={t(
+                    "dashboardGlobalComponents.dialogs.editWineDialog.description",
+                  )}
+                />
               </DialogDescription>
             </DialogHeader>
             <DialogFooter className="flex justify-end">
               <DialogClose asChild>
                 <Button type="button" variant="ghost">
-                  Cancel
+                  {t(
+                    "dashboardGlobalComponents.dialogs.editWineDialog.buttons.cancelButtonLabel",
+                  )}
                 </Button>
               </DialogClose>
               <DialogClose asChild>
@@ -100,7 +113,9 @@ export const EditWineDialog = ({
                   variant="default"
                   onClick={handleUnpublish}
                 >
-                  Confirm
+                  {t(
+                    "dashboardGlobalComponents.dialogs.editWineDialog.buttons.confirmButtonLabel",
+                  )}
                 </Button>
               </DialogClose>
             </DialogFooter>

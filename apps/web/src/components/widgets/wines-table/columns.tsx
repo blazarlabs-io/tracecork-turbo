@@ -43,7 +43,12 @@ export const columns = () => {
     {
       accessorKey: "generalInfo.collectionName",
       header: ({ column }) => {
-        return <DataTableColumnHeader column={column} title="Collection" />;
+        return (
+          <DataTableColumnHeader
+            column={column}
+            title={t("myWines.table.columns.0.header")}
+          />
+        );
       },
       cell: ({ row }) => {
         //   const label = labels.find((label) => label.value === row.original.label)
@@ -102,7 +107,10 @@ export const columns = () => {
     {
       accessorKey: "status",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Status" />
+        <DataTableColumnHeader
+          column={column}
+          title={t("myWines.table.columns.1.header")}
+        />
       ),
       cell: ({ row }) => {
         const status = statuses.find(
@@ -135,7 +143,10 @@ export const columns = () => {
     {
       accessorKey: "publicUrl",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Public Url" />
+        <DataTableColumnHeader
+          column={column}
+          title={t("myWines.table.columns.2.header")}
+        />
       ),
       cell: ({ row }) => {
         return (
@@ -153,7 +164,10 @@ export const columns = () => {
     {
       accessorKey: "qrCode",
       header: ({ column }) => (
-        <DataTableColumnHeaderSimple column={column} title="QR Code" />
+        <DataTableColumnHeaderSimple
+          column={column}
+          title={t("myWines.table.columns.3.header")}
+        />
       ),
       cell: ({ row }) => {
         // * DOWNLOAD QRCODE
