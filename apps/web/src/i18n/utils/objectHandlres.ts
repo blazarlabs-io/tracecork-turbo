@@ -12,30 +12,27 @@ export const cleanedObj = (obj: object) =>
   );
 
 export const setObjectContent = (obj: any) => {
+  if (typeof obj !== "object") return obj;
   const baseData: { [k: string]: any } = deepCopyObject(obj);
   Object.keys(obj).forEach((docKey) => {
     const docField = obj[`${docKey}`];
-    Object.keys(docField).forEach((fieldKey) => {
-      const fieldValue = docField[`${fieldKey}`];
-      if (!Array.isArray(fieldValue)) return;
-      const mdData = sanityBlockToMarkdown(fieldValue);
-      if (!!mdData) {
-        baseData[`${docKey}`][`${fieldKey}`] = mdData;
-        return;
-      }
-      const linkData = parseLinkSanityData(fieldValue);
-      if (!!linkData) {
-        baseData[`${docKey}`][`${fieldKey}`] = linkData;
-        return;
-      }
-      const statCardData = parseStatCardSanityData(fieldValue);
-      if (!!statCardData) {
-        baseData[`${docKey}`][`${fieldKey}`] = statCardData;
-        return;
-      }
-    });
+    if (Array.isArray(docField)) {
+      baseData[`${docKey}`] = getArrayTypeData(docField);
+    } else {
+      baseData[`${docKey}`] = setObjectContent(docField);
+    }
   });
   return baseData;
+};
+
+const getArrayTypeData = (fieldValue: any[]) => {
+  const mdData = sanityBlockToMarkdown(fieldValue);
+  if (!!mdData) return mdData;
+  const linkData = parseLinkSanityData(fieldValue);
+  if (!!linkData) return linkData;
+  const statCardData = parseStatCardSanityData(fieldValue);
+  if (!!statCardData) return statCardData;
+  return Object.assign({}, fieldValue);
 };
 
 export const setLanguageObject = (

@@ -42,8 +42,9 @@ import { WineryNumberField } from "./fields/winery/winery-number-field";
 import { WineryRepresentativeField } from "./fields/winery/winery-representative-field";
 import { WinerySelectField } from "./fields/winery/winery-select-field";
 import { WineryTextField } from "./fields/winery/winery-text-field";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
-/* 
+/*
 
 * Winery Form, with autosave every 20 sends and autosave onBlur event on each form field
 
@@ -51,6 +52,7 @@ import { WineryTextField } from "./fields/winery/winery-text-field";
 
 export const WineryForm = () => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const { user } = useAuth();
   const { winery } = useWinery();
   const { device } = useResponsiveSize();
@@ -242,12 +244,14 @@ export const WineryForm = () => {
             )}
 
             <div className="space-y-1">
-              <CardTitle className="text-xl">Avatar</CardTitle>
+              <CardTitle className="text-xl">
+                {t("wineryDetails.avatar.label")}
+              </CardTitle>
               <CardDescription className="text-sm">
-                This is your winery avatar.
+                {t("wineryDetails.avatar.description")}
               </CardDescription>
               <CardDescription className="text-sm">
-                Click over or drop an image to upload.
+                {t("wineryDetails.avatar.instructions")}
               </CardDescription>
             </div>
           </div>
@@ -271,20 +275,20 @@ export const WineryForm = () => {
             <WineryTextField
               name="name"
               form={form}
-              label="Winery Name"
-              description="Enter your winery’s name as you wish it to be seen by others."
+              label={t("wineryDetails.wineryName.label")}
+              description={t("wineryDetails.wineryName.description")}
               onSubmit={onSubmit}
-              placeholder="Winery Name"
+              placeholder={t("wineryDetails.wineryName.placeholder")}
               autosave={winery?.settings?.autosave as boolean}
             />
             {/* * FOUNDED IN */}
             <WinerySelectField
               name="foundedIn"
               form={form}
-              label="Founded In"
-              description="Enter the year your winery was founded."
+              label={t("wineryDetails.foundedIn.label")}
+              description={t("wineryDetails.foundedIn.description")}
               onSubmit={onSubmit}
-              placeholder="Select a year"
+              placeholder={t("wineryDetails.foundedIn.placeholder")}
               options={dynamicYears()
                 .reverse()
                 .map((year: number) => year)}
@@ -294,8 +298,8 @@ export const WineryForm = () => {
             <WineryNumberField
               name="wineCollections"
               form={form}
-              label="Wine Collections"
-              description="Enter the number of wines collections you produced last year."
+              label={t("wineryDetails.wineCollections.label")}
+              description={t("wineryDetails.wineCollections.description")}
               onSubmit={onSubmit}
               placeholder="0"
               min={0}
@@ -305,8 +309,8 @@ export const WineryForm = () => {
             <WineryNumberField
               name="bottlesProduced"
               form={form}
-              label="No. of Bottles Produced"
-              description="Enter the number of bottles produced last year."
+              label={t("wineryDetails.noOfBottlesProduced.label")}
+              description={t("wineryDetails.noOfBottlesProduced.description")}
               onSubmit={onSubmit}
               placeholder="0"
               min={0}
@@ -316,8 +320,8 @@ export const WineryForm = () => {
             <WineryNumberField
               name="vineyardsSurface"
               form={form}
-              label="Vineyards Surface"
-              description="Enter the total surface of your vineyards."
+              label={t("wineryDetails.vineyardsSurface.label")}
+              description={t("wineryDetails.vineyardsSurface.description")}
               onSubmit={onSubmit}
               min={0}
               placeholder="0"
@@ -328,8 +332,8 @@ export const WineryForm = () => {
             <WineryNumberField
               name="grapeVarieties"
               form={form}
-              label="Grape Varieties"
-              description="Enter the number of different grape varieties grown on your vineyards."
+              label={t("wineryDetails.grapeVarieties.label")}
+              description={t("wineryDetails.grapeVarieties.description")}
               onSubmit={onSubmit}
               min={0}
               placeholder="0"
@@ -339,8 +343,9 @@ export const WineryForm = () => {
             <WineryCrudField
               form={form}
               name="certifications"
-              label="Winery Certifications"
-              description="Add the name of any certification your winery has."
+              label={t("wineryDetails.certifications.label")}
+              description={t("wineryDetails.certifications.description")}
+              addButtonLabel={t("wineryDetails.certifications.buttonLabel")}
               onSubmit={onSubmit}
               autosave={winery?.settings?.autosave as boolean}
             />

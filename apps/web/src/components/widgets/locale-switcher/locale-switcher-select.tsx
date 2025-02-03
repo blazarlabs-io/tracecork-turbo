@@ -28,7 +28,6 @@ export const LocaleSwitcherSelect = ({ defaultValue, items, label }: Props) => {
 
     startTransition(() => {
       setUserLocale(locale);
-      console.log(locale);
     });
   }
 

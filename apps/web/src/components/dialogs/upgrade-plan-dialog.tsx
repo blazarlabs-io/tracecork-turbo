@@ -13,7 +13,9 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { useAuth } from "@/context/auth";
-import { useTranslationHandler } from "@/hooks/useTranslationHandler";
+import "./upgrade-plan-dialog-styles.css";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 
 export const UpgradePlanDialog = () => {
   const { t } = useTranslationHandler();
@@ -67,11 +69,18 @@ export const UpgradePlanDialog = () => {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Plan Upgrade Request</DialogTitle>
-              <DialogDescription>
-                Upgrade your plan to unlock all features. By clicking{" "}
+              <DialogTitle>
+                {t("dashboardGlobalComponents.dialogs.upgradeWineDialog.title")}
+              </DialogTitle>
+              <DialogDescription className="dialgo-description">
+                <MarkdownPreviewer
+                  content={t(
+                    "dashboardGlobalComponents.dialogs.upgradeWineDialog.description",
+                  )}
+                />
+                {/* Upgrade your plan to unlock all features. By clicking{" "}
                 <span className="font-bold">Upgrade</span> you accept to be
-                contacted by our sales team.
+                contacted by our sales team. */}
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
@@ -79,7 +88,11 @@ export const UpgradePlanDialog = () => {
                 {sending ? (
                   <LoaderCircle className="animate-spin" />
                 ) : (
-                  <Button>Upgrade</Button>
+                  <Button>
+                    {t(
+                      "dashboardGlobalComponents.dialogs.upgradeWineDialog.buttons.confirmButtonLabel",
+                    )}
+                  </Button>
                 )}
               </DialogClose>
             </DialogFooter>

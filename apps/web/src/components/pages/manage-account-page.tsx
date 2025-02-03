@@ -29,9 +29,11 @@ import { ChangePasswordForm } from "../forms/change-password-form";
 import { PageHeader } from "@/components/layouts/page-header";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { Button } from "@repo/ui/components/ui/button";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const ManageAccountPage = () => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const { user } = useAuth();
   const { device } = useResponsiveSize();
   const router = useRouter();
@@ -108,7 +110,10 @@ export const ManageAccountPage = () => {
 
   return (
     <div className="flex w-full flex-col gap-6">
-      <PageHeader title="Manage Account" subtitle="Manage your account." />
+      <PageHeader
+        title={t("manageAccount.headline")}
+        subtitle={t("manageAccount.subHeadline")}
+      />
       <Separator className="w-full" />
       {/* * CHANGE PASSWORD */}
       {isEmailPasswordProvider && (
@@ -121,10 +126,11 @@ export const ManageAccountPage = () => {
               )}
             >
               <div className="space-y-1">
-                <CardTitle className="text-xl">Change Password</CardTitle>
+                <CardTitle className="text-xl">
+                  {t("manageAccount.changePassword.label")}
+                </CardTitle>
                 <CardDescription className="text-sm">
-                  Change your account&apos;s password regularly and keep your
-                  data safe.
+                  {t("manageAccount.changePassword.description")}
                 </CardDescription>
               </div>
               <Dialog>
@@ -135,7 +141,7 @@ export const ManageAccountPage = () => {
                     device === "mobile" && "w-full",
                   )}
                 >
-                  Change Password
+                  {t("manageAccount.changePassword.buttonLabel")}
                 </DialogTrigger>
                 <DialogContent className="max-w-[360px]">
                   <DialogHeader>
@@ -164,10 +170,11 @@ export const ManageAccountPage = () => {
             )}
           >
             <div className="grow space-y-1">
-              <CardTitle className="text-xl">Delete Account</CardTitle>
+              <CardTitle className="text-xl">
+                {t("manageAccount.deleteAccount.label")}
+              </CardTitle>
               <CardDescription className="text-sm">
-                Once you delete an account, there is no going back. Please be
-                certain.
+                {t("manageAccount.deleteAccount.description")}
               </CardDescription>
             </div>
             {/* *DELETE CONFIRMATION  */}
@@ -179,7 +186,7 @@ export const ManageAccountPage = () => {
                   device === "mobile" && "w-full",
                 )}
               >
-                Delete Account
+                {t("manageAccount.deleteAccount.buttonLabel")}
               </DialogTrigger>
               <DialogContent className="max-w-[360px]">
                 <DialogHeader>

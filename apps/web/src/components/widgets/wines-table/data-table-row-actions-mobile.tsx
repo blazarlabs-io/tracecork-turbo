@@ -18,6 +18,7 @@ import {
 import { db } from "@/lib/firebase/services/db";
 import { EllipsisVertical } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 interface DataTableRowActionsProps<TData> {
   row: any;
@@ -106,6 +107,7 @@ const ArchivedMenu = ({ row }: any) => {
 };
 
 const PublishedMenu = ({ row }: any) => {
+  const { t } = useTranslationHandler();
   const router = useRouter();
 
   const handleEdit = async () => {
@@ -129,7 +131,9 @@ const PublishedMenu = ({ row }: any) => {
             wineId={row.original.id}
             collectionName={row.original.generalInfo.collectionName}
           >
-            <span className="flex items-center py-1.5 pl-1 text-sm">Edit</span>
+            <span className="flex items-center py-1.5 pl-1 text-sm">
+              {t("myWines.table.rowsActions.0.label")}
+            </span>
           </EditWineDialog>
           {/* <DropdownMenuItem
             onClick={() =>
@@ -144,7 +148,7 @@ const PublishedMenu = ({ row }: any) => {
             collectionName={row.original.generalInfo.collectionName}
           >
             <span className="flex items-center py-1.5 pl-10 text-sm">
-              Unpublish
+              {t("myWines.table.rowsActions.2.label")}
             </span>
           </UnpublishWineDialog>
           <TokenizeWineDialog
@@ -153,7 +157,7 @@ const PublishedMenu = ({ row }: any) => {
             collectionName={row.original.generalInfo.collectionName}
           >
             <span className="flex items-center py-1.5 pl-8 text-sm">
-              Tokenize
+              {t("myWines.table.rowsActions.3.label")}
             </span>
           </TokenizeWineDialog>
           <DeleteWineDialog
@@ -162,7 +166,7 @@ const PublishedMenu = ({ row }: any) => {
             collectionName={row.original.generalInfo.collectionName}
           >
             <span className="flex items-center py-1.5 pl-5 text-sm">
-              Delete
+              {t("myWines.table.rowsActions.4.label")}
             </span>
           </DeleteWineDialog>
         </DropdownMenuGroup>
