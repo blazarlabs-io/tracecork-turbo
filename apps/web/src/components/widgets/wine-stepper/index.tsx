@@ -17,32 +17,34 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { WinePreview } from "./wine-preview";
 import { WinePublish } from "./wine-publish";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export interface WineStepperProps {
   wineId: string;
   selectedStep: "editor" | "preview" | "publish" | null;
 }
 
-const { useStepper, steps } = defineStepper(
-  {
-    id: "editor",
-    title: "Wine Editor",
-    description: "Edit and save your wine details.",
-  },
-  {
-    id: "preview",
-    title: "Preview Wine",
-    description: "Preview your wine details.",
-  },
-  {
-    id: "publish",
-    title: "Publish Wine",
-    description: "Your wine has been published.",
-  },
-);
-
 export const WineStepper = ({ wineId, selectedStep }: WineStepperProps) => {
   // * HOOKS
+  const { t } = useTranslationHandler();
+  const { useStepper, steps } = defineStepper(
+    {
+      id: "editor",
+      title: t("wineStepper.wineryDetails.headline"),
+      description: t("wineStepper.wineryDetails.subHeadline"),
+    },
+    {
+      id: "preview",
+      title: t("wineStepper.previewWine.headline"),
+      description: t("wineStepper.previewWine.subHeadline"),
+    },
+    {
+      id: "publish",
+      title: t("wineStepper.publishWine.headline"),
+      description: "wineStepper.publishWine.subHeadline.",
+    },
+  );
+
   const router = useRouter();
   const { wine } = useHandleWineToEdit(wineId);
   const stepper = useStepper();
@@ -53,7 +55,7 @@ export const WineStepper = ({ wineId, selectedStep }: WineStepperProps) => {
       <div className="flex w-full items-center justify-between">
         <div className="flex flex-col items-start justify-start gap-2">
           <span className="text-sm">
-            Step {stepper.current.index + 1} of {steps.length}
+            {`${t("wineStepper.currentStep")} ${stepper.current.index + 1} of ${steps.length}`}
           </span>
           <PageHeader
             title={stepper.current.title}
@@ -138,16 +140,18 @@ export const WineStepper = ({ wineId, selectedStep }: WineStepperProps) => {
               onClick={stepper.prev}
               disabled={stepper.isFirst}
             >
-              Back
+              {t("wineStepper.wineryDetails.buttons.backButtonLabel")}
             </Button>
             <Button onClick={stepper.next}>
-              {stepper.isLast ? "Complete" : "Next"}
+              {stepper.isLast
+                ? "Complete"
+                : t("wineStepper.wineryDetails.buttons.nextButtonLabel")}
             </Button>
           </div>
         ) : (
           <div className="flex justify-end gap-4">
             <Button size="lg" variant="outline" onClick={stepper.reset}>
-              Back to Editor
+              {t("wineStepper.publishWine.buttonLabels.backButtonLabel")}
             </Button>
             {wine && (
               <SecurePublishWineDialog
@@ -166,7 +170,7 @@ export const WineStepper = ({ wineId, selectedStep }: WineStepperProps) => {
                 }}
               >
                 <div className="flex min-h-10 min-w-32 items-center justify-center rounded-md bg-primary text-sm font-medium text-primary-foreground transition duration-200 ease-in-out hover:bg-primary/80">
-                  Publish
+                  {t("wineStepper.publishWine.buttonLabels.publishButtonLabel")}
                 </div>
               </SecurePublishWineDialog>
             )}

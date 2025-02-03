@@ -7,6 +7,8 @@ import Image from "next/image";
 import { NutritionTable } from "@/components/widgets/nutrition-table";
 import { useGetWine } from "@/hooks/use-get-wine";
 import { DynamicIngredients } from "@/components/widgets/dynamic-ingredients";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 
 export interface WineDetailsPageProps {
   wineId: string;
@@ -14,6 +16,7 @@ export interface WineDetailsPageProps {
 
 export const WineDetailsPrivatePage = ({ wineId }: WineDetailsPageProps) => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const { wine } = useGetWine(wineId);
   const { vintage } = useGetVintage(wine as Wine);
 
@@ -146,7 +149,9 @@ export const WineDetailsPrivatePage = ({ wineId }: WineDetailsPageProps) => {
               </div>
               {/* * INGREDIENTS */}
               <div className="mt-8 flex max-w-[640px] flex-col items-start justify-start gap-4 sm:min-w-[320px] md:min-w-[640px]">
-                <h2 className="text-base font-bold">INGREDIENTS</h2>
+                <h2 className="text-base font-bold">
+                  {t("wineStepper.previewWine.ingredientsTitle")}
+                </h2>
                 <DynamicIngredients wine={wine} />
               </div>
               {/* * NUTRITION INFORMATION */}
@@ -167,11 +172,14 @@ export const WineDetailsPrivatePage = ({ wineId }: WineDetailsPageProps) => {
                 />
               </div>
               <div className="max-w-[640px]">
-                <span>
+                <MarkdownPreviewer
+                  content={t("wineStepper.previewWine.drinkResponsiblyText")}
+                />
+                {/* <span>
                   <span className="font-bold">Please Drink Responsibly:</span>{" "}
                   We encourage you to enjoy the beverages with mindfulness and
                   moderation.
-                </span>
+                </span> */}
               </div>
             </div>
           </div>

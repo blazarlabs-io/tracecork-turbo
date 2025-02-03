@@ -45,6 +45,7 @@ import { WineNumberField } from "./fields/wine/wine-number-field";
 import { WineSelectField } from "./fields/wine/wine-select-field";
 import { WineTextField } from "./fields/wine/wine-text-field";
 import { WineTypeAndSweetnessField } from "./fields/wine/wine-type-and-sweetness-field";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 /*
  * Wine Form, with autosave every 20 sends and autosave onBlur event on each form field
@@ -56,6 +57,7 @@ export interface WineFormProps {
 
 export const WineForm = ({ wine }: WineFormProps) => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const { user } = useAuth();
   const { winery } = useWinery();
   const { countries, wineTypes, volumes, sweetness, rawMaterials } =
@@ -253,7 +255,9 @@ export const WineForm = ({ wine }: WineFormProps) => {
 
   return (
     <>
-      <h2 className="text-xl font-semibold">General Information</h2>
+      <h2 className="text-xl font-semibold">
+        {t("wineStepper.wineryDetails.generalInformation.title")}
+      </h2>
       {/* * AVATAR */}
       <Card className="flex w-full flex-col items-start justify-start rounded-[8px] shadow-none">
         <CardHeader className="w-full">
@@ -316,12 +320,20 @@ export const WineForm = ({ wine }: WineFormProps) => {
                     : "space-y-1",
                 )}
               >
-                <CardTitle className="text-xl">Wine Image</CardTitle>
+                <CardTitle className="text-xl">
+                  {t(
+                    "wineStepper.wineryDetails.generalInformation.avatar.label",
+                  )}
+                </CardTitle>
                 <CardDescription className="text-sm">
-                  This is the wine image as seen by others.
+                  {t(
+                    "wineStepper.wineryDetails.generalInformation.avatar.description",
+                  )}
                 </CardDescription>
                 <CardDescription className="text-sm">
-                  Click over or drop an image to upload.
+                  {t(
+                    "wineStepper.wineryDetails.generalInformation.avatar.instructions",
+                  )}
                 </CardDescription>
               </div>
             </div>
@@ -346,8 +358,15 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * WINERY NAME */}
             <WineTextField
               name="generalInfo.wineryName"
-              label="Winery Name"
-              description="Enter your winery’s name as you wish it to be seen by others."
+              label={t(
+                "wineStepper.wineryDetails.generalInformation.wineryName.label",
+              )}
+              placeholder={t(
+                "wineStepper.wineryDetails.generalInformation.wineryName.placeholder",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.generalInformation.wineryName.description",
+              )}
               form={form}
               onSubmit={onSubmit}
               autosave={winery?.settings?.autosave as boolean}
@@ -355,8 +374,15 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * COLLECTION NAME */}
             <WineTextField
               name="generalInfo.collectionName"
-              label="Collection Name"
-              description="Enter the name of the collection you are creating."
+              label={t(
+                "wineStepper.wineryDetails.generalInformation.collectionName.label",
+              )}
+              placeholder={t(
+                "wineStepper.wineryDetails.generalInformation.collectionName.placeholder",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.generalInformation.collectionName.description",
+              )}
               form={form}
               onSubmit={onSubmit}
               autosave={winery?.settings?.autosave as boolean}
@@ -365,8 +391,15 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * VOLUME */}
             <WineSelectField
               name="generalInfo.volume"
-              label="Volume"
-              description="Choose the volume of the bottle."
+              label={t(
+                "wineStepper.wineryDetails.generalInformation.volume.label",
+              )}
+              placeholder={t(
+                "wineStepper.wineryDetails.generalInformation.volume.placeholder",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.generalInformation.volume.description",
+              )}
               form={form}
               options={volumes}
               onSubmit={onSubmit}
@@ -391,9 +424,15 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * CONTROLLED DESIGNATION OF ORIGIN */}
             <WineTextField
               name="generalInfo.cdo"
-              label="Controlled Designation of Origin"
-              description="Enter the CDO for this wine."
-              placeholder="CDO"
+              label={t(
+                "wineStepper.wineryDetails.generalInformation.cdo.label",
+              )}
+              placeholder={t(
+                "wineStepper.wineryDetails.generalInformation.cdo.placeholder",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.generalInformation.cdo.description",
+              )}
               onSubmit={onSubmit}
               form={form}
               autosave={winery?.settings?.autosave || true}
@@ -401,9 +440,15 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * COUNTRY */}
             <WineSelectField
               name="generalInfo.country"
-              label="Country"
-              description="Choose the country of the wine."
-              placeholder="Select a country"
+              label={t(
+                "wineStepper.wineryDetails.generalInformation.countries.label",
+              )}
+              placeholder={t(
+                "wineStepper.wineryDetails.generalInformation.countries.placeholder",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.generalInformation.countries.description",
+              )}
               options={countries}
               onSubmit={onSubmit}
               form={form}
@@ -412,8 +457,12 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * COLLECTION SIZE */}
             <WineNumberField
               name="generalInfo.collectionSize"
-              label="Collection Size"
-              description="Enter the collection size for this wine."
+              label={t(
+                "wineStepper.wineryDetails.generalInformation.collectionSize.label",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.generalInformation.collectionSize.description",
+              )}
               form={form}
               min={0}
               step={1}
@@ -423,7 +472,9 @@ export const WineForm = ({ wine }: WineFormProps) => {
             <div />
           </div>
 
-          <h2 className="mt-6 text-xl font-semibold">Ingredients</h2>
+          <h2 className="mt-6 text-xl font-semibold">
+            {t("wineStepper.wineryDetails.ingredients.title")}
+          </h2>
 
           <div
             className={cn(
@@ -435,9 +486,15 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * RAW MATERIAL */}
             <WineSelectField
               name="ingredients.rawMaterial"
-              label="Raw Material"
-              description="Choose the raw material of the wine."
-              placeholder="Select a raw material"
+              label={t(
+                "wineStepper.wineryDetails.ingredients.rawMaterial.label",
+              )}
+              placeholder={t(
+                "wineStepper.wineryDetails.ingredients.rawMaterial.placeholder",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.ingredients.rawMaterial.description",
+              )}
               options={rawMaterials}
               onSubmit={onSubmit}
               form={form}
@@ -446,8 +503,12 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * ALCOHOL BY VOLUME */}
             <WineNumberField
               name="ingredients.alcoholByVolume"
-              label="Alcohol By Volume (ABV)"
-              description="Enter the ABV for this wine."
+              label={t(
+                "wineStepper.wineryDetails.ingredients.alcoholbyVolume.label",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.ingredients.alcoholbyVolume.description",
+              )}
               form={form}
               min={0}
               step={0.1}
@@ -460,8 +521,10 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * SUGAR */}
             <WineNumberField
               name="ingredients.sugar"
-              label="Sugar"
-              description="Enter the sugar content for this wine in grams per liter (g/L)."
+              label={t("wineStepper.wineryDetails.ingredients.sugar.label")}
+              description={t(
+                "wineStepper.wineryDetails.ingredients.sugar.description",
+              )}
               form={form}
               min={0}
               step={0.1}
@@ -473,8 +536,12 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * ACIDITY REGULATORS */}
             <WineCrudField
               name="ingredients.acidityRegulators"
-              label="Acidity Regulators"
-              description="Enter any acidity regulators for this wine."
+              label={t(
+                "wineStepper.wineryDetails.ingredients.acidityRegulators.label",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.ingredients.acidityRegulators.description",
+              )}
               form={form}
               onSubmit={onSubmit}
               autosave={winery?.settings?.autosave as boolean}
@@ -482,8 +549,12 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * STABILIZERS */}
             <WineCrudField
               name="ingredients.stabilizers"
-              label="Stabilizers"
-              description="Enter any stabilizers for this wine."
+              label={t(
+                "wineStepper.wineryDetails.ingredients.stabilizers.label",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.ingredients.stabilizers.description",
+              )}
               form={form}
               onSubmit={onSubmit}
               autosave={winery?.settings?.autosave as boolean}
@@ -491,8 +562,12 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * FINING AGENTS */}
             <WineCrudField
               name="ingredients.finingAgents"
-              label="Fining Agents"
-              description="Enter any fining agents for this wine."
+              label={t(
+                "wineStepper.wineryDetails.ingredients.finingAgents.label",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.ingredients.finingAgents.description",
+              )}
               form={form}
               onSubmit={onSubmit}
               autosave={winery?.settings?.autosave as boolean}
@@ -500,8 +575,12 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * ANTIOXIDANTS */}
             <WineCrudField
               name="ingredients.antioxidants"
-              label="Antioxidants"
-              description="Enter any antioxidants for this wine."
+              label={t(
+                "wineStepper.wineryDetails.ingredients.antioxidants.label",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.ingredients.antioxidants.description",
+              )}
               form={form}
               onSubmit={onSubmit}
               autosave={winery?.settings?.autosave as boolean}
@@ -509,7 +588,7 @@ export const WineForm = ({ wine }: WineFormProps) => {
           </div>
 
           <h2 className="mt-6 text-xl font-semibold">
-            Nutritional Information
+            {t("wineStepper.wineryDetails.nutritionalInformation.title")}
           </h2>
 
           <div
@@ -522,8 +601,12 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * ENERGY */}
             <WineNumberField
               name="nutritionalInfo.energy"
-              label="Energy"
-              description="Kilojoules for this wine. This value is auto-calculated."
+              label={t(
+                "wineStepper.wineryDetails.nutritionalInformation.energy.label",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.nutritionalInformation.energy.description",
+              )}
               form={form}
               readOnly={true}
               complementaryText="kj"
@@ -533,8 +616,12 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * FAT */}
             <WineNumberField
               name="nutritionalInfo.fat"
-              label="Fat"
-              description="Enter the fat amount in grams per liter for this wine."
+              label={t(
+                "wineStepper.wineryDetails.nutritionalInformation.fat.label",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.nutritionalInformation.fat.description",
+              )}
               form={form}
               complementaryText="g/L"
               onSubmit={onSubmit}
@@ -543,8 +630,12 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * CARBOHYDRATES */}
             <WineCarbohydratesField
               name="nutritionalInfo.carbohydrates"
-              label="Carbohydrates"
-              description="Enter the carbohydrates amount in grams per liter for this wine."
+              label={t(
+                "wineStepper.wineryDetails.nutritionalInformation.carbohydrates.label",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.nutritionalInformation.carbohydrates.description",
+              )}
               form={form}
               step={0.1}
               complementaryText="g/L"
@@ -554,8 +645,12 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * PROTEIN */}
             <WineNumberField
               name="nutritionalInfo.protein"
-              label="Protein"
-              description="Enter the protein amount in grams per liter for this wine."
+              label={t(
+                "wineStepper.wineryDetails.nutritionalInformation.protein.label",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.nutritionalInformation.protein.description",
+              )}
               form={form}
               min={0}
               step={0.1}
@@ -566,8 +661,12 @@ export const WineForm = ({ wine }: WineFormProps) => {
             {/* * SALT */}
             <WineNumberField
               name="nutritionalInfo.salt"
-              label="Salt"
-              description="Enter the salt amount in grams per liter for this wine."
+              label={t(
+                "wineStepper.wineryDetails.nutritionalInformation.salt.label",
+              )}
+              description={t(
+                "wineStepper.wineryDetails.nutritionalInformation.salt.description",
+              )}
               form={form}
               min={0}
               step={0.1}
@@ -608,7 +707,7 @@ export const WineForm = ({ wine }: WineFormProps) => {
                   <div className="flex min-w-fit items-center gap-2">
                     <Save size={16} className="text-primary" />
                     <p className="text-xs font-medium text-muted-foreground">
-                      Autosave enabled
+                      {t("wineStepper.autosave.enabledText")}
                     </p>
                   </div>
                   <div className="flex min-w-[114px] items-center justify-center">
@@ -623,8 +722,8 @@ export const WineForm = ({ wine }: WineFormProps) => {
                     ) : (
                       <div className="flex items-center justify-center gap-4">
                         <p className="text-xs text-muted-foreground">
-                          Saving in {autosaveCount.toString().padStart(2, "0")}{" "}
-                          seconds
+                          {`${t("wineStepper.autosave.savingInText")} ${autosaveCount.toString().padStart(2, "0")}
+                          ${t("wineStepper.autosave.secondsText")}`}
                         </p>
                       </div>
                     )}

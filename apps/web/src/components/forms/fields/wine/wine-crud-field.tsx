@@ -12,6 +12,7 @@ import { Input } from "@repo/ui/components/ui/input";
 import { Button } from "@repo/ui/components/ui/button";
 import { useFieldArray } from "react-hook-form";
 import { z } from "zod";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export interface WineCrudFieldProps {
   form: any;
@@ -32,6 +33,7 @@ export const WineCrudField = ({
   autosave,
   onSubmit,
 }: WineCrudFieldProps) => {
+  const { t } = useTranslationHandler();
   const { fields, append, remove } = useFieldArray({
     name: name,
     control: form.control,
@@ -84,7 +86,9 @@ export const WineCrudField = ({
         className=""
       >
         <Plus />
-        Add
+        {t(
+          "wineStepper.wineryDetails.ingredients.acidityRegulators.buttonLabel",
+        )}
       </Button>
     </div>
   );

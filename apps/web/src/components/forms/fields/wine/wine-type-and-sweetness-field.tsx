@@ -18,6 +18,7 @@ import {
 } from "@repo/ui/components/ui/select";
 import { z } from "zod";
 import { useEffect, useState } from "react";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export interface WineTypeAndSweetnessFieldProps {
   form: any;
@@ -36,6 +37,7 @@ export const WineTypeAndSweetnessField = ({
   onSubmit,
   autosave,
 }: WineTypeAndSweetnessFieldProps) => {
+  const { t } = useTranslationHandler();
   // * STATES
   // const [selectedWineType, setSelectedWineType] = useState<string | null>(null);
 
@@ -48,9 +50,15 @@ export const WineTypeAndSweetnessField = ({
           return (
             <FormItem className="w-full">
               <div className="space-y-0.5">
-                <FormLabel className="text-xl">Type of Wine</FormLabel>
+                <FormLabel className="text-xl">
+                  {t(
+                    "wineStepper.wineryDetails.generalInformation.typeOfWine.label",
+                  )}
+                </FormLabel>
                 <FormDescription className="text-sm">
-                  Choose the type of wine.
+                  {t(
+                    "wineStepper.wineryDetails.generalInformation.typeOfWine.description",
+                  )}
                 </FormDescription>
               </div>
               <FormControl>
@@ -95,9 +103,15 @@ export const WineTypeAndSweetnessField = ({
             return (
               <FormItem className="flex w-full flex-col items-start justify-start">
                 <div className="space-y-0.5">
-                  <FormLabel className="text-xl">Sweetness</FormLabel>
+                  <FormLabel className="text-xl">
+                    {t(
+                      "wineStepper.wineryDetails.generalInformation.sweetness.label",
+                    )}
+                  </FormLabel>
                   <FormDescription className="text-sm">
-                    Choose the sweetness of wine.
+                    {t(
+                      "wineStepper.wineryDetails.generalInformation.sweetness.description",
+                    )}
                   </FormDescription>
                 </div>
                 <FormControl>
