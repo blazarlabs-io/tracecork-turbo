@@ -22,11 +22,11 @@ import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "@repo/ui/components/ui/button";
 import { LocaleSwitcher } from "../widgets/locale-switcher/locale-switcher";
-import { useAppSidebarHeaderTranslations } from "@/hooks/private-routes-layout/use-app-sidebar-header-translations";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export function AppSidebarHeader() {
   // * HOOKS
-  const { t, dropDownMenu } = useAppSidebarHeaderTranslations();
+  const { t } = useTranslationHandler();
   const { user } = useAuth();
   const { winery } = useWinery();
   const router = useRouter();
@@ -71,7 +71,7 @@ export function AppSidebarHeader() {
                   onClick={handleSignOut}
                 >
                   <LogOut />
-                  {dropDownMenu[0].label}
+                  {t("dashboardGlobalComponents.topBar.dropdown.0.label")}
                 </DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>

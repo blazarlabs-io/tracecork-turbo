@@ -32,7 +32,7 @@ const getArrayTypeData = (fieldValue: any[]) => {
   if (!!linkData) return linkData;
   const statCardData = parseStatCardSanityData(fieldValue);
   if (!!statCardData) return statCardData;
-  return fieldValue;
+  return Object.assign({}, fieldValue);
 };
 
 export const setLanguageObject = (

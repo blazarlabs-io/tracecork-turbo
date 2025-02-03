@@ -18,6 +18,8 @@ import {
 import { useAuth } from "@/context/auth";
 import { toast } from "@/hooks/use-toast";
 import { db } from "@/lib/firebase/services/db";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 
 export interface DeleteWineDialogProps {
   uid: string;
@@ -33,6 +35,7 @@ export const DeleteWineDialog = ({
   children,
 }: DeleteWineDialogProps) => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const { user } = useAuth();
 
   const handleDelete = async () => {
@@ -74,30 +77,41 @@ export const DeleteWineDialog = ({
               {children}
             </TooltipTrigger>
             <TooltipContent>
-              <p>Delete wine</p>
+              <p>{t("myWines.table.rowsActions.4.tooltip")}</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete Wine?</DialogTitle>
+          <DialogTitle>
+            {t("dashboardGlobalComponents.dialogs.deleteWineDialog.title")}
+          </DialogTitle>
           <DialogDescription>
-            For security reasons your wine will be{" "}
+            {/* For security reasons your wine will be{" "}
             <span className="font-bold">archived</span>. If you wish to
             permanently delete it, please contact us and we will take care of
-            it.
+            it. */}
+            <MarkdownPreviewer
+              content={t(
+                "dashboardGlobalComponents.dialogs.deleteWineDialog.description",
+              )}
+            />
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex justify-end">
           <DialogClose asChild>
             <Button type="button" variant="ghost">
-              Cancel
+              {t(
+                "dashboardGlobalComponents.dialogs.deleteWineDialog.buttons.cancelButtonLabel",
+              )}
             </Button>
           </DialogClose>
           <DialogClose asChild>
             <Button type="button" variant="default" onClick={handleDelete}>
-              Confirm
+              {t(
+                "dashboardGlobalComponents.dialogs.deleteWineDialog.buttons.confirmButtonLabel",
+              )}
             </Button>
           </DialogClose>
         </DialogFooter>
