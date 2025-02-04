@@ -219,5 +219,15 @@ export const wineEditor = defineType({
         }),
       ],
     }),
+    defineField({
+      name: 'autoSaveMessage',
+      title: 'Auto Save Message',
+      type: 'string',
+    }),
+    defineField({
+      name: 'savingInMessage',
+      title: 'Saving In Message',
+      type: 'string',
+    }),
   ],
 })

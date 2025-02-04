@@ -22,6 +22,7 @@ export const filters = defineField({
         }),
       ],
     }),
+
     defineField({
       name: 'status',
       title: 'Status',
@@ -46,6 +47,16 @@ export const filters = defineField({
               type: 'string',
             },
           ],
+        }),
+        defineField({
+          name: 'noResultsFoundText',
+          title: 'No Results Found Text',
+          type: 'string',
+        }),
+        defineField({
+          name: 'clearFilterMessage',
+          title: 'Clear Filter Message',
+          type: 'string',
         }),
       ],
     }),

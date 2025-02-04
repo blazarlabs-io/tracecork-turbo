@@ -87,5 +87,15 @@ export const login = defineType({
         },
       ],
     }),
+    defineField({
+      name: 'loginSuccessMessage',
+      title: 'Login Success Message',
+      type: 'string',
+    }),
+    defineField({
+      name: 'loginErrorMessage',
+      title: 'Login Error Message',
+      type: 'string',
+    }),
   ],
 })
