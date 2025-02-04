@@ -35,6 +35,11 @@ export const myWines = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'ofText',
+      title: 'Of Text',
+      type: 'string',
+    }),
+    defineField({
       name: 'addNewWineButtonLabel',
       title: 'Add New Wine Button Label',
       type: 'string',

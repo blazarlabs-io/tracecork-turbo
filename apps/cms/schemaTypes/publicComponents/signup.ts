@@ -76,5 +76,15 @@ export const signup = defineType({
         },
       ],
     }),
+    defineField({
+      name: 'signInSuccessMessage',
+      title: 'Sign In Success Message',
+      type: 'string',
+    }),
+    defineField({
+      name: 'signInErrorMessage',
+      title: 'Sign In Error Message',
+      type: 'string',
+    }),
   ],
 })
