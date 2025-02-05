@@ -16,6 +16,8 @@ import {
 } from "@repo/ui/components/ui/tooltip";
 import { useRouter } from "next/navigation";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import MarkdownPreviewer from "../../markdown-previewer/MarkdownPreviewer";
+import "./missing-fields-dialog.css";
 
 export interface MissingFieldsDialogProps {
   children: React.ReactNode;
@@ -55,19 +57,25 @@ export const MissingFieldsDialog = ({
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Unable to Publish Wine</DialogTitle>
+            <DialogTitle>
+              {t("dashboardGlobalComponents.dialogs.missingFieldsDialog.title")}
+            </DialogTitle>
             <DialogDescription>
-              <span>
-                Your wine is missing required fields. Please fill in all{" "}
-                <span className="font-bold text-destructive">required</span>{" "}
-                fields before publishing.
+              <span className="description-container">
+                <MarkdownPreviewer
+                  content={t(
+                    "dashboardGlobalComponents.dialogs.missingFieldsDialog.description",
+                  )}
+                />
               </span>
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="flex justify-end">
             <DialogClose asChild onClick={handleEdit}>
               <span className="flex h-10 cursor-pointer items-center justify-center rounded-md bg-primary px-6 text-primary-foreground transition duration-200 ease-in-out hover:bg-primary/80">
-                Ok
+                {t(
+                  "dashboardGlobalComponents.dialogs.missingFieldsDialog.buttons.cancelButtonLabel",
+                )}
               </span>
             </DialogClose>
           </DialogFooter>
