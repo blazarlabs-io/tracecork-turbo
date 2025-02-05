@@ -1,13 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@repo/ui/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const PasswordResetSentPage = () => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const router = useRouter();
 
   // * STATES
@@ -38,21 +40,22 @@ export const PasswordResetSentPage = () => {
         width={520}
         height={48}
       />
-      <h2 className="mt-12 text-2xl font-bold">Password Reset Sent!</h2>
+      <h2 className="mt-12 text-2xl font-bold">
+        {t("authPages.passwordResetSent.title")}
+      </h2>
+      <p className="text-center">{t("authPages.passwordResetSent.message")}</p>
       <p className="text-center">
-        Please check your email for a link to reset your password, remember to
-        check your spam folder.
-      </p>
-      <p className="text-center">
-        Didn&apos;t receive an email?{" "}
+        {`${t("authPages.passwordResetSent.question")} `}
         {resendTimer ? (
-          <span className="text-primary">Rensend in {timeLeft} seconds</span>
+          <span className="text-primary">
+            {`${t("authPages.passwordResetSent.resendIn.message")} ${timeLeft} ${t("authPages.passwordResetSent.resendIn.units")}`}
+          </span>
         ) : (
           <button
             className="text-primary underline"
             onClick={() => handleTimer()}
           >
-            Resend
+            {t("authPages.passwordResetSent.resendButtonLable")}
           </button>
         )}
       </p>
@@ -63,7 +66,7 @@ export const PasswordResetSentPage = () => {
         onClick={() => router.replace("/login")}
       >
         <ArrowLeft className="h-4 w-4" />
-        Back to Login
+        {t("authPages.passwordResetSent.backButtonLable")}
       </Button>
     </div>
   );

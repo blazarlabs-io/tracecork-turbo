@@ -115,5 +115,15 @@ export const contactPage = defineType({
         },
       ],
     }),
+    defineField({
+      name: 'successMessage',
+      title: 'Success Message',
+      type: 'string',
+    }),
+    defineField({
+      name: 'errorMessage',
+      title: 'Error Message',
+      type: 'string',
+    }),
   ],
 })

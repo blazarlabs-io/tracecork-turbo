@@ -10,17 +10,19 @@ import { Plus, QrCode } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { z } from "zod";
-import winesSaple from "@/data/wines-sample.json";
+// import winesSaple from "@/data/wines-sample.json";
 import { UpgradePlanDialog } from "../dialogs/upgrade-plan-dialog";
 import { PageHeader } from "@/components/layouts/page-header";
 import { Button } from "@repo/ui/components/ui/button";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { WinesTable } from "@/components/widgets/wines-table";
 import { columns } from "@/components/widgets/wines-table/columns";
-import { taskSchema } from "@/components/widgets/wines-table/data/schema";
+// import { taskSchema } from "@/components/widgets/wines-table/data/schema";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const MyWinesPage = () => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const router = useRouter();
   const { user } = useAuth();
   const { wines } = useWinery();
@@ -31,24 +33,27 @@ export const MyWinesPage = () => {
   const [localWines, setLocalWines] = useState<any[]>([]);
 
   // * FUNCTIONS
-  const getLocalWines = () => {
-    return z.array(taskSchema).parse(winesSaple);
-  };
+  // const getLocalWines = () => {
+  //   return z.array(taskSchema).parse(winesSaple);
+  // };
 
   useEffect(() => {
-    if (user && wines) {
-      if (process.env.NEXT_PUBLIC_USE_LOCAL_DATA === "true") {
-        setLocalWines(() => getLocalWines());
-      } else {
-        setLocalWines(wines as Wine[]);
-      }
-    }
+    if (!user || !wines) return;
+    const timeoutId = setTimeout(() => {
+      setLocalWines(wines as Wine[]);
+    }, 300);
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [user, wines]);
 
   return (
     <div className="flex w-full flex-col gap-6">
       <div className="flex w-full items-center justify-between">
-        <PageHeader title="My Wines" subtitle="View and manage your wines." />
+        <PageHeader
+          title={t("myWines.headline")}
+          subtitle={t("myWines.subHeadline")}
+        />
         {qrCodesLimit && (
           <div className="flex flex-col items-end gap-2">
             <UpgradePlanDialog />
@@ -62,7 +67,7 @@ export const MyWinesPage = () => {
                     </p>
                   ) : (
                     <p className="text-xs text-destructive">
-                      {qrCodesLeft} of {qrCodesLimit} labels remaining
+                      {`${qrCodesLeft} of ${qrCodesLimit} ${t("myWines.qrCodesRemainingText")}`}
                     </p>
                   )}
                 </>
@@ -75,7 +80,7 @@ export const MyWinesPage = () => {
                     </p>
                   ) : (
                     <p className="text-xs text-muted-foreground">
-                      {qrCodesLeft} of {qrCodesLimit} labels remaining
+                      {`${qrCodesLeft} of ${qrCodesLimit} ${t("myWines.qrCodesRemainingText")}`}
                     </p>
                   )}
                 </>
@@ -93,14 +98,14 @@ export const MyWinesPage = () => {
           }
         >
           <Plus size={16} className="text-foreground" />
-          Add New Wine
+          {t("myWines.addNewWineButtonLabel")}
         </Button>
       </div>
       {/* *TABLE */}
       {localWines && (
         <WinesTable
           data={localWines}
-          columns={columns}
+          columns={columns()}
           qrCodesLeft={qrCodesLeft}
         />
       )}

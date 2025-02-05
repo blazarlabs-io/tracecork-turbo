@@ -43,6 +43,24 @@ export const dialogs = defineField({
       fields: [...dialog.fields.map((f) => defineField(f))],
     }),
     defineField({
+      name: 'missingFieldsDialog',
+      title: 'Missing Fields Dialog',
+      type: 'object',
+      fields: [...dialog.fields.map((f) => defineField(f))],
+    }),
+    defineField({
+      name: 'qrCodeQuotaExceededDialog',
+      title: 'QR Code Quota Exceeded Dialog',
+      type: 'object',
+      fields: [...dialog.fields.map((f) => defineField(f))],
+    }),
+    defineField({
+      name: 'deleteNoticeDialog',
+      title: 'Delete Notice Dialog',
+      type: 'object',
+      fields: [...dialog.fields.map((f) => defineField(f))],
+    }),
+    defineField({
       name: 'upgradeWineDialog',
       title: 'Upgrade Wine Dialog',
       type: 'object',

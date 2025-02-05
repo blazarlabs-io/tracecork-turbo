@@ -21,6 +21,7 @@ import { Input } from "@repo/ui/components/ui/input";
 import { Button } from "@repo/ui/components/ui/button";
 import { z } from "zod";
 import { useFieldArray } from "react-hook-form";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export interface WineGrapeVarietiesFieldProps {
   form: any;
@@ -35,6 +36,7 @@ export const WineGrapeVarietiesField = ({
   autosave,
   onSubmit,
 }: WineGrapeVarietiesFieldProps) => {
+  const { t } = useTranslationHandler();
   const { fields, append, remove } = useFieldArray({
     name: name,
     control: form.control,
@@ -47,10 +49,15 @@ export const WineGrapeVarietiesField = ({
       render={() => (
         <div className="col-span-2 flex w-full flex-col gap-3 rounded-lg border p-4">
           <div className="space-y-0.5">
-            <FormLabel className="text-xl">Grape Varieties</FormLabel>
+            <FormLabel className="text-xl">
+              {t(
+                "wineStepper.wineryDetails.generalInformation.grapeVarieties.label",
+              )}
+            </FormLabel>
             <FormDescription className="text-sm">
-              Enter the grape varieties of the wine with name, percentage in
-              blend and vintage.
+              {t(
+                "wineStepper.wineryDetails.generalInformation.grapeVarieties.description",
+              )}
             </FormDescription>
           </div>
           {fields.map((field, index) => (
@@ -59,7 +66,11 @@ export const WineGrapeVarietiesField = ({
               className="flex w-full items-center justify-between gap-3"
             >
               <div className="flex w-full flex-col gap-1">
-                <FormLabel className="text-sm">Name</FormLabel>
+                <FormLabel className="text-sm">
+                  {t(
+                    "wineStepper.wineryDetails.generalInformation.grapeVarieties.name.label",
+                  )}
+                </FormLabel>
                 <FormField
                   control={form.control}
                   name={`${name}.${index}.name`}
@@ -92,7 +103,11 @@ export const WineGrapeVarietiesField = ({
                 />
               </div>
               <div className="flex w-full flex-col gap-1">
-                <FormLabel className="text-sm">Percentage</FormLabel>
+                <FormLabel className="text-sm">
+                  {t(
+                    "wineStepper.wineryDetails.generalInformation.grapeVarieties.percentage.label",
+                  )}
+                </FormLabel>
                 <div className="flex w-full items-center gap-2">
                   <FormField
                     control={form.control}
@@ -130,7 +145,11 @@ export const WineGrapeVarietiesField = ({
                 </div>
               </div>
               <div className="flex w-full flex-col gap-1">
-                <FormLabel className="text-sm">Vintage</FormLabel>
+                <FormLabel className="text-sm">
+                  {t(
+                    "wineStepper.wineryDetails.generalInformation.grapeVarieties.vintage.label",
+                  )}
+                </FormLabel>
                 <FormField
                   control={form.control}
                   name={`${name}.${index}.vintage`}
