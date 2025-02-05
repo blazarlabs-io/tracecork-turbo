@@ -1,3 +1,4 @@
+import {authPages} from './authPages'
 import {dashboardGlobalComponents} from './dashboardGlobalComponents'
 import {dashboardHome} from './dashboardHome'
 import {manageAccount} from './dashboardMyAccount/manageAccount'
@@ -12,6 +13,7 @@ import {systemVariables} from './systemVariables'
 import {wineDetails} from './wineDetails'
 
 export const schemaTypes = [
+  authPages,
   systemVariables,
   publicPages,
   publicComponents,
