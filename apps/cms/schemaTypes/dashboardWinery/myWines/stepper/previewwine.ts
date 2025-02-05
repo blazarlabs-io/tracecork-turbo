@@ -16,9 +16,41 @@ export const previewWine = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'notSpecifiedText',
-      title: 'Not Specified Text',
-      type: 'string',
+      name: 'notSpecified',
+      title: 'Not Specified',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'name',
+          title: 'Name',
+          type: 'string',
+        }),
+        defineField({
+          name: 'type',
+          title: 'Type',
+          type: 'string',
+        }),
+        defineField({
+          name: 'volume',
+          title: 'Volume',
+          type: 'string',
+        }),
+        defineField({
+          name: 'alcoholByVolume',
+          title: 'Alcohol by Volume',
+          type: 'string',
+        }),
+        defineField({
+          name: 'country',
+          title: 'Country',
+          type: 'string',
+        }),
+        defineField({
+          name: 'notSpecifiedMessage',
+          title: 'Not Specified Message',
+          type: 'string',
+        }),
+      ],
     }),
     defineField({
       name: 'ingredientsTitle',
@@ -105,9 +137,26 @@ export const previewWine = defineType({
           type: 'string',
         }),
         defineField({
-          name: 'containsPortionsText',
-          title: 'Contains Portions Text',
-          type: 'string',
+          name: 'containsPortionsPhrase',
+          title: 'Contains Portions Phrase',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'containsWord',
+              title: 'Contains Word',
+              type: 'string',
+            }),
+            defineField({
+              name: 'portionsWord',
+              title: 'Portions Word',
+              type: 'string',
+            }),
+            defineField({
+              name: 'ofWord',
+              title: 'Of Word',
+              type: 'string',
+            }),
+          ],
         }),
       ],
     }),

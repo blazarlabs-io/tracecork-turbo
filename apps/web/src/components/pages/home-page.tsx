@@ -5,11 +5,14 @@ import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
 import { useAuth } from "@/context/auth";
-import { useEffect } from "react";
+import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
+import "./home-page-styles.css";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const HomePage = () => {
   const { device } = useResponsiveSize();
   const { user } = useAuth();
+  const { t } = useTranslationHandler();
 
   return (
     <>
@@ -18,20 +21,17 @@ export const HomePage = () => {
           <section className="flex h-full w-full flex-col px-48 py-16">
             <div className="grid w-full grid-cols-2 items-center justify-center gap-16">
               <div className="">
-                <h1 className="text-5xl font-medium leading-[64px]">
-                  Welcome to <span className="text-primary">Tracecork</span>{" "}
-                  your worldwide partner in wine compliance and customer trust
+                <h1 className="text-5xl font-medium leading-[64px] header-style">
+                  <MarkdownPreviewer
+                    content={t("publicPages.homePage.headline")}
+                  />
                 </h1>
                 <p className="py-6 text-xl font-normal text-muted-foreground">
-                  Trusted solutions for wine producers worldwide: our compliance
-                  expertise and QR code tools ensure your customers access
-                  accurate product details instantly, enhancing transparency and
-                  confidence in every bottle.
+                  {t("publicPages.homePage.subHeadline")}
                 </p>
-
                 <Button size="lg">
                   <Link href={user ? "/dashboard/home" : "/signup"}>
-                    Get Started
+                    {t("publicPages.homePage.buttonLabel")}
                   </Link>
                 </Button>
               </div>
@@ -83,20 +83,18 @@ export const HomePage = () => {
           <section className="flex h-full w-full flex-col px-24 py-16">
             <div className="grid w-full grid-cols-2 items-center justify-center gap-16">
               <div className="">
-                <h1 className="text-4xl font-medium leading-[48px]">
-                  Welcome to <span className="text-primary">Tracecork</span>{" "}
-                  your worldwide partner in wine compliance and customer trust
+                <h1 className="text-4xl font-medium leading-[48px] header-style">
+                  <MarkdownPreviewer
+                    content={t("publicPages.homePage.headline")}
+                  />
                 </h1>
                 <p className="w-full py-6 text-lg font-normal text-muted-foreground">
-                  Trusted solutions for wine producers worldwide: our compliance
-                  expertise and QR code tools ensure your customers access
-                  accurate product details instantly, enhancing transparency and
-                  confidence in every bottle.
+                  {t("publicPages.homePage.subHeadline")}
                 </p>
 
                 <Button size="lg">
                   <Link href={user ? "/dashboard/home" : "/signup"}>
-                    Get Started
+                    {t("publicPages.homePage.buttonLabel")}
                   </Link>
                 </Button>
               </div>
@@ -155,19 +153,17 @@ export const HomePage = () => {
               />
             </div>
             <div className="mt-6 w-full">
-              <h1 className="text-4xl font-medium leading-[44px]">
-                Welcome to <span className="text-primary">Tracecork</span> your
-                worldwide partner in wine compliance and customer trust
+              <h1 className="text-4xl font-medium leading-[44px] header-style">
+                <MarkdownPreviewer
+                  content={t("publicPages.homePage.headline")}
+                />
               </h1>
               <p className="py-6 text-xl font-normal text-muted-foreground">
-                Trusted solutions for wine producers worldwide: our compliance
-                expertise and QR code tools ensure your customers access
-                accurate product details instantly, enhancing transparency and
-                confidence in every bottle.
+                {t("publicPages.homePage.subHeadline")}
               </p>
               <Button size="lg">
                 <Link href={user ? "/dashboard/home" : "/signup"}>
-                  Get Started
+                  {t("publicPages.homePage.buttonLabel")}
                 </Link>
               </Button>
             </div>

@@ -24,6 +24,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 interface DataTableRowActionsProps<TData> {
   row: any;
@@ -61,6 +62,7 @@ export function DataTableRowActionsDesktop<TData>({
 }
 
 const EditWine = ({ row }: any) => {
+  const { t } = useTranslationHandler();
   const router = useRouter();
 
   const handleEdit = async () => {
@@ -83,7 +85,7 @@ const EditWine = ({ row }: any) => {
           <Pencil size={16} />
         </TooltipTrigger>
         <TooltipContent>
-          <p>Edit wine</p>
+          <p>{t("myWines.table.rowsActions.0.tooltip")}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

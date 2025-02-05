@@ -18,6 +18,8 @@ import {
 import { useAuth } from "@/context/auth";
 import { toast } from "@/hooks/use-toast";
 import { db } from "@/lib/firebase/services/db";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 
 export interface PublishWineDialogProps {
   uid: string;
@@ -33,6 +35,7 @@ export const UnpublishWineDialog = ({
   children,
 }: PublishWineDialogProps) => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const { user } = useAuth();
 
   const handleUnpublish = async () => {
@@ -74,29 +77,40 @@ export const UnpublishWineDialog = ({
               {children}
             </TooltipTrigger>
             <TooltipContent>
-              <p>Unpublish wine</p>
+              <p>{t("myWines.table.rowsActions.2.tooltip")}</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Unpublish Wine</DialogTitle>
+          <DialogTitle>
+            {t("dashboardGlobalComponents.dialogs.unpublishWineDialog.title")}
+          </DialogTitle>
           <DialogDescription>
-            By confirming, you accept to{" "}
+            {/* By confirming, you accept to{" "}
             <span className="font-bold">unpublish</span> your wine. Your wine
-            will be hidden from our public wine explorer.
+            will be hidden from our public wine explorer. */}
+            <MarkdownPreviewer
+              content={t(
+                "dashboardGlobalComponents.dialogs.unpublishWineDialog.description",
+              )}
+            />
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex justify-end">
           <DialogClose asChild>
             <Button type="button" variant="ghost">
-              Cancel
+              {t(
+                "dashboardGlobalComponents.dialogs.unpublishWineDialog.buttons.cancelButtonLabel",
+              )}
             </Button>
           </DialogClose>
           <DialogClose asChild>
             <Button type="button" variant="default" onClick={handleUnpublish}>
-              Confirm
+              {t(
+                "dashboardGlobalComponents.dialogs.unpublishWineDialog.buttons.confirmButtonLabel",
+              )}
             </Button>
           </DialogClose>
         </DialogFooter>

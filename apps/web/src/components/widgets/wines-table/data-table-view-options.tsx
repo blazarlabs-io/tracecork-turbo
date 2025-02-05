@@ -14,6 +14,7 @@ import {
 } from "@repo/ui/components/ui/dropdown-menu";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
 import { useEffect } from "react";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>;
@@ -22,6 +23,7 @@ interface DataTableViewOptionsProps<TData> {
 export function DataTableViewOptions<TData>({
   table,
 }: DataTableViewOptionsProps<TData>) {
+  const { t } = useTranslationHandler();
   const { device } = useResponsiveSize();
 
   useEffect(() => {
@@ -61,11 +63,13 @@ export function DataTableViewOptions<TData>({
           className="ml-auto hidden h-8 lg:flex"
         >
           <Settings2 />
-          View
+          {t("myWines.filters.view.label")}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[150px]">
-        <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
+        <DropdownMenuLabel>
+          {t("myWines.filters.view.dropdown.title")}
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         {table
           .getAllColumns()

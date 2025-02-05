@@ -18,9 +18,12 @@ import { Button } from "@repo/ui/components/ui/button";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
 import { cn } from "@/utils/shadcn";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 
 export const SubscriptionPage = () => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const { user } = useAuth();
   const { qrCodesLimit, qrCodesLeft, planPrice, planName } = useQRCodesLimit();
   const { device } = useResponsiveSize();
@@ -60,8 +63,8 @@ export const SubscriptionPage = () => {
   return (
     <div className="flex w-full flex-col gap-6">
       <PageHeader
-        title="Subscription"
-        subtitle="Manage your current subscription."
+        title={t("subscription.headline")}
+        subtitle={t("subscription.subHeadline")}
       />
       <Separator className="w-full" />
       <div
@@ -78,7 +81,9 @@ export const SubscriptionPage = () => {
                   {planName}
                 </span>
               </div>
-              <span className="text-sm font-medium">Plan</span>
+              <span className="text-sm font-medium">
+                {t("subscription.subscriptionCard.planText")}
+              </span>
             </div>
             {device === "mobile" ? (
               <div className="flex flex-col items-center justify-center">
@@ -96,11 +101,11 @@ export const SubscriptionPage = () => {
               <div className="flex flex-col items-center justify-center">
                 {qrCodesLeft > 0 ? (
                   <span className="text-foreground">
-                    {qrCodesLeft} of {qrCodesLimit} labels remaning
+                    {`${qrCodesLeft} of ${qrCodesLimit} ${t("subscription.subscriptionCard.labelsRemainingText")}`}
                   </span>
                 ) : (
                   <span className="text-destructive">
-                    {qrCodesLeft} of {qrCodesLimit} labels remaning
+                    {`${qrCodesLeft} of ${qrCodesLimit} ${t("subscription.subscriptionCard.labelsRemainingText")}`}
                   </span>
                 )}
               </div>
@@ -111,26 +116,39 @@ export const SubscriptionPage = () => {
               <span className="text-sm font-medium">€</span>
               <span className="text-5xl font-bold">{planPrice}</span>
               <span className="text-sm font-medium text-muted-foreground">
-                /year
+                {`/${t("subscription.subscriptionCard.perYearText")}`}
               </span>
             </div>
             <Dialog>
               <DialogTitle></DialogTitle>
               <DialogTrigger className="max-w-fit rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
-                Upgrade Plan
+                {t("subscription.subscriptionCard.upgradeButtonLabel")}
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Plan Upgrade Request</DialogTitle>
+                  <DialogTitle>
+                    {t(
+                      "dashboardGlobalComponents.dialogs.upgradeWineDialog.title",
+                    )}
+                  </DialogTitle>
                   <DialogDescription>
-                    Upgrade your plan to unlock all features. By clicking{" "}
+                    <MarkdownPreviewer
+                      content={t(
+                        "dashboardGlobalComponents.dialogs.upgradeWineDialog.description",
+                      )}
+                    />
+                    {/* Upgrade your plan to unlock all features. By clicking{" "}
                     <span className="font-bold">Upgrade</span> you accept to be
-                    contacted by our sales team.
+                    contacted by our sales team. */}
                   </DialogDescription>
                 </DialogHeader>
                 <DialogFooter>
                   <DialogClose asChild onClick={handlePlanUpgradeRequest}>
-                    <Button>Upgrade Now</Button>
+                    <Button>
+                      {t(
+                        "dashboardGlobalComponents.dialogs.upgradeWineDialog.buttons.confirmButtonLabel",
+                      )}
+                    </Button>
                   </DialogClose>
                 </DialogFooter>
               </DialogContent>

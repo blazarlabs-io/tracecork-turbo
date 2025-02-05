@@ -36,4 +36,4 @@ export const taskSchema = z.object({
   }),
 });
 
-export type Task = z.infer<typeof taskSchema>;
+export type TaskType = z.infer<typeof taskSchema>;
