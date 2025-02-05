@@ -10,14 +10,14 @@ import { Plus, QrCode } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { z } from "zod";
-import winesSaple from "@/data/wines-sample.json";
+// import winesSaple from "@/data/wines-sample.json";
 import { UpgradePlanDialog } from "../dialogs/upgrade-plan-dialog";
 import { PageHeader } from "@/components/layouts/page-header";
 import { Button } from "@repo/ui/components/ui/button";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { WinesTable } from "@/components/widgets/wines-table";
 import { columns } from "@/components/widgets/wines-table/columns";
-import { taskSchema } from "@/components/widgets/wines-table/data/schema";
+// import { taskSchema } from "@/components/widgets/wines-table/data/schema";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const MyWinesPage = () => {
@@ -33,18 +33,18 @@ export const MyWinesPage = () => {
   const [localWines, setLocalWines] = useState<any[]>([]);
 
   // * FUNCTIONS
-  const getLocalWines = () => {
-    return z.array(taskSchema).parse(winesSaple);
-  };
+  // const getLocalWines = () => {
+  //   return z.array(taskSchema).parse(winesSaple);
+  // };
 
   useEffect(() => {
-    if (user && wines) {
-      if (process.env.NEXT_PUBLIC_USE_LOCAL_DATA === "true") {
-        setLocalWines(() => getLocalWines());
-      } else {
-        setLocalWines(wines as Wine[]);
-      }
-    }
+    if (!user || !wines) return;
+    const timeoutId = setTimeout(() => {
+      setLocalWines(wines as Wine[]);
+    }, 300);
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [user, wines]);
 
   return (
