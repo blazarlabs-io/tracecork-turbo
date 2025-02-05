@@ -57,7 +57,7 @@ export function DataTablePagination<TData>({
           </div>
         )}
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-          {`${t("myWines.pagination.currentPage")} ${table.getState().pagination.pageIndex + 1} of ${table.getPageCount()}`}
+          {`${t("myWines.pagination.currentPage")} ${table.getState().pagination.pageIndex + 1} / ${table.getPageCount()}`}
         </div>
         <div className="flex items-center space-x-2">
           <Button
