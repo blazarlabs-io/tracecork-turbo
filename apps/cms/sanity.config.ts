@@ -19,6 +19,7 @@ export default defineConfig({
     documentInternationalization({
       supportedLanguages: i18n.languages,
       schemaTypes: [
+        'authPages',
         'systemVariables',
         'publicPages',
         'publicComponents',
