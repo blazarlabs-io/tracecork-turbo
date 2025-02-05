@@ -89,11 +89,11 @@ export const SubscriptionPage = () => {
               <div className="flex flex-col items-center justify-center">
                 {qrCodesLeft > 0 ? (
                   <span className="text-foreground">
-                    {qrCodesLeft} of {qrCodesLimit} labels
+                    {qrCodesLeft} / {qrCodesLimit} labels
                   </span>
                 ) : (
                   <span className="text-destructive">
-                    {qrCodesLeft} of {qrCodesLimit} labels
+                    {qrCodesLeft} / {qrCodesLimit} labels
                   </span>
                 )}
               </div>
@@ -101,11 +101,11 @@ export const SubscriptionPage = () => {
               <div className="flex flex-col items-center justify-center">
                 {qrCodesLeft > 0 ? (
                   <span className="text-foreground">
-                    {`${qrCodesLeft} of ${qrCodesLimit} ${t("subscription.subscriptionCard.labelsRemainingText")}`}
+                    {`${qrCodesLeft} / ${qrCodesLimit} ${t("subscription.subscriptionCard.labelsRemainingText")}`}
                   </span>
                 ) : (
                   <span className="text-destructive">
-                    {`${qrCodesLeft} of ${qrCodesLimit} ${t("subscription.subscriptionCard.labelsRemainingText")}`}
+                    {`${qrCodesLeft} / ${qrCodesLimit} ${t("subscription.subscriptionCard.labelsRemainingText")}`}
                   </span>
                 )}
               </div>
