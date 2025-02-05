@@ -46,11 +46,14 @@ export const QrCodeQuaotaExceededDialog = ({
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Unable to Publish Wine</DialogTitle>
+            <DialogTitle>
+              {t(
+                "dashboardGlobalComponents.dialogs.qrCodeQuotaExceededDialog.title",
+              )}
+            </DialogTitle>
             <DialogDescription>
               <span>
-                You have reached your maximum number of QR codes. You cannot
-                publish a wine without a QR code. Please{" "}
+                {`${t("dashboardGlobalComponents.dialogs.qrCodeQuotaExceededDialog.title")} `}
                 <span
                   onClick={() => {
                     router.push("/pricing");
@@ -58,9 +61,9 @@ export const QrCodeQuaotaExceededDialog = ({
                   }}
                   className="cursor-pointer font-bold text-primary underline"
                 >
-                  upgrade your plan
-                </span>{" "}
-                in order to publish more wines.
+                  {`${t("dashboardGlobalComponents.dialogs.qrCodeQuotaExceededDialog.upgradeActionLabel")} `}
+                </span>
+                {`${t("dashboardGlobalComponents.dialogs.qrCodeQuotaExceededDialog.description2")} `}
               </span>
             </DialogDescription>
           </DialogHeader>
@@ -69,6 +72,7 @@ export const QrCodeQuaotaExceededDialog = ({
             <DialogClose asChild>
               <span className="flex h-10 cursor-pointer items-center justify-center rounded-md bg-primary px-6 text-primary-foreground transition duration-200 ease-in-out hover:bg-primary/80">
                 Ok
+                {`${t("dashboardGlobalComponents.dialogs.qrCodeQuotaExceededDialog.buttons.cancelButtonLabel")} `}
               </span>
             </DialogClose>
           </DialogFooter>
