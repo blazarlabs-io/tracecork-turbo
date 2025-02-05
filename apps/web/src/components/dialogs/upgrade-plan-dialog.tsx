@@ -78,9 +78,6 @@ export const UpgradePlanDialog = () => {
                     "dashboardGlobalComponents.dialogs.upgradeWineDialog.description",
                   )}
                 />
-                {/* Upgrade your plan to unlock all features. By clicking{" "}
-                <span className="font-bold">Upgrade</span> you accept to be
-                contacted by our sales team. */}
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
