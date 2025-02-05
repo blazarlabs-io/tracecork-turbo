@@ -16,9 +16,11 @@ import {
   FormMessage,
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const ForgotPasswordForm = () => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const router = useRouter();
   const form = useForm<z.infer<typeof forgotPasswordSchema>>({
     resolver: zodResolver(forgotPasswordSchema),
@@ -49,9 +51,11 @@ export const ForgotPasswordForm = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col items-center justify-center gap-2">
-        <h2 className="text-2xl font-bold">Forgot Password?</h2>
+        <h2 className="text-2xl font-bold">
+          {t("authPages.forgotPassword.title")}
+        </h2>
         <span className="text-muted-foreground">
-          No worries, we&apos;ll send you a link to reset it.
+          {t("authPages.forgotPassword.message")}
         </span>
       </div>
       <Form {...form}>
@@ -64,16 +68,24 @@ export const ForgotPasswordForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>
+                  {t("authPages.forgotPassword.email.label")}
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder="Email" type="email" {...field} />
+                  <Input
+                    placeholder={t(
+                      "authPages.forgotPassword.email.placeholder",
+                    )}
+                    type="email"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
           <Button type="submit" className="w-full">
-            Send
+            {t("authPages.forgotPassword.sendButtonLable")}
           </Button>
           <Button
             type="button"
@@ -82,7 +94,7 @@ export const ForgotPasswordForm = () => {
             onClick={() => router.back()}
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Login
+            {t("authPages.forgotPassword.backButtonLable")}
           </Button>
         </form>
       </Form>

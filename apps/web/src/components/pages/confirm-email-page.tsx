@@ -6,8 +6,10 @@ import { applyActionCode } from "firebase/auth";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { Button } from "@repo/ui/components/ui/button";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const ConfirmEmailPage = ({ code }: any) => {
+  const { t } = useTranslationHandler();
   const { user } = useAuth();
   const mountRef = useRef<boolean>(false);
 
@@ -52,13 +54,14 @@ export const ConfirmEmailPage = ({ code }: any) => {
         width={320}
         height={100}
       />
-      <h1 className="text-3xl font-medium">Email Confirmed</h1>
+      <h1 className="text-3xl font-medium">
+        {t("authPages.confirmEmail.title")}
+      </h1>
       <p className="py-6 text-base font-normal text-muted-foreground">
-        Your email address has been successfully verified. You can now login and
-        start using Tracecork.
+        {t("authPages.confirmEmail.title")}
       </p>
       <Button size="lg" onClick={handleContinueToTracecork}>
-        Continue to Tracecork
+        {t("authPages.confirmEmail.continueButtonLabel")}
       </Button>
     </div>
   );

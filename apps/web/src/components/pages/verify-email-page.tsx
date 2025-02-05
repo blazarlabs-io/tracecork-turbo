@@ -1,20 +1,18 @@
 "use client";
 
 import { useAuth } from "@/context/auth";
-import { sendEmailVerification, User } from "firebase/auth";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const VerifyEmailPage = () => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const { user } = useAuth();
 
   // * STATES
   const [resendTimer, setResendTimer] = useState<NodeJS.Timeout | null>(null);
   const [timeLeft, setTimeLeft] = useState<number>(30);
-
-  // * REFS
-  const mountRef = useRef<boolean>(false);
 
   // * HANDLERS
   const handleTimer = () => {
@@ -52,24 +50,23 @@ export const VerifyEmailPage = () => {
         height={234}
       />
       <h2 className="text-center text-2xl font-bold text-foreground">
-        We&apos;ve sent you an email
+        {t("authPages.verifyEmail.title")}
       </h2>
       <p className="text-center text-foreground">
-        Please check your email inbox and follow the instructions in order to
-        complete your account verification.
+        {t("authPages.verifyEmail.message")}
       </p>
       <div className="flex w-full items-center justify-center gap-2">
         <p className="text-center text-muted-foreground">
-          Didn&apos;t receive the email?
+          {t("authPages.verifyEmail.question")}
         </p>
         {!resendTimer && (
           <button onClick={handleResend} className="font-bold text-primary">
-            Resend
+            {t("authPages.verifyEmail.resendButtonLable")}
           </button>
         )}
         {resendTimer && (
           <p className="text-center text-muted-foreground">
-            Send again in {timeLeft} seconds
+            {`${t("authPages.verifyEmail.sendAgainIn.message")} ${timeLeft} ${t("authPages.verifyEmail.sendAgainIn.units")}`}
           </p>
         )}
       </div>
