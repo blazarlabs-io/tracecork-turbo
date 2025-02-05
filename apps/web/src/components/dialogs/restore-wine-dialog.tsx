@@ -76,7 +76,7 @@ export const RestoreWineDialog = ({
               {children}
             </TooltipTrigger>
             <TooltipContent>
-              <p>Restore wine</p>
+              <p>{t("myWines.table.rowsActions.5.tooltip")}</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

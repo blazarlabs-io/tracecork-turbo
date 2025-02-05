@@ -150,12 +150,6 @@ export const PublishNewWineDialog = ({
               {t("dashboardGlobalComponents.dialogs.publishWineDialog.title")}
             </DialogTitle>
             <DialogDescription>
-              {/* By confirming, you accept to make public your registered wine,
-              following all{" "}
-              <span className="italic">EU Wine Labeling Regulations</span>. Your
-              wine will be accessible by scanning our{" "}
-              <span className="font-bold">Tracecork</span> generated QR code or
-              by using our public and free wine explorer APP. */}
               <MarkdownPreviewer
                 content={t(
                   "dashboardGlobalComponents.dialogs.publishWineDialog.description",
