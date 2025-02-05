@@ -32,12 +32,6 @@ export const manageAccount = defineType({
       name: 'deleteAccount',
       title: 'Delete Account',
       type: 'object',
-      fields: [...accountCard.fields.map((f) => defineField(f))],
-    }),
-    defineField({
-      name: 'deleteAccount',
-      title: 'Delete Account',
-      type: 'object',
       fields: [
         defineField({
           name: 'label',
