@@ -30,10 +30,12 @@ import { PageHeader } from "@/components/layouts/page-header";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { Button } from "@repo/ui/components/ui/button";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 
 export const ManageAccountPage = () => {
   // * HOOKS
   const { t } = useTranslationHandler();
+
   const { user } = useAuth();
   const { device } = useResponsiveSize();
   const router = useRouter();
@@ -46,10 +48,14 @@ export const ManageAccountPage = () => {
   const [openDeleteNotification, setOpenDeleteNotification] =
     useState<boolean>(false);
 
+  const DELETE = t(
+    "manageAccount.deleteAccount.dialog.deleteInputField.placeholder",
+  );
+
   // * HANDLERS
   const handleValidateDelete = useCallback((value: string) => {
     setDeletValue(value);
-    if (value === "DELETE") {
+    if (value === DELETE) {
       setDisableDelete(false);
     } else {
       setDisableDelete(true);
@@ -145,9 +151,11 @@ export const ManageAccountPage = () => {
                 </DialogTrigger>
                 <DialogContent className="max-w-[360px]">
                   <DialogHeader>
-                    <DialogTitle>Change Password</DialogTitle>
+                    <DialogTitle>
+                      {t("manageAccount.changePassword.dialog.title")}
+                    </DialogTitle>
                     <DialogDescription>
-                      Change your account&apos;s password.
+                      {t("manageAccount.changePassword.dialog.description")}
                     </DialogDescription>
                   </DialogHeader>
                   {/*  */}
@@ -190,15 +198,22 @@ export const ManageAccountPage = () => {
               </DialogTrigger>
               <DialogContent className="max-w-[360px]">
                 <DialogHeader>
-                  <DialogTitle>Delete Account</DialogTitle>
+                  <DialogTitle>
+                    {t("manageAccount.deleteAccount.dialog.title")}
+                  </DialogTitle>
                   <DialogDescription>
-                    Are you sure you want to delete your account? Please type
-                    the word &quot;DELETE&quot; and confirm.
+                    <MarkdownPreviewer
+                      content={t(
+                        "manageAccount.deleteAccount.dialog.description",
+                      )}
+                    />
                   </DialogDescription>
                 </DialogHeader>
                 <Input
                   type="text"
-                  placeholder="DELETE"
+                  placeholder={t(
+                    "manageAccount.deleteAccount.dialog.deleteInputField.placeholder",
+                  )}
                   value={deletValue || ""}
                   onChange={(e) => handleValidateDelete(e.target.value)}
                   className="border bg-transparent px-4 py-3 text-sm shadow-none"
@@ -211,7 +226,9 @@ export const ManageAccountPage = () => {
                         device === "mobile" && "w-full",
                       )}
                     >
-                      Cancel
+                      {t(
+                        "manageAccount.deleteAccount.dialog.buttons.cancelButtonLabel",
+                      )}
                     </DialogClose>
                     <DialogClose
                       disabled={disableDelete}
@@ -222,7 +239,9 @@ export const ManageAccountPage = () => {
                       )}
                       onClick={handleDelete}
                     >
-                      Confirm
+                      {t(
+                        "manageAccount.deleteAccount.dialog.buttons.confirmButtonLabel",
+                      )}
                     </DialogClose>
                   </div>
                 </DialogFooter>
@@ -236,24 +255,27 @@ export const ManageAccountPage = () => {
               <DialogTitle></DialogTitle>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Delete Notice</DialogTitle>
+                  <DialogTitle>
+                    {t(
+                      "dashboardGlobalComponents.dialogs.deleteNoticeDialog.title",
+                    )}
+                  </DialogTitle>
                   <DialogDescription>
-                    Your account is scheduled for deletion and will be
-                    permanently removed in{" "}
-                    <span className="font-bold">30 days</span>. If you change
-                    your mind, you can cancel the request by logging into your
-                    account and updating your settings or contacting us at{" "}
-                    <span className="font-bold text-primary underline">
-                      {process.env.NEXT_PUBLIC_TRACECORK_EMAIL as string}
-                    </span>{" "}
-                    before the 30-day period ends. For questions or assistance,
-                    feel free to reach out. Thank you.
+                    <span className="delete-notice-description-container">
+                      <MarkdownPreviewer
+                        content={t(
+                          "dashboardGlobalComponents.dialogs.deleteNoticeDialog.description",
+                        )}
+                      />
+                    </span>
                   </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="flex justify-end">
                   <DialogClose asChild>
                     <Button type="button" variant="default">
-                      Ok
+                      {t(
+                        "dashboardGlobalComponents.dialogs.deleteNoticeDialog.buttons.confirmButtonLabel",
+                      )}
                     </Button>
                   </DialogClose>
                 </DialogFooter>
