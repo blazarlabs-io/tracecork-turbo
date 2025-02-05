@@ -26,9 +26,21 @@ export const verifyEmail = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'backButtonLable',
-      title: 'Back Button Label',
-      type: 'string',
+      name: 'sendAgainIn',
+      title: 'Send again in',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'message',
+          title: 'Message',
+          type: 'string',
+        }),
+        defineField({
+          name: 'units',
+          title: 'Units',
+          type: 'string',
+        }),
+      ],
     }),
   ],
 })

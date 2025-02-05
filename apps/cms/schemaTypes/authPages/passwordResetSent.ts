@@ -16,8 +16,13 @@ export const passwordResetSent = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'resentInMessage',
-      title: 'Resend in message',
+      name: 'question',
+      title: 'Question',
+      type: 'string',
+    }),
+    defineField({
+      name: 'resendIn',
+      title: 'Resend in',
       type: 'object',
       fields: [
         defineField({
