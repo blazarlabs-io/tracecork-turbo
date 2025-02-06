@@ -16,7 +16,29 @@ export const userSettings = defineType({
       name: 'autoSave',
       title: 'Auto Save',
       type: 'object',
-      fields: [...toastBase.fields.map((f) => defineField(f))],
+      fields: [
+        ...toastBase.fields.map((f) => defineField(f)),
+        defineField({
+          name: 'enabled',
+          title: 'Enabled Label',
+          type: 'string',
+        }),
+        defineField({
+          name: 'disabled',
+          title: 'Disabled Label',
+          type: 'string',
+        }),
+        defineField({
+          name: 'turnOn',
+          title: 'Turn On Label',
+          type: 'string',
+        }),
+        defineField({
+          name: 'turnOff',
+          title: 'Turn Off Label',
+          type: 'string',
+        }),
+      ],
     }),
     defineField({
       name: 'passwordChanged',
