@@ -47,8 +47,10 @@ export const DeleteWineDialog = ({
 
     // * TOAST
     toast({
-      title: "Wine archived",
-      description: `You have archived ${collectionName} successfully.`,
+      title: t("toasts.wines.archivedWine.title"),
+      description: t("toasts.wines.archivedWine.description", {
+        name: collectionName,
+      }),
     });
 
     // * Send email to user

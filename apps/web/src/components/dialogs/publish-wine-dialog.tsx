@@ -17,6 +17,7 @@ import {
 } from "@repo/ui/components/ui/tooltip";
 import { toast } from "@/hooks/use-toast";
 import { db } from "@/lib/firebase/services/db";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export interface PublishWineDialogProps {
   uid: string;
@@ -31,6 +32,8 @@ export const PublishWineDialog = ({
   collectionName,
   children,
 }: PublishWineDialogProps) => {
+  const { t } = useTranslationHandler();
+
   const handlePublish = async () => {
     await db.wine.update(uid, wineId, {
       status: "published",
@@ -38,8 +41,10 @@ export const PublishWineDialog = ({
     });
     // * TOAST
     toast({
-      title: "Wine published",
-      description: `You have published ${collectionName} successfully.`,
+      title: t("toasts.wines.publishWine.title"),
+      description: t("toasts.wines.publishWine.description", {
+        name: collectionName,
+      }),
     });
   };
 

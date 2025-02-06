@@ -70,24 +70,26 @@ export const LoginForm = () => {
 
         if (user.emailVerified) {
           toast({
-            description: "Login successful",
-            title: "Success",
             variant: "default",
+            title: t("toasts.auth.loginSuccess.title"),
+            description: t("toasts.auth.loginSuccess.description"),
           });
         } else {
           toast({
-            description: "Please verify your email",
-            title: "Error",
             variant: "destructive",
+            title: t("toasts.auth.verifyEmailError.title"),
+            description: t("toasts.auth.verifyEmailError.description"),
           });
           router.push("/verify-email");
         }
       })
       .catch((error) => {
         toast({
-          description: firebaseAuthErrors[error.code],
-          title: "Error",
           variant: "destructive",
+          title: t("toasts.globals.error.title"),
+          description: t("toasts.globals.error.description", {
+            message: firebaseAuthErrors[error.code],
+          }),
         });
       });
   };

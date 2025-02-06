@@ -44,8 +44,8 @@ export const UpgradePlanDialog = () => {
       .then(async (res) => {
         setSending(false);
         toast({
-          title: "Upgrade request sent",
-          description: "We will get back to you as soon as possible.",
+          title: t("toasts.userSettings.upgradeRequestSent.title"),
+          description: t("toasts.userSettings.upgradeRequestSent.description"),
         });
       })
       .catch((error) => {
@@ -53,8 +53,8 @@ export const UpgradePlanDialog = () => {
         setSending(false);
         toast({
           variant: "destructive",
-          title: "Something went wrong",
-          description: "Please try again later.",
+          title: t("toasts.globals.somethingWentWrong.title"),
+          description: t("toasts.globals.somethingWentWrong.description"),
         });
       });
   };
