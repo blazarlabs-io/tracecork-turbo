@@ -80,8 +80,8 @@ export const ContactForm = () => {
         setSending(false);
         toast({
           variant: "destructive",
-          title: "Something went wrong",
-          description: "Please try again later.",
+          title: t("toasts.globals.somethingWentWrong.title"),
+          description: t("toasts.globals.somethingWentWrong.description"),
         });
       });
   };
@@ -90,19 +90,23 @@ export const ContactForm = () => {
     <div className="flex w-[520px] flex-col gap-3">
       {success && (
         <Dialog open={success} onOpenChange={(open) => setSuccess(open)}>
-          <DialogTitle className="text-lg">
+          {/* <DialogTitle className="text-lg">
             Thanks for your message!
-          </DialogTitle>
+          </DialogTitle> */}
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Thanks for your message!</DialogTitle>
+              <DialogTitle>
+                {t("publicPages.contactPage.messageSuccess.title")}
+              </DialogTitle>
               <DialogDescription>
-                We will get back to you as soon as possible.
+                {t("publicPages.contactPage.messageSuccess.description")}
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
               <DialogClose className="rounded-md bg-primary px-4 py-2 text-primary-foreground">
-                Done
+                {t(
+                  "publicPages.contactPage.messageSuccess.buttons.cancelButtonLabel",
+                )}
               </DialogClose>
             </DialogFooter>
           </DialogContent>

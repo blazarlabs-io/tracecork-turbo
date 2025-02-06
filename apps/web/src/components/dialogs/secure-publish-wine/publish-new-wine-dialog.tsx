@@ -122,8 +122,10 @@ export const PublishNewWineDialog = ({
 
     // * TOAST
     toast({
-      title: "Wine published",
-      description: `You have published ${collectionName} successfully.`,
+      title: t("toasts.wines.publishWine.title"),
+      description: t("toasts.wines.publishWine.description", {
+        name: collectionName,
+      }),
     });
 
     if (onAction) onAction("PublishNewWineDialog");

@@ -126,8 +126,8 @@ export const WineForm = ({ wine }: WineFormProps) => {
 
           if (winery && !winery.settings?.autosave) {
             toast({
-              title: "Wine saved",
-              description: "Your wine changes has been saved to your account.",
+              title: t("toasts.wines.wineSaved.title"),
+              description: t("toasts.wines.wineSaved.description"),
             });
           }
         })

@@ -118,8 +118,8 @@ export const WineryForm = () => {
 
         if (winery && !winery.settings.autosave) {
           toast({
-            title: "Winery info updated",
-            description: "Your winery info has been updated.",
+            title: t("toasts.wines.wineryInfoUpdated.title"),
+            description: t("toasts.wines.wineryInfoUpdated.description"),
           });
         }
       })

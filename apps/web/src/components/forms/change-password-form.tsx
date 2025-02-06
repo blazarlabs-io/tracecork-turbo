@@ -66,17 +66,19 @@ export const ChangePasswordForm = () => {
               router.replace("/home");
             });
             toast({
-              description: "Password changed successfully",
-              title: "Success",
               variant: "default",
+              title: t("toasts.userSettings.passwordChanged.title"),
+              description: t("toasts.userSettings.passwordChanged.description"),
             });
           })
           .catch((error) => {
             console.log(error.code);
             toast({
-              description: firebaseAuthErrors[error.code],
-              title: "Error",
               variant: "destructive",
+              title: t("toasts.globals.error.title"),
+              description: t("toasts.globals.error.description", {
+                message: firebaseAuthErrors[error.code],
+              }),
             });
           });
       })
@@ -85,9 +87,11 @@ export const ChangePasswordForm = () => {
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
         toast({
-          description: firebaseAuthErrors[errorCode],
-          title: "Error",
           variant: "destructive",
+          title: t("toasts.globals.error.title"),
+          description: t("toasts.globals.error.description", {
+            message: firebaseAuthErrors[errorCode],
+          }),
         });
       });
   };

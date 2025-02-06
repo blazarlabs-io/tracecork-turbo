@@ -51,8 +51,11 @@ export const AutoSave = () => {
 
     // * TOAST
     toast({
-      title: "Autosave enabled",
-      description: `You have ${data.autosave ? "enabled" : "disabled"} autosave for your account. You can turn it off anytime.`,
+      title: t("toasts.userSettings.autoSave.title"),
+      description: t("toasts.userSettings.autoSave.description", {
+        autoSave: data.autosave ? "enabled" : "disabled",
+        onOff: data.autosave ? "off" : "on",
+      }),
     });
   };
 

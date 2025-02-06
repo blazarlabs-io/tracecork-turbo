@@ -88,16 +88,16 @@ export const ManageAccountPage = () => {
     })
       .then(async (res) => {
         toast({
-          title: "Account Deleted",
-          description: "Your account has been deleted.",
+          title: t("toasts.userSettings.accountDeleted.title"),
+          description: t("toasts.userSettings.accountDeleted.description"),
         });
         setOpenDeleteNotification(true);
       })
       .catch((error) => {
         console.error(error);
         toast({
-          title: "Error",
-          description: "There was an error deleting your account.",
+          title: t("toasts.userSettings.accountDeletedError.title"),
+          description: t("toasts.userSettings.accountDeletedError.description"),
         });
       });
   }, []);
