@@ -46,8 +46,10 @@ export const RestoreWineDialog = ({
 
     // * TOAST
     toast({
-      title: "Wine restored",
-      description: `You have restored ${collectionName} successfully.`,
+      title: t("toasts.wines.restoreWine.title"),
+      description: t("toasts.wines.restoreWine.description", {
+        name: collectionName,
+      }),
     });
 
     // * Send email to user
@@ -76,7 +78,7 @@ export const RestoreWineDialog = ({
               {children}
             </TooltipTrigger>
             <TooltipContent>
-              <p>Restore wine</p>
+              <p>{t("myWines.table.rowsActions.5.tooltip")}</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

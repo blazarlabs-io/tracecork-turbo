@@ -1,5 +1,6 @@
 import {defineField, defineType} from 'sanity'
-import {accountCard} from './accountCard'
+import {deleteAccountDialog} from './deleteAccountDialog'
+import {changePasswordDialog} from './changePasswordDialog'
 
 export const manageAccount = defineType({
   name: 'manageAccount',
@@ -26,7 +27,29 @@ export const manageAccount = defineType({
       name: 'changePassword',
       title: 'Change Password',
       type: 'object',
-      fields: [...accountCard.fields.map((f) => defineField(f))],
+      fields: [
+        defineField({
+          name: 'label',
+          title: 'Label',
+          type: 'string',
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'string',
+        }),
+        defineField({
+          name: 'buttonLabel',
+          title: 'Button Label',
+          type: 'string',
+        }),
+        defineField({
+          name: 'dialog',
+          title: 'Dialog',
+          type: 'object',
+          fields: [...changePasswordDialog.fields.map((f) => defineField(f))],
+        }),
+      ],
     }),
     defineField({
       name: 'deleteAccount',
@@ -52,7 +75,7 @@ export const manageAccount = defineType({
           name: 'dialog',
           title: 'Dialog',
           type: 'object',
-          fields: [...accountCard.fields.map((f) => defineField(f))],
+          fields: [...deleteAccountDialog.fields.map((f) => defineField(f))],
         }),
       ],
     }),

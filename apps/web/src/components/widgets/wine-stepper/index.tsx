@@ -55,7 +55,7 @@ export const WineStepper = ({ wineId, selectedStep }: WineStepperProps) => {
       <div className="flex w-full items-center justify-between">
         <div className="flex flex-col items-start justify-start gap-2">
           <span className="text-sm">
-            {`${t("wineStepper.currentStep")} ${stepper.current.index + 1} of ${steps.length}`}
+            {`${t("wineStepper.currentStep")} ${stepper.current.index + 1} / ${steps.length}`}
           </span>
           <PageHeader
             title={stepper.current.title}

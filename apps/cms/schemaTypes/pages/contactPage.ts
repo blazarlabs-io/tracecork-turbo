@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import {dialog} from '../dashboardGlobalComponents/dialog'
 
 export const contactPage = defineType({
   name: 'contactPage',
@@ -124,6 +125,12 @@ export const contactPage = defineType({
       name: 'errorMessage',
       title: 'Error Message',
       type: 'string',
+    }),
+    defineField({
+      name: 'messageSuccess',
+      title: 'Message Success Dialog',
+      type: 'object',
+      fields: [...dialog.fields.map((f) => defineField(f))],
     }),
   ],
 })
