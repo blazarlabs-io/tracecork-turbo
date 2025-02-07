@@ -47,8 +47,10 @@ export const DeleteWineDialog = ({
 
     // * TOAST
     toast({
-      title: "Wine archived",
-      description: `You have archived ${collectionName} successfully.`,
+      title: t("toasts.wines.archivedWine.title"),
+      description: t("toasts.wines.archivedWine.description", {
+        name: collectionName,
+      }),
     });
 
     // * Send email to user
@@ -88,10 +90,6 @@ export const DeleteWineDialog = ({
             {t("dashboardGlobalComponents.dialogs.deleteWineDialog.title")}
           </DialogTitle>
           <DialogDescription>
-            {/* For security reasons your wine will be{" "}
-            <span className="font-bold">archived</span>. If you wish to
-            permanently delete it, please contact us and we will take care of
-            it. */}
             <MarkdownPreviewer
               content={t(
                 "dashboardGlobalComponents.dialogs.deleteWineDialog.description",

@@ -28,9 +28,11 @@ import {
   FormMessage,
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const ChangePasswordForm = () => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const { user } = useAuth();
   const router = useRouter();
   const form = useForm<z.infer<typeof changePasswordFormSchema>>({
@@ -64,17 +66,19 @@ export const ChangePasswordForm = () => {
               router.replace("/home");
             });
             toast({
-              description: "Password changed successfully",
-              title: "Success",
               variant: "default",
+              title: t("toasts.userSettings.passwordChanged.title"),
+              description: t("toasts.userSettings.passwordChanged.description"),
             });
           })
           .catch((error) => {
             console.log(error.code);
             toast({
-              description: firebaseAuthErrors[error.code],
-              title: "Error",
               variant: "destructive",
+              title: t("toasts.globals.error.title"),
+              description: t("toasts.globals.error.description", {
+                message: firebaseAuthErrors[error.code],
+              }),
             });
           });
       })
@@ -83,9 +87,11 @@ export const ChangePasswordForm = () => {
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
         toast({
-          description: firebaseAuthErrors[errorCode],
-          title: "Error",
           variant: "destructive",
+          title: t("toasts.globals.error.title"),
+          description: t("toasts.globals.error.description", {
+            message: firebaseAuthErrors[errorCode],
+          }),
         });
       });
   };
@@ -102,12 +108,16 @@ export const ChangePasswordForm = () => {
           name={"currentPassword"}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Current Password</FormLabel>
+              <FormLabel>
+                {t("manageAccount.changePassword.dialog.currentPassword.label")}
+              </FormLabel>
               <FormControl>
                 <div className="relative flex items-center rounded-md border border-border bg-background text-foreground">
                   <Input
                     type={passwordVisibility ? "text" : "password"}
-                    placeholder="Current Password"
+                    placeholder={t(
+                      "manageAccount.changePassword.dialog.currentPassword.placeholder",
+                    )}
                     {...field}
                     className="border-0 bg-transparent px-4 py-3 text-sm shadow-none"
                   />
@@ -133,12 +143,16 @@ export const ChangePasswordForm = () => {
           name={"newPassword"}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>New Password</FormLabel>
+              <FormLabel>
+                {t("manageAccount.changePassword.dialog.newPassword.label")}
+              </FormLabel>
               <FormControl>
                 <div className="relative flex items-center rounded-md border border-border bg-background text-foreground">
                   <Input
                     type={passwordVisibility ? "text" : "password"}
-                    placeholder="New Password"
+                    placeholder={t(
+                      "manageAccount.changePassword.dialog.newPassword.placeholder",
+                    )}
                     {...field}
                     className="border-0 bg-transparent px-4 py-3 text-sm shadow-none"
                   />
@@ -164,12 +178,16 @@ export const ChangePasswordForm = () => {
           name={"confirmNewPassword"}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm New Password</FormLabel>
+              <FormLabel>
+                {t("manageAccount.changePassword.dialog.confirmPassword.label")}
+              </FormLabel>
               <FormControl>
                 <div className="relative flex items-center rounded-md border border-border bg-background text-foreground">
                   <Input
                     type={passwordVisibility ? "text" : "password"}
-                    placeholder="Confirm New Password"
+                    placeholder={t(
+                      "manageAccount.changePassword.dialog.confirmPassword.placeholder",
+                    )}
                     {...field}
                     className="border-0 bg-transparent px-4 py-3 text-sm shadow-none"
                   />
@@ -191,9 +209,13 @@ export const ChangePasswordForm = () => {
           )}
         />
         <div className="flex w-full items-center justify-end gap-4">
-          <DialogClose className="px-4 py-2 text-sm">Cancel</DialogClose>
+          <DialogClose className="px-4 py-2 text-sm">
+            {t("manageAccount.changePassword.dialog.buttons.cancelButtonLabel")}
+          </DialogClose>
           <Button size="lg" type="submit" className="">
-            Confirm
+            {t(
+              "manageAccount.changePassword.dialog.buttons.confirmButtonLabel",
+            )}
           </Button>
         </div>
       </form>

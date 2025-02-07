@@ -46,16 +46,16 @@ export const SubscriptionPage = () => {
     })
       .then(async (res) => {
         toast({
-          title: "Upgrade request sent",
-          description: "We will get back to you as soon as possible.",
+          title: t("toasts.userSettings.upgradeRequestSent.title"),
+          description: t("toasts.userSettings.upgradeRequestSent.description"),
         });
       })
       .catch((error) => {
         console.error(error);
         toast({
           variant: "destructive",
-          title: "Something went wrong",
-          description: "Please try again later.",
+          title: t("toasts.userSettings.somethingWentWrong.title"),
+          description: t("toasts.userSettings.somethingWentWrong.description"),
         });
       });
   };
@@ -89,11 +89,11 @@ export const SubscriptionPage = () => {
               <div className="flex flex-col items-center justify-center">
                 {qrCodesLeft > 0 ? (
                   <span className="text-foreground">
-                    {qrCodesLeft} of {qrCodesLimit} labels
+                    {qrCodesLeft} / {qrCodesLimit} labels
                   </span>
                 ) : (
                   <span className="text-destructive">
-                    {qrCodesLeft} of {qrCodesLimit} labels
+                    {qrCodesLeft} / {qrCodesLimit} labels
                   </span>
                 )}
               </div>
@@ -101,11 +101,11 @@ export const SubscriptionPage = () => {
               <div className="flex flex-col items-center justify-center">
                 {qrCodesLeft > 0 ? (
                   <span className="text-foreground">
-                    {`${qrCodesLeft} of ${qrCodesLimit} ${t("subscription.subscriptionCard.labelsRemainingText")}`}
+                    {`${qrCodesLeft} / ${qrCodesLimit} ${t("subscription.subscriptionCard.labelsRemainingText")}`}
                   </span>
                 ) : (
                   <span className="text-destructive">
-                    {`${qrCodesLeft} of ${qrCodesLimit} ${t("subscription.subscriptionCard.labelsRemainingText")}`}
+                    {`${qrCodesLeft} / ${qrCodesLimit} ${t("subscription.subscriptionCard.labelsRemainingText")}`}
                   </span>
                 )}
               </div>

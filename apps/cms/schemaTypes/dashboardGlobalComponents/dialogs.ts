@@ -52,7 +52,19 @@ export const dialogs = defineField({
       name: 'qrCodeQuotaExceededDialog',
       title: 'QR Code Quota Exceeded Dialog',
       type: 'object',
-      fields: [...dialog.fields.map((f) => defineField(f))],
+      fields: [
+        ...dialog.fields.map((f) => defineField(f)),
+        defineField({
+          name: 'upgradeActionLabel',
+          title: 'Upgrade Action Label',
+          type: 'string',
+        }),
+        defineField({
+          name: 'description2',
+          title: 'Description 2',
+          type: 'string',
+        }),
+      ],
     }),
     defineField({
       name: 'deleteNoticeDialog',

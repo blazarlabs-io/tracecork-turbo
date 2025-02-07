@@ -63,11 +63,11 @@ export const MyWinesPage = () => {
                   <QrCode size={14} className="text-destructive" />
                   {device === "mobile" ? (
                     <p className="pr-2 text-xs text-destructive">
-                      {qrCodesLeft} of {qrCodesLimit}
+                      {qrCodesLeft} / {qrCodesLimit}
                     </p>
                   ) : (
                     <p className="text-xs text-destructive">
-                      {`${qrCodesLeft} of ${qrCodesLimit} ${t("myWines.qrCodesRemainingText")}`}
+                      {`${qrCodesLeft} / ${qrCodesLimit} ${t("myWines.qrCodesRemainingText")}`}
                     </p>
                   )}
                 </>
@@ -76,11 +76,11 @@ export const MyWinesPage = () => {
                   <QrCode size={14} className="text-muted-foreground" />
                   {device === "mobile" ? (
                     <p className="pr-2 text-xs text-muted-foreground">
-                      {qrCodesLeft} of {qrCodesLimit}
+                      {qrCodesLeft} / {qrCodesLimit}
                     </p>
                   ) : (
                     <p className="text-xs text-muted-foreground">
-                      {`${qrCodesLeft} of ${qrCodesLimit} ${t("myWines.qrCodesRemainingText")}`}
+                      {`${qrCodesLeft} / ${qrCodesLimit} ${t("myWines.qrCodesRemainingText")}`}
                     </p>
                   )}
                 </>
