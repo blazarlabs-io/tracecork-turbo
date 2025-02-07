@@ -77,13 +77,17 @@ export const ConfirmEmailPage = ({ code }: any) => {
       )}
       {isError ? (
         <>
-          <h1 className="text-3xl pb-4 font-medium">We can not confirm.</h1>
+          <h1 className="text-3xl pb-4 font-medium">
+            {t("authPages.confirmEmail.errorMessage")}
+          </h1>
           <Button size="lg" onClick={handleContinueToTracecork}>
             {t("authPages.confirmEmail.continueButtonLabel")}
           </Button>
         </>
       ) : isConfirming ? (
-        <h1 className="text-3xl pb-4 font-medium">Confirming...</h1>
+        <h1 className="text-3xl pb-4 font-medium">
+          {t("authPages.confirmEmail.confirmMessage")}
+        </h1>
       ) : (
         <>
           <h1 className="text-3xl font-medium">
