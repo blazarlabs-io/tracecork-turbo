@@ -1,6 +1,7 @@
 import { initAdmin } from "@/lib/firebase/admin";
 import * as sgMail from "@sendgrid/mail";
 import { getAuth } from "firebase-admin/auth";
+import { emailTemplates } from "@/utils/email-templates";
 
 export async function POST(request: Request) {
   await initAdmin();
@@ -22,23 +23,21 @@ export async function POST(request: Request) {
     actionCodeSettings,
   );
 
-  console.log("URL", url);
-
-  const msg: any = {
+  const msg: sgMail.MailDataRequired = {
     to: data.email,
     from: process.env.NEXT_PUBLIC_TRACECORK_EMAIL as string, // Use the email address or domain you verified above
-    templateId: "d-a4ac8306b7b54068a466f749ffdc5ed2",
+    templateId: emailTemplates["confirmation-email"],
     personalizations: [
       {
         to: [{ email: data.email }],
-        dynamic_template_data: {
+        dynamicTemplateData: {
           verificationUrl: url,
         },
       },
     ],
   };
 
-  const res = await sgMail.send(msg);
+  await sgMail.send(msg);
 
   return Response.json({
     success: true,

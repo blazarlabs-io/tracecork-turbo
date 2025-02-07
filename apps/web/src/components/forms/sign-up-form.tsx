@@ -7,7 +7,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
-  sendEmailVerification,
   signInWithPopup,
 } from "firebase/auth";
 import Image from "next/image";
@@ -23,8 +22,11 @@ import { SignUpPasswordInputField } from "./signup-password-input-field";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import "./login-form-styles.css";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
+import { sendVerificationEmailService } from "@/services/auth/auth-emails-services";
+import { sendRecaptchaService } from "@/services/auth/recaptcha-services";
 
 export const SignUpForm = () => {
+  const [isSingingUp, setIsSingingUp] = useState(false);
   const { t } = useTranslationHandler();
   const provider = new GoogleAuthProvider();
 
@@ -44,22 +46,21 @@ export const SignUpForm = () => {
   const [isVerified, setIsVerified] = useState(false);
 
   // * HANDLERS
-  const onSubmit = (values: z.infer<typeof signUpFormSchema>) => {
-    // * Create user with email and password
-    createUserWithEmailAndPassword(auth, values.email, values.password)
-      .then(async (userCredential) => {
-        // Signed in
-        const user = userCredential.user;
+  const onSubmit = async (values: z.infer<typeof signUpFormSchema>) => {
+    try {
+      setIsSingingUp(true);
+      // * Create user with email and password
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password,
+      );
+      // Signed in
+      const user = userCredential.user;
+      const userEmail = user.email ? user.email : values.email;
 
-        console.log("USER:", user);
-
-        await fetch("/api/send-verification-email", {
-          method: "POST",
-          body: JSON.stringify({
-            email: user.email,
-          }),
-        });
-      })
+      // console.log("USER:", user);
+      await sendVerificationEmailService(userEmail);
 
       // sendEmailVerification(user, {
       //   handleCodeInApp: true,
@@ -76,38 +77,32 @@ export const SignUpForm = () => {
       //     const credential = GoogleAuthProvider.credentialFromError(error);
       //     console.log(errorCode, errorMessage, email, credential);
       //   });
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+    } catch (error: any) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    } finally {
+      setIsSingingUp(false);
+    }
   };
 
-  const handleSignInWithGoogle = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {})
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(errorCode, errorMessage, email, credential);
-      });
+  const handleSignInWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error: any) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      const email = error.customData.email;
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      console.log(errorCode, errorMessage, email, credential);
+    }
   };
 
   const handleCaptchaSubmission = async (token: string | null) => {
     try {
-      if (token) {
-        await fetch("/api/recaptcha", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ token }),
-        });
-        setIsVerified(true);
-      }
+      if (!token) return;
+      await sendRecaptchaService(token);
+      setIsVerified(true);
     } catch (e) {
       setIsVerified(false);
     }
@@ -138,6 +133,7 @@ export const SignUpForm = () => {
             formControl={
               form.control as Control<z.infer<typeof signUpFormSchema>>
             }
+            isDisabled={isSingingUp}
           />
           <SignUpPasswordInputField
             name="password"
@@ -145,6 +141,7 @@ export const SignUpForm = () => {
             formControl={
               form.control as Control<z.infer<typeof signUpFormSchema>>
             }
+            isDisabled={isSingingUp}
           />
           <SignUpPasswordInputField
             name="confirmPassword"
@@ -154,6 +151,7 @@ export const SignUpForm = () => {
             formControl={
               form.control as Control<z.infer<typeof signUpFormSchema>>
             }
+            isDisabled={isSingingUp}
           />
           <div className="flex w-full items-center justify-center">
             <ReCAPTCHA
@@ -166,7 +164,7 @@ export const SignUpForm = () => {
             />
           </div>
           <Button
-            disabled={!isVerified}
+            disabled={!isVerified || isSingingUp}
             size="lg"
             type="submit"
             className="w-full"
@@ -192,9 +190,14 @@ export const SignUpForm = () => {
         <div className="h-[1px] w-full bg-border" />
       </div>
       <button
-        disabled={!isVerified}
+        disabled={!isVerified || isSingingUp}
         onClick={handleSignInWithGoogle}
-        className="flex w-full min-w-[320px] max-w-[320px] items-center justify-center gap-3 rounded-md border border-border bg-foreground px-4 py-2 text-base text-background disabled:bg-slate-400 disabled:text-slate-300"
+        className={cn(
+          "w-full min-w-[320px] max-w-[320px]",
+          "flex items-center justify-center gap-3",
+          "rounded-md border border-border bg-foreground px-4 py-2 text-base text-background",
+          "disabled:bg-slate-400 disabled:text-slate-300",
+        )}
       >
         <Image
           src="/images/google-color-icon.svg"
