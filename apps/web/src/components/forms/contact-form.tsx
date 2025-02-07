@@ -181,7 +181,7 @@ export const ContactForm = () => {
                 {sending ? (
                   <LoaderCircle className="animate-spin text-primary-foreground" />
                 ) : (
-                  t("contactPage.buttonLabel")
+                  t("publicPages.contactPage.buttonLabel")
                 )}
               </Button>
             </div>
