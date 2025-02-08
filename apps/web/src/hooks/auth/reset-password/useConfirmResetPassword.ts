@@ -10,7 +10,7 @@ export const useConfirmResetPassword = (oobCode: string) => {
   const confirmHandler = useCallback(async () => {
     try {
       setIsError(false);
-      const action = await checkActionCode(auth, oobCode + "123");
+      const action = await checkActionCode(auth, oobCode);
       if (action.operation !== "PASSWORD_RESET") {
         setIsError(true);
       }
