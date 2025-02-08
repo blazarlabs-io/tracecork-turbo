@@ -33,7 +33,7 @@ export const loginFormSchema = z.object({
 });
 
 export const forgotPasswordSchema = z.object({
-  email: z.string().email(),
+  email: z.string().email().min(1),
 });
 
 export const contactFormSchema = z.object({

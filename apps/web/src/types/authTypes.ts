@@ -1,3 +1,7 @@
+export type LoginStorage = {
+  email: string;
+};
+
 export type ForgotPassStorage = {
   email: string;
 };
