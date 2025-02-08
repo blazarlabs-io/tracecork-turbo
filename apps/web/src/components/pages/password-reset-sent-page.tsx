@@ -1,35 +1,36 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import { Button } from "@repo/ui/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import { useCustomCountDown } from "@/hooks/use-custom-count-down";
+import { sendPasswordRecoveryEmailService } from "@/services/auth/auth-emails-services";
+import { useState } from "react";
+import { cn } from "@repo/ui/lib/utils";
+import { useGetForgotPassEmail } from "@/hooks/auth/useGetForgotPassEmail";
 
 export const PasswordResetSentPage = () => {
+  const [isSubmiting, setIsSubmiting] = useState(false);
   // * HOOKS
   const { t } = useTranslationHandler();
   const router = useRouter();
 
-  // * STATES
-  const [resendTimer, setResendTimer] = useState<NodeJS.Timeout | null>(null);
-  const [timeLeft, setTimeLeft] = useState<number>(30);
+  const { forgotPassEmail } = useGetForgotPassEmail();
+  const { timeLeft, startCountDown } = useCustomCountDown(30);
 
-  // * HANDLERS
-  const handleTimer = () => {
-    let counter = timeLeft;
-    setResendTimer(
-      setInterval(() => {
-        counter--;
-        setTimeLeft(counter);
-        if (counter <= 0) {
-          clearInterval(resendTimer!);
-          setResendTimer(null);
-          setTimeLeft(30);
-        }
-      }, 1000),
-    );
+  const resendHandler = async () => {
+    try {
+      if (!forgotPassEmail) return;
+      setIsSubmiting(true);
+      await sendPasswordRecoveryEmailService(forgotPassEmail);
+      startCountDown();
+    } catch (error) {
+      console.error("Error submiting forgot password request");
+    } finally {
+      setIsSubmiting(false);
+    }
   };
 
   return (
@@ -46,14 +47,17 @@ export const PasswordResetSentPage = () => {
       <p className="text-center">{t("authPages.passwordResetSent.message")}</p>
       <p className="text-center">
         {`${t("authPages.passwordResetSent.question")} `}
-        {resendTimer ? (
+        {timeLeft >= 0 ? (
           <span className="text-primary">
-            {`${t("authPages.passwordResetSent.resendIn.message")} ${timeLeft} ${t("authPages.passwordResetSent.resendIn.units")}`}
+            {t("authPages.passwordResetSent.resendInMessage", {
+              timeLeft,
+            })}
           </span>
         ) : (
           <button
-            className="text-primary underline"
-            onClick={() => handleTimer()}
+            disabled={isSubmiting}
+            className={cn("text-primary underline", "disabled:opacity-50")}
+            onClick={() => resendHandler()}
           >
             {t("authPages.passwordResetSent.resendButtonLable")}
           </button>

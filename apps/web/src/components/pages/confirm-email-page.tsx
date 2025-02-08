@@ -8,8 +8,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@repo/ui/components/ui/button";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import { emailTemplates } from "@/utils/email-templates";
+import { ConfirmEmailParamsType } from "@/types/authTypes";
 
-export const ConfirmEmailPage = ({ code }: any) => {
+export const ConfirmEmailPage = ({ oobCode }: ConfirmEmailParamsType) => {
   const { t } = useTranslationHandler();
   const { user } = useAuth();
   const mountRef = useRef<boolean>(false);
@@ -25,6 +26,7 @@ export const ConfirmEmailPage = ({ code }: any) => {
     async (auth: Auth, actionCode: string, user: User | null) => {
       try {
         const acion = await checkActionCode(auth, actionCode);
+        console.log(acion);
         if (acion.operation !== "VERIFY_EMAIL")
           throw new Error("Operation not allowed");
 
@@ -59,11 +61,11 @@ export const ConfirmEmailPage = ({ code }: any) => {
   useEffect(() => {
     if (mountRef.current) return;
     const timeoutId = setTimeout(() => {
-      handleVerifyEmail(auth, code, user);
+      handleVerifyEmail(auth, oobCode, user);
       mountRef.current = true;
     }, 300);
     return () => clearTimeout(timeoutId);
-  }, [code, user, handleVerifyEmail]);
+  }, [oobCode, user, handleVerifyEmail]);
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
