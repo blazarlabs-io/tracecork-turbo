@@ -21,7 +21,6 @@ export const sendPasswordRecoveryEmailService = async (email: string) => {
       },
       body: JSON.stringify({
         email: email,
-        templateId: "d-96f3802db81c4cafbdcf92822ef1ee61",
       }),
     });
   } catch (error) {
