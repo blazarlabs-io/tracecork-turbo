@@ -50,15 +50,15 @@ export const PasswordResetPage = ({ oobCode }: ConfirmEmailParamsType) => {
     <div className="flex w-full min-w-[360px] max-w-[360px] flex-col gap-3 rounded-[12px] border p-6">
       {isConfirming ? (
         <h1 className="text-3xl pb-4 font-medium">
-          {t("authPages.confirmEmail.confirmMessage")}
+          {t("authPages.resetPassword.confirmMessage")}
         </h1>
       ) : isError ? (
         <>
           <h1 className="text-3xl pb-4 font-medium">
-            {t("authPages.confirmEmail.errorMessage")}
+            {t("authPages.resetPassword.errorMessage")}
           </h1>
           <Button size="lg" onClick={handleContinue}>
-            {t("authPages.confirmEmail.continueButtonLabel")}
+            {t("authPages.resetPassword.backButtonLable")}
           </Button>
         </>
       ) : (
