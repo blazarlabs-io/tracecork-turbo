@@ -39,7 +39,9 @@ export const ResetPasswordForm = ({ disalbed, form, onSubmit }: Props) => {
   return (
     <>
       <div className="mb-4">
-        <h1 className="text-center text-2xl font-semibold">reset</h1>
+        <h1 className="text-center text-2xl font-semibold">
+          {t("authPages.resetPassword.title")}
+        </h1>
       </div>
       <Form {...form}>
         <form
@@ -52,7 +54,7 @@ export const ResetPasswordForm = ({ disalbed, form, onSubmit }: Props) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  {t("manageAccount.changePassword.dialog.newPassword.label")}
+                  {t("authPages.resetPassword.newPassword.label")}
                 </FormLabel>
                 <FormControl>
                   <div className="relative flex items-center rounded-md border border-border bg-background text-foreground">
@@ -60,7 +62,7 @@ export const ResetPasswordForm = ({ disalbed, form, onSubmit }: Props) => {
                       disabled={disalbed}
                       type={passwordVisibility ? "text" : "password"}
                       placeholder={t(
-                        "manageAccount.changePassword.dialog.newPassword.placeholder",
+                        "authPages.resetPassword.newPassword.placeholder",
                       )}
                       {...field}
                       className="border-0 bg-transparent px-4 py-3 text-sm shadow-none"
@@ -88,9 +90,7 @@ export const ResetPasswordForm = ({ disalbed, form, onSubmit }: Props) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  {t(
-                    "manageAccount.changePassword.dialog.confirmPassword.label",
-                  )}
+                  {t("authPages.resetPassword.confirmNewPassword.label")}
                 </FormLabel>
                 <FormControl>
                   <div className="relative flex items-center rounded-md border border-border bg-background text-foreground">
@@ -98,7 +98,7 @@ export const ResetPasswordForm = ({ disalbed, form, onSubmit }: Props) => {
                       disabled={disalbed}
                       type={passwordVisibility ? "text" : "password"}
                       placeholder={t(
-                        "manageAccount.changePassword.dialog.confirmPassword.placeholder",
+                        "authPages.resetPassword.confirmNewPassword.placeholder",
                       )}
                       {...field}
                       className="border-0 bg-transparent px-4 py-3 text-sm shadow-none"
@@ -126,7 +126,7 @@ export const ResetPasswordForm = ({ disalbed, form, onSubmit }: Props) => {
             type="submit"
             className="w-full"
           >
-            {t("publicComponents.login.loginButtonLabel")}
+            {t("authPages.resetPassword.sendButtonLable")}
           </Button>
         </form>
       </Form>
