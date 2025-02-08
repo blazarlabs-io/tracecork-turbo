@@ -2,15 +2,22 @@
 
 import { useAuth } from "@/context/auth";
 import { auth } from "@/lib/firebase/client";
-import { applyActionCode, Auth, checkActionCode, User } from "firebase/auth";
+import {
+  ActionCodeInfo,
+  applyActionCode,
+  checkActionCode,
+} from "firebase/auth";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@repo/ui/components/ui/button";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import { emailTemplates } from "@/utils/email-templates";
 import { ConfirmEmailParamsType } from "@/types/authTypes";
+import { useRouter } from "next/navigation";
 
-export const ConfirmEmailPage = ({ oobCode }: ConfirmEmailParamsType) => {
+export const ConfirmEmailPage = (params: ConfirmEmailParamsType) => {
+  const { oobCode } = params;
+  const router = useRouter();
   const { t } = useTranslationHandler();
   const { user } = useAuth();
   const mountRef = useRef<boolean>(false);
@@ -23,49 +30,66 @@ export const ConfirmEmailPage = ({ oobCode }: ConfirmEmailParamsType) => {
   };
 
   const handleVerifyEmail = useCallback(
-    async (auth: Auth, actionCode: string, user: User | null) => {
-      try {
-        const acion = await checkActionCode(auth, actionCode);
-        console.log(acion);
-        if (acion.operation !== "VERIFY_EMAIL")
-          throw new Error("Operation not allowed");
+    async (action: ActionCodeInfo) => {
+      if (action.operation !== "VERIFY_EMAIL")
+        throw new Error("Operation not allowed");
 
-        const userName = user ? user.displayName : "";
-        const userEmail = user ? user.email : "";
-        const dataEmail = acion.data.email;
-        const email = dataEmail || userEmail;
-        if (!email) throw new Error("Email not found");
+      const userName = user ? user.displayName : "";
+      const userEmail = user ? user.email : "";
+      const dataEmail = action.data.email;
+      const email = dataEmail || userEmail;
+      if (!email) throw new Error("Email not found");
 
-        await applyActionCode(auth, actionCode);
-        // * The user's email address has been verified. Send welcome email
-        await fetch(`/api/send-email`, {
-          method: "POST",
-          body: JSON.stringify({
-            to: email,
-            templateId: emailTemplates["welcome-email"],
-            dynamic_template_data: {
-              user: userName || email,
-            },
-          }),
-        });
-        setIsConfirming(false);
-        setIsError(false);
-      } catch (error) {
-        console.error("Error verifing email");
-        setIsError(true);
-      }
+      await applyActionCode(auth, oobCode);
+      // * The user's email address has been verified. Send welcome email
+      await fetch(`/api/send-email`, {
+        method: "POST",
+        body: JSON.stringify({
+          to: email,
+          templateId: emailTemplates["welcome-email"],
+          dynamic_template_data: {
+            user: userName || email,
+          },
+        }),
+      });
+      setIsConfirming(false);
     },
-    [],
+    [oobCode, user],
   );
+
+  const passwordResetHandler = useCallback(
+    async (action: ActionCodeInfo) => {
+      if (action.operation !== "PASSWORD_RESET")
+        throw new Error("Operation not allowed");
+      const queryParams = new URLSearchParams({ ...params });
+      router.replace(`/password-reset?${queryParams.toString()}`);
+    },
+    [params],
+  );
+
+  const mainHandler = useCallback(async () => {
+    try {
+      setIsError(false);
+      const action = await checkActionCode(auth, oobCode);
+      if (action.operation === "VERIFY_EMAIL") {
+        await handleVerifyEmail(action);
+      } else if (action.operation === "PASSWORD_RESET") {
+        passwordResetHandler(action);
+      }
+    } catch (error) {
+      console.error(error);
+      setIsError(true);
+    }
+  }, [oobCode, handleVerifyEmail, passwordResetHandler]);
 
   useEffect(() => {
     if (mountRef.current) return;
     const timeoutId = setTimeout(() => {
-      handleVerifyEmail(auth, oobCode, user);
+      mainHandler();
       mountRef.current = true;
     }, 300);
     return () => clearTimeout(timeoutId);
-  }, [oobCode, user, handleVerifyEmail]);
+  }, [mainHandler]);
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">

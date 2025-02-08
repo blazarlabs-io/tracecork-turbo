@@ -9,7 +9,7 @@ import { useCustomCountDown } from "@/hooks/use-custom-count-down";
 import { sendPasswordRecoveryEmailService } from "@/services/auth/auth-emails-services";
 import { useState } from "react";
 import { cn } from "@repo/ui/lib/utils";
-import { useGetForgotPassEmail } from "@/hooks/auth/useGetForgotPassEmail";
+import { useGetForgotPassEmail } from "@/hooks/auth";
 
 export const PasswordResetSentPage = () => {
   const [isSubmiting, setIsSubmiting] = useState(false);
