@@ -5,14 +5,11 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { ConfirmEmailParamsType } from "@/types/authTypes";
-import { checkActionCode } from "firebase/auth";
+import { checkActionCode, confirmPasswordReset } from "firebase/auth";
 import { ResetPasswordForm } from "../../forms/reset-password-form";
 import { passwordResetFormSchema } from "@/data/form-schemas";
 import { z } from "zod";
-import {
-  useConfirmResetPassword,
-  useResetPasswordForm,
-} from "~/src/hooks/auth";
+import { useConfirmResetPassword, useResetPasswordForm } from "@/hooks/auth";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import { Button } from "@repo/ui/components/ui/button";
 
@@ -32,9 +29,9 @@ export const PasswordResetPage = ({ oobCode }: ConfirmEmailParamsType) => {
       const action = await checkActionCode(auth, oobCode);
       if (action.operation !== "PASSWORD_RESET")
         throw new Error("Operation not allowed");
-      // const { newPassword } = values;
-      console.log({ oobCode, values });
-      // await confirmPasswordReset(auth, oobCode, newPassword);
+      const { newPassword } = values;
+      await confirmPasswordReset(auth, oobCode, newPassword);
+      router.replace("/login");
     } catch (error) {
       console.error(error);
     } finally {
