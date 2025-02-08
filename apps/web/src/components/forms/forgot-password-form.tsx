@@ -52,6 +52,7 @@ export const ForgotPasswordForm = () => {
       setIsSubmiting(false);
     }
   };
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col items-center justify-center gap-2">
@@ -89,7 +90,11 @@ export const ForgotPasswordForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full" disabled={isSubmiting}>
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={isSubmiting || !form.formState.isValid}
+          >
             {t("authPages.forgotPassword.sendButtonLable")}
           </Button>
           <Button

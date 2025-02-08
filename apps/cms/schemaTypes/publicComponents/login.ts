@@ -17,6 +17,11 @@ export const login = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'googleButtonTooltip',
+      title: 'Google Button Tooltip',
+      type: 'string',
+    }),
+    defineField({
       name: 'separatorText',
       title: 'Separator Text',
       type: 'string',
