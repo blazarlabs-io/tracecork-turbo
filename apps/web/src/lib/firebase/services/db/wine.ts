@@ -13,7 +13,7 @@ import {
 import { db } from "../../client";
 import { Wine, DbResponse } from "@/types/db";
 
-export const wine: any = {
+export const wine = {
   set: async (uid: string, wine: Wine): Promise<DbResponse> => {
     try {
       const wineryRef = doc(db, "wineries", uid);
