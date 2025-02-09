@@ -26,6 +26,8 @@ import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 import { SecurePublishWineDialogProps } from "../secure-publish-wine-dialog";
 import MarkdownPreviewer from "../../markdown-previewer/MarkdownPreviewer";
+import { sendEmailService } from "@/services/email-services";
+import { emailTemplates } from "@/utils/email-templates";
 
 export const PublishNewWineDialog = ({
   children,
@@ -80,17 +82,15 @@ export const PublishNewWineDialog = ({
               await db.qrcode.set(uid, dynamicQrCodeTemplate);
 
               // * Send email to user
-              await fetch("/api/send-email", {
-                method: "POST",
-                body: JSON.stringify({
-                  to: user?.email,
-                  templateId: "d-e43ea96c084e472abf812e22f2412c8e",
-                  dynamic_template_data: {
-                    user: (user?.displayName as string) || user?.email,
-                    wineUrl: dynamicQrCodeTemplate.redirectUrl,
-                    qrCodeUrl: dynamicQrCodeTemplate.imageUrl,
-                  },
-                }),
+              if (!user?.email) return;
+              await sendEmailService({
+                toEmail: user?.email,
+                templateId: emailTemplates["qr-code-generation"],
+                dynamicTemplateData: {
+                  user: (user?.displayName as string) || user?.email,
+                  wineUrl: dynamicQrCodeTemplate.redirectUrl,
+                  qrCodeUrl: dynamicQrCodeTemplate.imageUrl,
+                },
               });
             },
           )

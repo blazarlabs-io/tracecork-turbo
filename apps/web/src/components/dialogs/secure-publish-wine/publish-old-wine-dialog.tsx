@@ -20,6 +20,8 @@ import { db } from "@/lib/firebase/services/db";
 import { useCallback } from "react";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../../markdown-previewer/MarkdownPreviewer";
+import { sendEmailService } from "@/services/email-services";
+import { emailTemplates } from "@/utils/email-templates";
 
 interface PublishOldWineDialogProps {
   children: React.ReactNode;
@@ -60,16 +62,14 @@ export const PublishOldWineDialog = ({
     });
 
     // * Send email to user
-    await fetch("/api/send-email", {
-      method: "POST",
-      body: JSON.stringify({
-        to: user?.email,
-        templateId: "d-dafcb6f19cf841b690457b8d91f30264",
-        dynamic_template_data: {
-          user: (user?.displayName as string) || user?.email,
-          wineUrl: `${process.env.NEXT_PUBLIC_DYNAMIC_QR_CODES_REDIRECT_URL as string}${wineId}`,
-        },
-      }),
+    if (!user?.email) return;
+    await sendEmailService({
+      toEmail: user.email,
+      templateId: emailTemplates["publish-wine"],
+      dynamicTemplateData: {
+        user: user?.displayName || user?.email,
+        wineUrl: `${process.env.NEXT_PUBLIC_DYNAMIC_QR_CODES_REDIRECT_URL as string}${wineId}`,
+      },
     });
 
     if (onAction) onAction("PublishOldWineDialog");

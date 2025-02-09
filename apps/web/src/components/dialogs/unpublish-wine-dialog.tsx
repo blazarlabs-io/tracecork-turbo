@@ -20,6 +20,8 @@ import { toast } from "@/hooks/use-toast";
 import { db } from "@/lib/firebase/services/db";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
+import { sendEmailService } from "@/services/email-services";
+import { emailTemplates } from "@/utils/email-templates";
 
 export interface PublishWineDialogProps {
   uid: string;
@@ -53,16 +55,14 @@ export const UnpublishWineDialog = ({
     });
 
     // * Send email to user
-    await fetch("/api/send-email", {
-      method: "POST",
-      body: JSON.stringify({
-        to: user?.email,
-        templateId: "d-e5083bf8aa8447f180c4d5a58224cb70",
-        dynamic_template_data: {
-          user: (user?.displayName as string) || user?.email,
-          wineId: wineId,
-        },
-      }),
+    if (!user?.email) return;
+    await sendEmailService({
+      toEmail: user.email,
+      templateId: emailTemplates["unpublish-wine"],
+      dynamicTemplateData: {
+        user: (user?.displayName as string) || user?.email,
+        wineId: wineId,
+      },
     });
   };
 
