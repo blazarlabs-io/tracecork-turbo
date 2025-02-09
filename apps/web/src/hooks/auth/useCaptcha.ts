@@ -2,9 +2,9 @@ import { useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { sendRecaptchaService } from "~/src/services/auth";
 
-export const useLoginCaptcha = () => {
+export const useCaptcha = () => {
   const recaptchaRef = useRef<typeof ReCAPTCHA>(null);
-  const [isVerified, setIsVerified] = useState(false);
+  const [isVerified, setIsVerified] = useState(true);
 
   const handleExpired = () => {
     setIsVerified(false);

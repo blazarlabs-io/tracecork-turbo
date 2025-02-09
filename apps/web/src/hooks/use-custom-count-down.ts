@@ -8,7 +8,6 @@ export const useCustomCountDown = (timeCount: number) => {
   // * HANDLERS
   const startCountDown = () => {
     let counter = timeCount;
-    setTimeLeft(counter);
     clearInterval(resendTimer ? resendTimer : 0);
     const intervalId = setInterval(() => {
       setTimeLeft(counter);

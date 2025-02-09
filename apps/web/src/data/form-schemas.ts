@@ -29,7 +29,7 @@ export const signUpFormSchema = z
 
 export const loginFormSchema = z.object({
   email: z.string().email(),
-  password: z.string(),
+  password: z.string().min(1),
 });
 
 export const forgotPasswordSchema = z.object({

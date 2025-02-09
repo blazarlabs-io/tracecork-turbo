@@ -41,10 +41,7 @@ export const ContactForm = () => {
   const form = useForm<z.infer<typeof contactFormSchema>>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      email:
-        (typeof window !== "undefined" &&
-          window.localStorage.getItem("email")) ||
-        "",
+      email: "",
       message: "",
     },
   });
