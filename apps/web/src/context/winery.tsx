@@ -7,7 +7,7 @@ import { useAuth } from "./auth";
 import { wineryTemplate } from "@/data/templates";
 import { db as firestoreDb } from "@/lib/firebase/client";
 import { db } from "@/lib/firebase/services/db";
-import { collection, doc, onSnapshot } from "firebase/firestore";
+import { collection, doc, onSnapshot, Unsubscribe } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
 
 export interface WineryContextInterface {
@@ -43,9 +43,9 @@ export const WineryProvider = ({
   const [qrCodes, setQrCodes] = useState<DynamicQrCode[] | null>(null);
 
   useEffect(() => {
-    let unsubscribeWinery: any;
-    let unsubscribeWine: any;
-    let unsubscribeQrCodes: any;
+    let unsubscribeWinery: Unsubscribe;
+    let unsubscribeWine: Unsubscribe;
+    let unsubscribeQrCodes: Unsubscribe;
 
     if (user) {
       // * realtime wineries collection subscription
@@ -91,6 +91,7 @@ export const WineryProvider = ({
     return () => {
       if (unsubscribeWinery) unsubscribeWinery();
       if (unsubscribeWine) unsubscribeWine();
+      if (unsubscribeQrCodes) unsubscribeQrCodes();
     };
   }, [user]);
 
