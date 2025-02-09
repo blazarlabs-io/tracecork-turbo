@@ -1,6 +1,6 @@
 import { checkActionCode } from "firebase/auth";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { auth } from "~/src/lib/firebase/client";
+import { auth } from "@/lib/firebase/client";
 
 export const useConfirmResetPassword = (oobCode: string) => {
   const mountRef = useRef<boolean>(false);

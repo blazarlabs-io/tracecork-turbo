@@ -15,7 +15,7 @@ import {
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
-import { useResetPasswordForm } from "~/src/hooks/auth/reset-password/useResetPasswordForm";
+import { useResetPasswordForm } from "@/hooks/auth/reset-password/useResetPasswordForm";
 import { z } from "zod";
 import { passwordResetFormSchema } from "@/data/form-schemas";
 
