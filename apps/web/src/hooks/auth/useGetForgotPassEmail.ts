@@ -1,5 +1,5 @@
-import { ForgotPassStorage } from "~/src/types/authTypes";
-import { FORGOT_PASS_KEY } from "~/src/utils/authConstants";
+import { ForgotPassStorage } from "@/types/authTypes";
+import { FORGOT_PASS_KEY } from "@/utils/authConstants";
 import { useLocalStorage } from "../use-local-storage";
 import { useEffect, useState } from "react";
 

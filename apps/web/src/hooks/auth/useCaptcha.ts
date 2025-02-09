@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import { sendRecaptchaService } from "~/src/services/auth";
+import { sendRecaptchaService } from "@/services/auth";
 
 export const useCaptcha = () => {
   const recaptchaRef = useRef<typeof ReCAPTCHA>(null);

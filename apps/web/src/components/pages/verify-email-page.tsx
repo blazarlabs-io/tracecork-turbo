@@ -4,8 +4,8 @@ import { useAuth } from "@/context/auth";
 import Image from "next/image";
 import { use, useState } from "react";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
-import { sendVerificationEmailService } from "~/src/services/auth/auth-emails-services";
-import { useCustomCountDown } from "~/src/hooks/use-custom-count-down";
+import { sendVerificationEmailService } from "@/services/auth/auth-emails-services";
+import { useCustomCountDown } from "@/hooks/use-custom-count-down";
 import { cn } from "@repo/ui/lib/utils";
 
 export const VerifyEmailPage = () => {

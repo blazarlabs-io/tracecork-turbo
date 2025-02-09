@@ -28,6 +28,10 @@ import { SecurePublishWineDialogProps } from "../secure-publish-wine-dialog";
 import MarkdownPreviewer from "../../markdown-previewer/MarkdownPreviewer";
 import { sendEmailService } from "@/services/email-services";
 import { emailTemplates } from "@/utils/email-templates";
+import {
+  NEXT_PUBLIC_DYNAMIC_QR_CODES_REDIRECT_URL,
+  NEXT_PUBLIC_DYNAMIC_QR_CODES_STATIC_URL,
+} from "@/utils/envConstants";
 
 export const PublishNewWineDialog = ({
   children,
@@ -48,7 +52,7 @@ export const PublishNewWineDialog = ({
   // * HANDLE QR CODE
   const handleQrCode = useCallback(
     async (qrCodeImageFile: File) => {
-      const qrCodeRes = await db.qrcode.getOne(uid, wineId);
+      const qrCodeRes = await db.qrCode.getOne(uid, wineId);
 
       // * Check if wine has QR code already, if not, generate it
       if (!qrCodeRes.data) {
@@ -75,11 +79,11 @@ export const PublishNewWineDialog = ({
               dynamicQrCodeTemplate.uid = uid as string;
               dynamicQrCodeTemplate.wineId = wineId;
               dynamicQrCodeTemplate.imageUrl = url;
-              dynamicQrCodeTemplate.staticUrl = `${process.env.NEXT_PUBLIC_DYNAMIC_QR_CODES_STATIC_URL as string}${wineId}`;
-              dynamicQrCodeTemplate.redirectUrl = `${process.env.NEXT_PUBLIC_DYNAMIC_QR_CODES_REDIRECT_URL as string}${wineId}`;
+              dynamicQrCodeTemplate.staticUrl = `${NEXT_PUBLIC_DYNAMIC_QR_CODES_STATIC_URL}${wineId}`;
+              dynamicQrCodeTemplate.redirectUrl = `${NEXT_PUBLIC_DYNAMIC_QR_CODES_REDIRECT_URL}${wineId}`;
 
               // * Set dynamic QR code in DB
-              await db.qrcode.set(uid, dynamicQrCodeTemplate);
+              await db.qrCode.set(uid, dynamicQrCodeTemplate);
 
               // * Send email to user
               if (!user?.email) return;
