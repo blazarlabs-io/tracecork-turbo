@@ -1,7 +1,12 @@
 import ReactMarkdown from "react-markdown";
 
-const MarkdownPreviewer = ({ content }: { content: any }) => {
-  return <ReactMarkdown>{content}</ReactMarkdown>;
+type Props = {
+  content: string;
+  className?: string;
+};
+
+const MarkdownPreviewer = ({ content, className }: Props) => {
+  return <ReactMarkdown className={className || ""}>{content}</ReactMarkdown>;
 };
 
 export default MarkdownPreviewer;

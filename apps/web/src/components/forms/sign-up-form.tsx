@@ -4,14 +4,10 @@ import { signUpFormSchema } from "@/data/form-schemas";
 import { auth } from "@/lib/firebase/client";
 import { cn } from "@/utils/shadcn";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Control, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,14 +19,17 @@ import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import "./login-form-styles.css";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 import { sendVerificationEmailService } from "@/services/auth/auth-emails-services";
-import { sendRecaptchaService } from "@/services/auth/recaptcha-services";
+import { useCaptcha, useGoogleSignIn } from "@/hooks/auth";
 
 export const SignUpForm = () => {
   const [isSingingUp, setIsSingingUp] = useState(false);
   const { t } = useTranslationHandler();
-  const provider = new GoogleAuthProvider();
 
   // * HOOKS
+  const { recaptchaRef, isVerified, handleExpired, handleChange } =
+    useCaptcha();
+  const { isGoogleLogin, handleSignInWithGoogle } = useGoogleSignIn();
+
   const form = useForm<z.infer<typeof signUpFormSchema>>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
@@ -40,10 +39,6 @@ export const SignUpForm = () => {
     },
     mode: "onChange",
   });
-
-  // * STATES
-  const recaptchaRef = useRef<typeof ReCAPTCHA>(null);
-  const [isVerified, setIsVerified] = useState(false);
 
   // * HANDLERS
   const onSubmit = async (values: z.infer<typeof signUpFormSchema>) => {
@@ -61,22 +56,6 @@ export const SignUpForm = () => {
 
       // console.log("USER:", user);
       await sendVerificationEmailService(userEmail);
-
-      // sendEmailVerification(user, {
-      //   handleCodeInApp: true,
-      //   url: process.env
-      //     .NEXT_PUBLIC_EMAIL_VERIFICATION_REDIRECT_URL as string,
-      // })
-      //   .then(() => {
-      //     // router.push("/verify-email");
-      //   })
-      //   .catch((error) => {
-      //     const errorCode = error.code;
-      //     const errorMessage = error.message;
-      //     const email = error.customData.email;
-      //     const credential = GoogleAuthProvider.credentialFromError(error);
-      //     console.log(errorCode, errorMessage, email, credential);
-      //   });
     } catch (error: any) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -86,35 +65,7 @@ export const SignUpForm = () => {
     }
   };
 
-  const handleSignInWithGoogle = async () => {
-    try {
-      await signInWithPopup(auth, provider);
-    } catch (error: any) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      const email = error.customData.email;
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      console.log(errorCode, errorMessage, email, credential);
-    }
-  };
-
-  const handleCaptchaSubmission = async (token: string | null) => {
-    try {
-      if (!token) return;
-      await sendRecaptchaService(token);
-      setIsVerified(true);
-    } catch (e) {
-      setIsVerified(false);
-    }
-  };
-
-  const handleChange = (token: string | null) => {
-    handleCaptchaSubmission(token);
-  };
-
-  const handleExpired = () => {
-    setIsVerified(false);
-  };
+  const isProcessing = isSingingUp || isGoogleLogin;
 
   return (
     <div className="mb-4 flex w-full min-w-[360px] max-w-[360px] flex-col gap-3 rounded-[12px] border p-6">
@@ -133,7 +84,7 @@ export const SignUpForm = () => {
             formControl={
               form.control as Control<z.infer<typeof signUpFormSchema>>
             }
-            isDisabled={isSingingUp}
+            isDisabled={isProcessing}
           />
           <SignUpPasswordInputField
             name="password"
@@ -141,7 +92,7 @@ export const SignUpForm = () => {
             formControl={
               form.control as Control<z.infer<typeof signUpFormSchema>>
             }
-            isDisabled={isSingingUp}
+            isDisabled={isProcessing}
           />
           <SignUpPasswordInputField
             name="confirmPassword"
@@ -151,7 +102,7 @@ export const SignUpForm = () => {
             formControl={
               form.control as Control<z.infer<typeof signUpFormSchema>>
             }
-            isDisabled={isSingingUp}
+            isDisabled={isProcessing}
           />
           <div className="flex w-full items-center justify-center">
             <ReCAPTCHA
@@ -164,7 +115,7 @@ export const SignUpForm = () => {
             />
           </div>
           <Button
-            disabled={!isVerified || isSingingUp}
+            disabled={!isVerified || isProcessing || !form.formState.isValid}
             size="lg"
             type="submit"
             className="w-full"
@@ -190,7 +141,7 @@ export const SignUpForm = () => {
         <div className="h-[1px] w-full bg-border" />
       </div>
       <button
-        disabled={!isVerified || isSingingUp}
+        disabled={!isVerified || isProcessing}
         onClick={handleSignInWithGoogle}
         className={cn(
           "w-full min-w-[320px] max-w-[320px]",
@@ -209,9 +160,10 @@ export const SignUpForm = () => {
         {t("publicComponents.signup.googleButtonLabel")}
       </button>
       <div className="mt-[16px]">
-        <p className="text-xs leading-[20px] text-muted-foreground legal-text-container">
-          <MarkdownPreviewer content={t("publicComponents.login.legalText")} />
-        </p>
+        <MarkdownPreviewer
+          className="text-xs leading-[20px] text-muted-foreground legal-text-container"
+          content={t("publicComponents.login.legalText")}
+        />
       </div>
     </div>
   );

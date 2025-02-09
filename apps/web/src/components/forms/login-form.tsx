@@ -32,7 +32,7 @@ import { NEXT_PUBLIC_CAPTCHA_SITE_KEY } from "@/utils/envConstants";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/local-storage";
 import { LoginStorage } from "@/types/authTypes";
 import { LOGIN_CREDENTIALS_KEY } from "@/utils/authConstants";
-import { useGoogleSignIn, useLoginCaptcha } from "@/hooks/auth";
+import { useGoogleSignIn, useCaptcha } from "@/hooks/auth";
 
 export const LoginForm = () => {
   const { t } = useTranslationHandler();
@@ -41,7 +41,7 @@ export const LoginForm = () => {
 
   // * HOOKS
   const { recaptchaRef, isVerified, handleExpired, handleChange } =
-    useLoginCaptcha();
+    useCaptcha();
   const { isGoogleLogin, handleSignInWithGoogle } = useGoogleSignIn();
 
   const form = useForm<z.infer<typeof loginFormSchema>>({
@@ -85,6 +85,7 @@ export const LoginForm = () => {
         router.push("/verify-email");
       }
     } catch (error: any) {
+      console.error(error);
       toast({
         variant: "destructive",
         title: t("toasts.globals.error.title"),
@@ -198,9 +199,10 @@ export const LoginForm = () => {
         </Link>
       </div>
       <div className="mt-[16px] min-w-[320px] max-w-[320px]">
-        <p className="text-xs leading-[20px] text-muted-foreground legal-text-container">
-          <MarkdownPreviewer content={t("publicComponents.login.legalText")} />
-        </p>
+        <MarkdownPreviewer
+          className="text-xs leading-[20px] text-muted-foreground legal-text-container"
+          content={t("publicComponents.login.legalText")}
+        />
       </div>
     </div>
   );

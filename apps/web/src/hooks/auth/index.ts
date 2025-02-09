@@ -1,12 +1,12 @@
-import { useGoogleSignIn } from "./login/useGoogleSignIn";
-import { useLoginCaptcha } from "./login/useLoginCaptcha";
+import { useGoogleSignIn } from "./useGoogleSignIn";
+import { useCaptcha } from "./useCaptcha";
 import { useConfirmResetPassword } from "./reset-password/useConfirmResetPassword";
 import { useResetPasswordForm } from "./reset-password/useResetPasswordForm";
 import { useConfirmEmailHandler } from "./useConfirmEmailHandler";
 import { useGetForgotPassEmail } from "./useGetForgotPassEmail";
 
 export {
-  useLoginCaptcha,
+  useCaptcha,
   useGoogleSignIn,
   useConfirmResetPassword,
   useResetPasswordForm,

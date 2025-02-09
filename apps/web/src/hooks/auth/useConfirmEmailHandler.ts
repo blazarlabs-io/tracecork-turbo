@@ -3,7 +3,7 @@ import {
   applyActionCode,
   checkActionCode,
 } from "firebase/auth";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useAuth } from "@/context/auth";
 import { auth } from "@/lib/firebase/client";
