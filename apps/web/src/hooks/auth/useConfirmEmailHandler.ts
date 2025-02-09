@@ -9,6 +9,7 @@ import { useAuth } from "@/context/auth";
 import { auth } from "@/lib/firebase/client";
 import { ConfirmEmailParamsType } from "@/types/authTypes";
 import { emailTemplates } from "@/utils/email-templates";
+import { sendEmailService } from "@/services/email-services";
 
 export const useConfirmEmailHandler = (params: ConfirmEmailParamsType) => {
   const { oobCode } = params;
@@ -36,15 +37,12 @@ export const useConfirmEmailHandler = (params: ConfirmEmailParamsType) => {
 
       await applyActionCode(auth, oobCode);
       // * The user's email address has been verified. Send welcome email
-      await fetch(`/api/send-email`, {
-        method: "POST",
-        body: JSON.stringify({
-          to: email,
-          templateId: emailTemplates["welcome-email"],
-          dynamic_template_data: {
-            user: userName || email,
-          },
-        }),
+      await sendEmailService({
+        toEmail: email,
+        templateId: emailTemplates["welcome-email"],
+        dynamicTemplateData: {
+          user: userName || email,
+        },
       });
       setIsConfirming(false);
     },
