@@ -4,7 +4,7 @@ import { sendRecaptchaService } from "~/src/services/auth";
 
 export const useCaptcha = () => {
   const recaptchaRef = useRef<typeof ReCAPTCHA>(null);
-  const [isVerified, setIsVerified] = useState(true);
+  const [isVerified, setIsVerified] = useState(false);
 
   const handleExpired = () => {
     setIsVerified(false);
