@@ -112,7 +112,7 @@ export const WineryForm = () => {
 
     // * UPDATE WINERY
     db.winery
-      .update(user?.uid, { info: data })
+      .update(user?.uid as string, { info: data })
       .then((res: DbResponse) => {
         setSaving(false);
 
