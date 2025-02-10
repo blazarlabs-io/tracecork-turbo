@@ -32,6 +32,7 @@ export default defineConfig({
         'manageAccount',
         'generalSettings',
         'wineDetails',
+        'toasts',
       ],
     }),
   ],

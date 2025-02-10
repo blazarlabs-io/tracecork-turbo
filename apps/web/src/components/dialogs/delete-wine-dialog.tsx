@@ -20,6 +20,8 @@ import { toast } from "@/hooks/use-toast";
 import { db } from "@/lib/firebase/services/db";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
+import { sendEmailService } from "@/services/email-services";
+import { emailTemplates } from "@/utils/email-templates";
 
 export interface DeleteWineDialogProps {
   uid: string;
@@ -47,23 +49,24 @@ export const DeleteWineDialog = ({
 
     // * TOAST
     toast({
-      title: "Wine archived",
-      description: `You have archived ${collectionName} successfully.`,
+      title: t("toasts.wines.archivedWine.title"),
+      description: t("toasts.wines.archivedWine.description", {
+        name: collectionName,
+      }),
     });
 
     // * Send email to user
-    await fetch("/api/send-email", {
-      method: "POST",
-      body: JSON.stringify({
-        to: user?.email,
-        templateId: "d-213b58b359d14153ad337bf353afa15c",
-        dynamic_template_data: {
-          user: (user?.displayName as string) || user?.email,
-          wineId: wineId,
-        },
-      }),
+    if (!user?.email) return;
+    await sendEmailService({
+      toEmail: user.email,
+      templateId: emailTemplates["archive-wine"],
+      dynamicTemplateData: {
+        user: (user?.displayName as string) || user?.email,
+        wineId: wineId,
+      },
     });
   };
+
   return (
     <Dialog>
       <DialogTitle></DialogTitle>
@@ -88,10 +91,6 @@ export const DeleteWineDialog = ({
             {t("dashboardGlobalComponents.dialogs.deleteWineDialog.title")}
           </DialogTitle>
           <DialogDescription>
-            {/* For security reasons your wine will be{" "}
-            <span className="font-bold">archived</span>. If you wish to
-            permanently delete it, please contact us and we will take care of
-            it. */}
             <MarkdownPreviewer
               content={t(
                 "dashboardGlobalComponents.dialogs.deleteWineDialog.description",

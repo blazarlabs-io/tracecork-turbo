@@ -17,37 +17,42 @@ import {
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import { useState } from "react";
+import { sendPasswordRecoveryEmailService } from "@/services/auth/auth-emails-services";
+import { getFromLocalStorage, setToLocalStorage } from "@/utils/local-storage";
+import { ForgotPassStorage } from "@/types/authTypes";
+import { FORGOT_PASS_KEY } from "@/utils/authConstants";
 
 export const ForgotPasswordForm = () => {
   // * HOOKS
   const { t } = useTranslationHandler();
   const router = useRouter();
+  const [isSubmiting, setIsSubmiting] = useState(false);
   const form = useForm<z.infer<typeof forgotPasswordSchema>>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
       email:
-        (typeof window !== "undefined" &&
-          window.localStorage.getItem("email")) ||
-        "",
+        getFromLocalStorage<ForgotPassStorage>(FORGOT_PASS_KEY)?.email || "",
     },
   });
 
   // * HANDLERS
   const onSubmit = async (values: z.infer<typeof forgotPasswordSchema>) => {
-    const res = await fetch("/api/password-recovery", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    try {
+      if (!values.email) return;
+      setIsSubmiting(true);
+      await sendPasswordRecoveryEmailService(values.email);
+      setToLocalStorage<ForgotPassStorage>(FORGOT_PASS_KEY, {
         email: values.email,
-        templateId: "d-96f3802db81c4cafbdcf92822ef1ee61",
-      }),
-    });
-
-    router.push("/password-reset-sent");
+      });
+      router.push("/password-reset-sent");
+    } catch (error) {
+      console.error("Error submiting forgot password request");
+    } finally {
+      setIsSubmiting(false);
+    }
   };
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col items-center justify-center gap-2">
@@ -66,6 +71,7 @@ export const ForgotPasswordForm = () => {
           <FormField
             control={form.control}
             name="email"
+            disabled={isSubmiting}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
@@ -84,7 +90,11 @@ export const ForgotPasswordForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full">
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={isSubmiting || !form.formState.isValid}
+          >
             {t("authPages.forgotPassword.sendButtonLable")}
           </Button>
           <Button
@@ -92,6 +102,7 @@ export const ForgotPasswordForm = () => {
             variant="ghost"
             className="flex w-full items-center gap-2"
             onClick={() => router.back()}
+            disabled={isSubmiting}
           >
             <ArrowLeft className="h-4 w-4" />
             {t("authPages.forgotPassword.backButtonLable")}

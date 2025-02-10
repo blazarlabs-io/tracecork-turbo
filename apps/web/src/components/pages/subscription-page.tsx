@@ -20,6 +20,9 @@ import { useResponsiveSize } from "@/hooks/use-responsive-size";
 import { cn } from "@/utils/shadcn";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
+import { NEXT_PUBLIC_TRACECORK_EMAIL } from "@/utils/envConstants";
+import { sendEmailService } from "@/services/email-services";
+import { emailTemplates } from "@/utils/email-templates";
 
 export const SubscriptionPage = () => {
   // * HOOKS
@@ -29,35 +32,31 @@ export const SubscriptionPage = () => {
   const { device } = useResponsiveSize();
 
   // * HANDLERS
-  const handlePlanUpgradeRequest = () => {
-    // Send email
-    fetch("/api/send-email", {
-      method: "POST",
-      body: JSON.stringify({
-        to: "c.tudorcotruta@gmail.com",
-        templateId: "d-487c5c7d1a094e87a803125e891aac08",
-        dynamic_template_data: {
+  const handlePlanUpgradeRequest = async () => {
+    try {
+      // Send email
+      const toEmail = NEXT_PUBLIC_TRACECORK_EMAIL;
+      // const toEmail = "c.tudorcotruta@gmail.com";
+      if (!toEmail) return;
+      await sendEmailService({
+        toEmail,
+        templateId: emailTemplates["upgrade-request"],
+        dynamicTemplateData: {
           userEmail: user?.email,
         },
-      }),
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-      .then(async (res) => {
-        toast({
-          title: "Upgrade request sent",
-          description: "We will get back to you as soon as possible.",
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-        toast({
-          variant: "destructive",
-          title: "Something went wrong",
-          description: "Please try again later.",
-        });
       });
+      toast({
+        title: t("toasts.userSettings.upgradeRequestSent.title"),
+        description: t("toasts.userSettings.upgradeRequestSent.description"),
+      });
+    } catch (error) {
+      console.error(error);
+      toast({
+        variant: "destructive",
+        title: t("toasts.userSettings.somethingWentWrong.title"),
+        description: t("toasts.userSettings.somethingWentWrong.description"),
+      });
+    }
   };
 
   return (
@@ -89,11 +88,11 @@ export const SubscriptionPage = () => {
               <div className="flex flex-col items-center justify-center">
                 {qrCodesLeft > 0 ? (
                   <span className="text-foreground">
-                    {qrCodesLeft} of {qrCodesLimit} labels
+                    {qrCodesLeft} / {qrCodesLimit} labels
                   </span>
                 ) : (
                   <span className="text-destructive">
-                    {qrCodesLeft} of {qrCodesLimit} labels
+                    {qrCodesLeft} / {qrCodesLimit} labels
                   </span>
                 )}
               </div>
@@ -101,11 +100,11 @@ export const SubscriptionPage = () => {
               <div className="flex flex-col items-center justify-center">
                 {qrCodesLeft > 0 ? (
                   <span className="text-foreground">
-                    {`${qrCodesLeft} of ${qrCodesLimit} ${t("subscription.subscriptionCard.labelsRemainingText")}`}
+                    {`${qrCodesLeft} / ${qrCodesLimit} ${t("subscription.subscriptionCard.labelsRemainingText")}`}
                   </span>
                 ) : (
                   <span className="text-destructive">
-                    {`${qrCodesLeft} of ${qrCodesLimit} ${t("subscription.subscriptionCard.labelsRemainingText")}`}
+                    {`${qrCodesLeft} / ${qrCodesLimit} ${t("subscription.subscriptionCard.labelsRemainingText")}`}
                   </span>
                 )}
               </div>

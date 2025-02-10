@@ -23,20 +23,24 @@ export interface AuthInputFieldProps {
   description?: string;
   inputType?: string;
   formControl: Control<z.infer<typeof signUpFormSchema>>;
+  isDisabled?: boolean;
 }
 
-export const SignUpInputField: React.FC<AuthInputFieldProps> = ({
-  name,
-  label,
-  placeholder,
-  description,
-  inputType,
-  formControl,
-}) => {
+export const SignUpInputField: React.FC<AuthInputFieldProps> = (props) => {
+  const {
+    name,
+    label,
+    placeholder,
+    description,
+    inputType,
+    formControl,
+    isDisabled,
+  } = props;
   return (
     <FormField
       control={formControl}
       name={name}
+      disabled={isDisabled}
       render={({ field }) => (
         <FormItem>
           {label && <FormLabel>{label}</FormLabel>}

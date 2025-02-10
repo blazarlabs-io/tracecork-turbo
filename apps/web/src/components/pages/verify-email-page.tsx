@@ -2,43 +2,32 @@
 
 import { useAuth } from "@/context/auth";
 import Image from "next/image";
-import { useState } from "react";
+import { use, useState } from "react";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import { sendVerificationEmailService } from "@/services/auth/auth-emails-services";
+import { useCustomCountDown } from "@/hooks/use-custom-count-down";
+import { cn } from "@repo/ui/lib/utils";
 
 export const VerifyEmailPage = () => {
+  const [isSending, setIsSending] = useState(false);
   // * HOOKS
   const { t } = useTranslationHandler();
   const { user } = useAuth();
 
-  // * STATES
-  const [resendTimer, setResendTimer] = useState<NodeJS.Timeout | null>(null);
-  const [timeLeft, setTimeLeft] = useState<number>(30);
-
-  // * HANDLERS
-  const handleTimer = () => {
-    let counter = timeLeft;
-    setResendTimer(
-      setInterval(() => {
-        counter--;
-        setTimeLeft(counter);
-        if (counter <= 0) {
-          clearInterval(resendTimer!);
-          setResendTimer(null);
-          setTimeLeft(30);
-        }
-      }, 1000),
-    );
-  };
+  const { timeLeft, startCountDown } = useCustomCountDown(30);
 
   const handleResend = async () => {
-    // * Send verification email
-    await fetch("/api/send-verification-email", {
-      method: "POST",
-      body: JSON.stringify({
-        email: user?.email,
-      }),
-    });
-    handleTimer();
+    try {
+      if (!user || !user.email) return;
+      setIsSending(true);
+      // * Send verification email
+      await sendVerificationEmailService(user.email);
+      startCountDown();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -59,15 +48,23 @@ export const VerifyEmailPage = () => {
         <p className="text-center text-muted-foreground">
           {t("authPages.verifyEmail.question")}
         </p>
-        {!resendTimer && (
-          <button onClick={handleResend} className="font-bold text-primary">
+        {timeLeft >= 0 ? (
+          <p className="text-center text-muted-foreground">
+            {t("authPages.verifyEmail.resendInMessage", {
+              timeLeft,
+            })}
+          </p>
+        ) : (
+          <button
+            onClick={handleResend}
+            className={cn(
+              "font-bold text-primary",
+              isSending ? "opacity-50" : "opacity-100",
+            )}
+            disabled={isSending}
+          >
             {t("authPages.verifyEmail.resendButtonLable")}
           </button>
-        )}
-        {resendTimer && (
-          <p className="text-center text-muted-foreground">
-            {`${t("authPages.verifyEmail.sendAgainIn.message")} ${timeLeft} ${t("authPages.verifyEmail.sendAgainIn.units")}`}
-          </p>
         )}
       </div>
     </div>

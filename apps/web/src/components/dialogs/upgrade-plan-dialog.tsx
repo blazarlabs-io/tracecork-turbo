@@ -16,6 +16,9 @@ import { useAuth } from "@/context/auth";
 import "./upgrade-plan-dialog-styles.css";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
+import { sendEmailService } from "@/services/email-services";
+import { emailTemplates } from "@/utils/email-templates";
+import { NEXT_PUBLIC_TRACECORK_EMAIL } from "@/utils/envConstants";
 
 export const UpgradePlanDialog = () => {
   const { t } = useTranslationHandler();
@@ -26,37 +29,35 @@ export const UpgradePlanDialog = () => {
   const [sending, setSending] = useState<boolean>(false);
 
   // * METHODS
-  const handlePlanUpgradeRequest = () => {
-    // Send email
-    fetch("/api/send-email", {
-      method: "POST",
-      body: JSON.stringify({
-        to: process.env.NEXT_PUBLIC_TRACECORK_EMAIL as string,
-        templateId: "d-487c5c7d1a094e87a803125e891aac08",
-        dynamic_template_data: {
-          userEmail: user?.email,
+  const handlePlanUpgradeRequest = async () => {
+    try {
+      setSending(true);
+      if (!user?.email) return;
+      const toEmail = NEXT_PUBLIC_TRACECORK_EMAIL;
+      if (!toEmail) return;
+      // Send email
+      await sendEmailService({
+        toEmail: toEmail,
+        templateId: emailTemplates["upgrade-request"],
+        dynamicTemplateData: {
+          userEmail: user.email,
         },
-      }),
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-      .then(async (res) => {
-        setSending(false);
-        toast({
-          title: "Upgrade request sent",
-          description: "We will get back to you as soon as possible.",
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-        setSending(false);
-        toast({
-          variant: "destructive",
-          title: "Something went wrong",
-          description: "Please try again later.",
-        });
       });
+      toast({
+        title: t("toasts.userSettings.upgradeRequestSent.title"),
+        description: t("toasts.userSettings.upgradeRequestSent.description"),
+      });
+    } catch (error) {
+      console.error(error);
+      setSending(false);
+      toast({
+        variant: "destructive",
+        title: t("toasts.globals.somethingWentWrong.title"),
+        description: t("toasts.globals.somethingWentWrong.description"),
+      });
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -78,9 +79,6 @@ export const UpgradePlanDialog = () => {
                     "dashboardGlobalComponents.dialogs.upgradeWineDialog.description",
                   )}
                 />
-                {/* Upgrade your plan to unlock all features. By clicking{" "}
-                <span className="font-bold">Upgrade</span> you accept to be
-                contacted by our sales team. */}
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>

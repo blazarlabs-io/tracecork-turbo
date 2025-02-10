@@ -6,15 +6,11 @@ import { auth } from "@/lib/firebase/client";
 import { firebaseAuthErrors } from "@/utils/firebaseAuthErrors";
 import { cn } from "@/utils/shadcn";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -31,111 +27,82 @@ import {
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 import "./login-form-styles.css";
+import { sendVerificationEmailService } from "@/services/auth";
+import { NEXT_PUBLIC_CAPTCHA_SITE_KEY } from "@/utils/envConstants";
+import { getFromLocalStorage, setToLocalStorage } from "@/utils/local-storage";
+import { LoginStorage } from "@/types/authTypes";
+import { LOGIN_CREDENTIALS_KEY } from "@/utils/authConstants";
+import { useGoogleSignIn, useCaptcha } from "@/hooks/auth";
 
 export const LoginForm = () => {
   const { t } = useTranslationHandler();
-  const provider = new GoogleAuthProvider();
+  const router = useRouter();
+  const [isSubmiting, setIsSubmiting] = useState(false);
 
   // * HOOKS
+  const { recaptchaRef, isVerified, handleExpired, handleChange } =
+    useCaptcha();
+  const { isGoogleLogin, handleSignInWithGoogle } = useGoogleSignIn();
+
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
       email:
-        (typeof window !== "undefined" &&
-          window.localStorage.getItem("email")) ||
-        "",
-      password:
-        (typeof window !== "undefined" &&
-          window.localStorage.getItem("password")) ||
-        "",
+        getFromLocalStorage<LoginStorage>(LOGIN_CREDENTIALS_KEY)?.email || "",
+      password: "",
     },
   });
-  const router = useRouter();
-
-  // * STATES
-  const recaptchaRef = useRef<typeof ReCAPTCHA>(null);
-  const [isVerified, setIsVerified] = useState(false);
 
   // * HANDLERS
-  const onSubmit = (values: z.infer<typeof loginFormSchema>) => {
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem("email", values.email);
-      window.localStorage.setItem("password", values.password);
-    }
-
-    signInWithEmailAndPassword(auth, values.email, values.password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-
-        if (user.emailVerified) {
-          toast({
-            description: "Login successful",
-            title: "Success",
-            variant: "default",
-          });
-        } else {
-          toast({
-            description: "Please verify your email",
-            title: "Error",
-            variant: "destructive",
-          });
-          router.push("/verify-email");
-        }
-      })
-      .catch((error) => {
-        toast({
-          description: firebaseAuthErrors[error.code],
-          title: "Error",
-          variant: "destructive",
-        });
-      });
-  };
-
-  const handleSignInWithGoogle = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // const user = result.user;
-        // console.log(user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(errorCode, errorMessage, email, credential);
-      });
-  };
-
-  const handleCaptchaSubmission = async (token: string | null) => {
+  const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
     try {
-      if (token) {
-        await fetch("/api/recaptcha", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ token }),
+      setIsSubmiting(true);
+      setToLocalStorage<LoginStorage>(LOGIN_CREDENTIALS_KEY, {
+        email: values.email,
+      });
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password,
+      );
+
+      // Signed in
+      const user = userCredential.user;
+
+      if (user.emailVerified) {
+        toast({
+          variant: "default",
+          title: t("toasts.auth.loginSuccess.title"),
+          description: t("toasts.auth.loginSuccess.description"),
         });
-        setIsVerified(true);
+      } else {
+        toast({
+          variant: "destructive",
+          title: t("toasts.auth.verifyEmailError.title"),
+          description: t("toasts.auth.verifyEmailError.description"),
+        });
+        await sendVerificationEmailService(values.email);
+        router.push("/verify-email");
       }
-    } catch (e) {
-      setIsVerified(false);
+    } catch (error: any) {
+      console.error(error);
+      toast({
+        variant: "destructive",
+        title: t("toasts.globals.error.title"),
+        description: t("toasts.globals.error.description", {
+          message: firebaseAuthErrors[error.code],
+        }),
+      });
+    } finally {
+      setIsSubmiting(false);
     }
-  };
-
-  const handleChange = (token: string | null) => {
-    handleCaptchaSubmission(token);
-  };
-
-  const handleExpired = () => {
-    setIsVerified(false);
   };
 
   const handleForgotPassword = async () => {
     router.push("/forgot-password");
   };
+
+  const isProcessing = isGoogleLogin || isSubmiting;
 
   return (
     <div className="flex w-full min-w-[360px] max-w-[360px] flex-col gap-3 rounded-[12px] border p-6">
@@ -162,7 +129,7 @@ export const LoginForm = () => {
             {t("publicComponents.login.googleButtonLabel")}
           </TooltipTrigger>
           <TooltipContent>
-            <p>Please check the I&apos;m not a robot checkbox</p>
+            <p>{t("publicComponents.login.googleButtonTooltip")}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
@@ -183,34 +150,35 @@ export const LoginForm = () => {
             placeholder={t("publicComponents.login.email.placeholder")}
             inputType="email"
             formControl={form.control}
+            isDisabled={isProcessing}
           />
           <PasswordInputField
             name="password"
             placeholder={t("publicComponents.login.password.placeholder")}
             formControl={form.control}
+            isDisabled={isProcessing}
           />
           <div className="flex w-full items-center justify-end text-sm">
             <button
               type="button"
               // href="/forgot-password"
-              className="text-sm font-medium text-primary underline"
+              className="text-sm font-medium text-primary underline disabled:opacity-50"
               onClick={handleForgotPassword}
+              disabled={isProcessing}
             >
               {t("publicComponents.login.forgotPassword.label")}
             </button>
           </div>
           <div className="flex w-full items-center justify-center">
             <ReCAPTCHA
-              sitekey={
-                (process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY as string) || ""
-              }
+              sitekey={NEXT_PUBLIC_CAPTCHA_SITE_KEY}
               ref={recaptchaRef}
               onChange={handleChange}
               onExpired={handleExpired}
             />
           </div>
           <Button
-            disabled={!isVerified}
+            disabled={!isVerified || !form.formState.isValid || isProcessing}
             size="lg"
             type="submit"
             className="w-full"
@@ -231,9 +199,10 @@ export const LoginForm = () => {
         </Link>
       </div>
       <div className="mt-[16px] min-w-[320px] max-w-[320px]">
-        <p className="text-xs leading-[20px] text-muted-foreground legal-text-container">
-          <MarkdownPreviewer content={t("publicComponents.login.legalText")} />
-        </p>
+        <MarkdownPreviewer
+          className="text-xs leading-[20px] text-muted-foreground legal-text-container"
+          content={t("publicComponents.login.legalText")}
+        />
       </div>
     </div>
   );

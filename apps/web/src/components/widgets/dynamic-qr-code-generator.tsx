@@ -1,6 +1,7 @@
 import { base64ToFile, getQrCodeImageData } from "@/utils/qr-code";
 import { useCallback, useEffect, useRef } from "react";
 import { QRCode } from "react-qrcode-logo";
+import { NEXT_PUBLIC_DYNAMIC_QR_CODES_STATIC_URL } from "@/utils/envConstants";
 
 export interface DynamicQrCodeGeneratorProps {
   wineId: string;
@@ -32,9 +33,7 @@ export const DynamicQrCodeGenerator = ({
   return (
     <div className="hidden">
       <QRCode
-        value={`${
-          process.env.NEXT_PUBLIC_DYNAMIC_QR_CODES_STATIC_URL as string
-        }${wineId}`}
+        value={`${NEXT_PUBLIC_DYNAMIC_QR_CODES_STATIC_URL}${wineId}`}
         size={1500}
         qrStyle="squares"
         eyeRadius={4}
