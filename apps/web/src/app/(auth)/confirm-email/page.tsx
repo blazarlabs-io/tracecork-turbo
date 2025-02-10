@@ -1,12 +1,8 @@
-import { ConfirmEmailPage } from "@/components/pages/confirm-email-page";
+import { ConfirmEmailPage } from "@/components/pages/auth";
+import { ConfirmEmailParamsType } from "@/types/authTypes";
 
 type Params = Promise<{ mode: string }>;
-type SearchParams = Promise<{
-  mode: string;
-  continueUrl: string;
-  lang: string;
-  oobCode: string;
-}>;
+type SearchParams = Promise<ConfirmEmailParamsType>;
 
 export default async function ConfirmEmail(props: {
   params: Params;
@@ -14,5 +10,5 @@ export default async function ConfirmEmail(props: {
 }) {
   const searchParams = await props.searchParams;
 
-  return <ConfirmEmailPage code={searchParams.oobCode} />;
+  return <ConfirmEmailPage {...searchParams} />;
 }

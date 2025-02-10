@@ -20,6 +20,8 @@ import { toast } from "@/hooks/use-toast";
 import { db } from "@/lib/firebase/services/db";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
+import { sendEmailService } from "@/services/email-services";
+import { emailTemplates } from "@/utils/email-templates";
 
 export interface DeleteWineDialogProps {
   uid: string;
@@ -54,18 +56,17 @@ export const DeleteWineDialog = ({
     });
 
     // * Send email to user
-    await fetch("/api/send-email", {
-      method: "POST",
-      body: JSON.stringify({
-        to: user?.email,
-        templateId: "d-213b58b359d14153ad337bf353afa15c",
-        dynamic_template_data: {
-          user: (user?.displayName as string) || user?.email,
-          wineId: wineId,
-        },
-      }),
+    if (!user?.email) return;
+    await sendEmailService({
+      toEmail: user.email,
+      templateId: emailTemplates["archive-wine"],
+      dynamicTemplateData: {
+        user: (user?.displayName as string) || user?.email,
+        wineId: wineId,
+      },
     });
   };
+
   return (
     <Dialog>
       <DialogTitle></DialogTitle>

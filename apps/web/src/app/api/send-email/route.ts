@@ -1,40 +1,44 @@
 import * as sgMail from "@sendgrid/mail";
+import {
+  NEXT_PUBLIC_SENDGRID_API_KEY,
+  NEXT_PUBLIC_TRACECORK_EMAIL,
+} from "@/utils/envConstants";
 
 export async function POST(request: Request) {
   const data = await request.json();
 
-  sgMail.setApiKey(process.env.NEXT_PUBLIC_SENDGRID_API_KEY as string);
+  sgMail.setApiKey(NEXT_PUBLIC_SENDGRID_API_KEY as string);
 
-  let msg: any = {};
+  let msg: sgMail.MailDataRequired = {
+    to: data.to,
+    from: NEXT_PUBLIC_TRACECORK_EMAIL as string, // Use the email address or domain you verified above
+    templateId: data.templateId,
+  };
 
   if (data.attachments !== undefined) {
     msg = {
-      to: data.to,
-      from: process.env.NEXT_PUBLIC_TRACECORK_EMAIL as string, // Use the email address or domain you verified above
-      templateId: data.templateId,
+      ...msg,
       personalizations: [
         {
           to: [{ email: data.to }],
-          attachments: data.attachments,
-          dynamic_template_data: data.dynamic_template_data,
+          dynamicTemplateData: data.dynamicTemplateData,
         },
       ],
+      attachments: data.attachments,
     };
   } else {
     msg = {
-      to: data.to,
-      from: process.env.NEXT_PUBLIC_TRACECORK_EMAIL as string, // Use the email address or domain you verified above
-      templateId: data.templateId,
+      ...msg,
       personalizations: [
         {
           to: [{ email: data.to }],
-          dynamic_template_data: data.dynamic_template_data,
+          dynamicTemplateData: data.dynamicTemplateData,
         },
       ],
     };
   }
 
-  const res = await sgMail.send(msg);
+  await sgMail.send(msg);
 
   return Response.json({
     success: true,

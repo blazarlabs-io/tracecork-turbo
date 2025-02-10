@@ -20,6 +20,8 @@ import { toast } from "@/hooks/use-toast";
 import { db } from "@/lib/firebase/services/db";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
+import { sendEmailService } from "@/services/email-services";
+import { emailTemplates } from "@/utils/email-templates";
 
 export interface RestoreWineDialogProps {
   uid: string;
@@ -53,18 +55,17 @@ export const RestoreWineDialog = ({
     });
 
     // * Send email to user
-    await fetch("/api/send-email", {
-      method: "POST",
-      body: JSON.stringify({
-        to: user?.email,
-        templateId: "d-82b6e4535ce740adb10e54eda0a0b77d",
-        dynamic_template_data: {
-          user: (user?.displayName as string) || user?.email,
-          wineId: wineId,
-        },
-      }),
+    if (!user?.email) return;
+    await sendEmailService({
+      toEmail: user.email,
+      templateId: emailTemplates["restore-wine"],
+      dynamicTemplateData: {
+        user: (user?.displayName as string) || user?.email,
+        wineId: wineId,
+      },
     });
   };
+
   return (
     <Dialog>
       <DialogTitle></DialogTitle>

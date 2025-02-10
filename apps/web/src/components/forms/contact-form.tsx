@@ -31,6 +31,9 @@ import {
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 import "./contact-form-styles.css";
+import { NEXT_PUBLIC_TRACECORK_EMAIL } from "@/utils/envConstants";
+import { emailTemplates } from "@/utils/email-templates";
+import { sendEmailService } from "@/services/email-services";
 
 export const ContactForm = () => {
   const { t } = useTranslationHandler();
@@ -38,10 +41,7 @@ export const ContactForm = () => {
   const form = useForm<z.infer<typeof contactFormSchema>>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      email:
-        (typeof window !== "undefined" &&
-          window.localStorage.getItem("email")) ||
-        "",
+      email: "",
       message: "",
     },
   });
@@ -51,39 +51,32 @@ export const ContactForm = () => {
   const [success, setSuccess] = useState<boolean>(false);
 
   // * HANDLERS
-  const onSubmit = (values: z.infer<typeof contactFormSchema>) => {
+  const onSubmit = async (values: z.infer<typeof contactFormSchema>) => {
     // * Send email
 
-    setSending(true);
-
-    fetch("/api/send-email", {
-      method: "POST",
-      body: JSON.stringify({
-        // to: "c.tudorcotruta@gmail.com",
-        to: process.env.NEXT_PUBLIC_TRACECORK_EMAIL as string,
-        templateId: "d-1fe27ca036c0437c920edd22ab9099d9",
-        dynamic_template_data: {
+    try {
+      setSending(true);
+      const toEmail = NEXT_PUBLIC_TRACECORK_EMAIL;
+      if (!toEmail) return;
+      await sendEmailService({
+        toEmail,
+        templateId: emailTemplates["contact-email"],
+        dynamicTemplateData: {
           userEmail: values.email,
           userMessage: values.message,
         },
-      }),
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-      .then(async (res) => {
-        setSending(false);
-        setSuccess(true);
-      })
-      .catch((error) => {
-        console.error(error);
-        setSending(false);
-        toast({
-          variant: "destructive",
-          title: t("toasts.globals.somethingWentWrong.title"),
-          description: t("toasts.globals.somethingWentWrong.description"),
-        });
       });
+      setSuccess(true);
+    } catch (error) {
+      console.error(error);
+      toast({
+        variant: "destructive",
+        title: t("toasts.globals.somethingWentWrong.title"),
+        description: t("toasts.globals.somethingWentWrong.description"),
+      });
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
