@@ -20,5 +20,15 @@ export const confirmEmail = defineType({
       title: 'Continue Button Label',
       type: 'string',
     }),
+    defineField({
+      name: 'errorMessage',
+      title: 'Error Message',
+      type: 'string',
+    }),
+    defineField({
+      name: 'confirmMessage',
+      title: 'Confirm Message',
+      type: 'string',
+    }),
   ],
 })

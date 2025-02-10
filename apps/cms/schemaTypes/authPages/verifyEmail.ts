@@ -26,21 +26,9 @@ export const verifyEmail = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'sendAgainIn',
-      title: 'Send again in',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'message',
-          title: 'Message',
-          type: 'string',
-        }),
-        defineField({
-          name: 'units',
-          title: 'Units',
-          type: 'string',
-        }),
-      ],
+      name: 'resendInMessage',
+      title: 'Resend in Message',
+      type: 'string',
     }),
   ],
 })

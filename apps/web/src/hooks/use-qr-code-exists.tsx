@@ -11,7 +11,7 @@ export const useQrCodeExists = (uid: string, wineId: string) => {
 
   useEffect(() => {
     if (!mountRef.current && uid && wineId) {
-      db.qrcode
+      db.qrCode
         .getOne(uid, wineId)
         .then((res: DbResponse) => {
           if (res.data) {
