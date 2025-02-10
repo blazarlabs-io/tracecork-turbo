@@ -41,7 +41,7 @@ export const AutoSave = () => {
   const onSubmit = (data: z.infer<typeof autosaveFormSchema>) => {
     // * UPDATE WINERY
     db.winery
-      .update(user?.uid, { settings: { autosave: data.autosave } })
+      .update(user?.uid as string, { settings: { autosave: data.autosave } })
       .then((res: DbResponse) => {
         // console.log(res);
       })
