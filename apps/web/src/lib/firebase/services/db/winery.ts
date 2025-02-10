@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../client";
 
-export const winery: any = {
+export const winery = {
   set: async (id: string, winery: Winery): Promise<DbResponse> => {
     try {
       const docRef = doc(db, "wineries", id);

@@ -110,7 +110,7 @@ export const WineForm = ({ wine }: WineFormProps) => {
         form.formState.errors,
         isEmpty(form.formState.errors),
       );
-
+      if (!user?.uid) return;
       db.wine
         .update(user?.uid, wine.id, {
           status: status || wine.status,
@@ -126,8 +126,8 @@ export const WineForm = ({ wine }: WineFormProps) => {
 
           if (winery && !winery.settings?.autosave) {
             toast({
-              title: "Wine saved",
-              description: "Your wine changes has been saved to your account.",
+              title: t("toasts.wines.wineSaved.title"),
+              description: t("toasts.wines.wineSaved.description"),
             });
           }
         })
@@ -149,6 +149,7 @@ export const WineForm = ({ wine }: WineFormProps) => {
 
   // * Upload image to storage and url to DB + update form with url data
   const handleImageUpload = (image: File) => {
+    if (!user?.uid) return;
     setImageUploading(true);
     storage.winery
       .upload(

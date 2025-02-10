@@ -49,8 +49,10 @@ export const EditWineDialog = ({
 
     // * TOAST
     toast({
-      title: "Wine unpublished",
-      description: `You have unpublished ${collectionName} successfully.`,
+      title: t("toasts.wines.unpublishWine.title"),
+      description: t("toasts.wines.unpublishWine.description", {
+        name: collectionName,
+      }),
     });
   };
 

@@ -2,7 +2,7 @@ import { DbResponse, DynamicQrCode } from "@/types/db";
 import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { db } from "../../client";
 
-export const qrCode: any = {
+export const qrCode = {
   set: async (uid: string, qrCode: DynamicQrCode): Promise<DbResponse> => {
     try {
       const wineryRef = doc(db, "wineries", uid);

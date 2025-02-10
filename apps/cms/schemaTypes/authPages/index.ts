@@ -3,6 +3,7 @@ import {confirmEmail} from './confirmEmail'
 import {forgotPassword} from './forgotPassword'
 import {passwordResetSent} from './passwordResetSent'
 import {verifyEmail} from './verifyEmail'
+import {resetPassword} from './resetPassword'
 
 export const authPages = defineType({
   name: 'authPages',
@@ -19,5 +20,6 @@ export const authPages = defineType({
     defineField(forgotPassword),
     defineField(passwordResetSent),
     defineField(verifyEmail),
+    defineField(resetPassword),
   ],
 })

@@ -41,7 +41,7 @@ export const AutoSave = () => {
   const onSubmit = (data: z.infer<typeof autosaveFormSchema>) => {
     // * UPDATE WINERY
     db.winery
-      .update(user?.uid, { settings: { autosave: data.autosave } })
+      .update(user?.uid as string, { settings: { autosave: data.autosave } })
       .then((res: DbResponse) => {
         // console.log(res);
       })
@@ -51,8 +51,15 @@ export const AutoSave = () => {
 
     // * TOAST
     toast({
-      title: "Autosave enabled",
-      description: `You have ${data.autosave ? "enabled" : "disabled"} autosave for your account. You can turn it off anytime.`,
+      title: t("toasts.userSettings.autoSave.title"),
+      description: t("toasts.userSettings.autoSave.description", {
+        enabled: data.autosave
+          ? t("toasts.userSettings.autoSave.enabled")
+          : t("toasts.userSettings.autoSave.disabled"),
+        turnOn: data.autosave
+          ? t("toasts.userSettings.autoSave.turnOff")
+          : t("toasts.userSettings.autoSave.turnOn"),
+      }),
     });
   };
 
