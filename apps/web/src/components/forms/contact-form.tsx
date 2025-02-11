@@ -163,7 +163,7 @@ export const ContactForm = () => {
               );
             }}
           />
-          <div className="flex w-full items-center gap-2">
+          <div className="flex flex-col w-full items-center gap-4">
             <span className="text-sm text-muted-foreground copyright-container">
               <MarkdownPreviewer
                 content={t("publicPages.contactPage.copyright")}
