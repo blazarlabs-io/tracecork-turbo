@@ -12,7 +12,7 @@ import {
 } from "@repo/ui/components/ui/dialog";
 import { useAuth } from "@/context/auth";
 import { useQRCodesLimit } from "@/hooks/use-qr-codes-limit";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@repo/ui/hooks/use-toast";
 import { PageHeader } from "../layouts/page-header";
 import { Button } from "@repo/ui/components/ui/button";
 import { Separator } from "@repo/ui/components/ui/separator";

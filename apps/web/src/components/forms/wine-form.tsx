@@ -29,7 +29,7 @@ import { useSystemVariables } from "@/context/system-variables";
 import { useExtraValidations } from "@/hooks/use-extra-validations";
 import { useKjAndKcal } from "@/hooks/use-kj-and-kcal";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@repo/ui/hooks/use-toast";
 import { base64ToImageFile } from "@/utils/image-utils";
 import { cn } from "@/utils/shadcn";
 import { zodResolver } from "@hookform/resolvers/zod";

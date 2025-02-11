@@ -10,7 +10,7 @@ import {
   DialogDescription,
   DialogClose,
 } from "@repo/ui/components/ui/dialog";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@repo/ui/hooks/use-toast";
 import { useState } from "react";
 import { useAuth } from "@/context/auth";
 import "./upgrade-plan-dialog-styles.css";

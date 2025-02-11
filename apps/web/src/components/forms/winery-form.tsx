@@ -34,7 +34,7 @@ import {
 } from "@repo/ui/components/ui/card";
 import { Progress } from "@repo/ui/components/ui/progress";
 import { Separator } from "@repo/ui/components/ui/separator";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@repo/ui/hooks/use-toast";
 import { AvatarCropper } from "@/components/widgets/avatar-cropper";
 import { WineryCrudField } from "./fields/winery/winery-crud-field";
 import { WineryHeadquartersField } from "./fields/winery/winery-headquarters-field";

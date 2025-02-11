@@ -1,7 +1,7 @@
 "use client";
 
 import { contactFormSchema } from "@/data/form-schemas";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@repo/ui/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import Link from "next/link";
