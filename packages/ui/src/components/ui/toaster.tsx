@@ -1,6 +1,5 @@
-"use client"
+"use client";
 
-import { useToast } from "@repo/ui/hooks/use-toast"
 import {
   Toast,
   ToastClose,
@@ -8,10 +7,11 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from "@repo/ui/components/ui/toast"
+} from "@repo/ui/components/ui/toast";
+import { useToast } from "@repo/ui/hooks/use-toast";
 
 export function Toaster() {
-  const { toasts } = useToast()
+  const { toasts } = useToast();
 
   return (
     <ToastProvider>
@@ -27,9 +27,9 @@ export function Toaster() {
             {action}
             <ToastClose />
           </Toast>
-        )
+        );
       })}
       <ToastViewport />
     </ToastProvider>
-  )
+  );
 }
