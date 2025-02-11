@@ -117,7 +117,11 @@ export const LoginForm = () => {
             onClick={handleSignInWithGoogle}
             disabled={!isVerified}
             type="button"
-            className="flex w-full min-w-[320px] max-w-[320px] items-center justify-center gap-3 rounded-md border border-border bg-foreground px-4 py-2 text-base text-background disabled:bg-slate-400 disabled:text-slate-300"
+            className={cn(
+              "flex w-full min-w-[320px] max-w-[320px] items-center justify-center gap-3",
+              "rounded-md border border-border bg-foreground px-4 py-2 text-base text-background",
+              "disabled:bg-slate-400 disabled:text-slate-300",
+            )}
           >
             <Image
               src="/images/google-color-icon.svg"

@@ -20,7 +20,9 @@ export const Footer = () => {
               <Link href="/home" className="" prefetch={false}>
                 <Logo className="h-8" />
               </Link>
-              <span className="mt-2 text-xs">© 2023 All rights reserved.</span>
+              <span className="mt-2 text-xs">
+                {t("publicComponents.footer.copyright")}
+              </span>
             </div>
             <div className="flex flex-col items-start gap-2">
               {/* <Link href="/explore" className="text-sm">
@@ -33,10 +35,10 @@ export const Footer = () => {
                 Contact Us
               </Link> */}
               <Link href="/legal/terms-and-conditions" className="text-xs">
-                Terms & Conditions
+                {t("publicComponents.footer.links.termsAndConditions.label")}
               </Link>
               <Link href="/legal/terms-and-conditions" className="text-xs">
-                Privacy Policy
+                {t("publicComponents.footer.links.privacyPolicy.label")}
               </Link>
             </div>
           </footer>
