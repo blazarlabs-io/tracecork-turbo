@@ -16,7 +16,7 @@ import {
   TooltipTrigger,
 } from "@repo/ui/components/ui/tooltip";
 import { useAuth } from "@/context/auth";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@repo/ui/hooks/use-toast";
 import { db } from "@/lib/firebase/services/db";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";

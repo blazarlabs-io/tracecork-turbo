@@ -12,7 +12,7 @@ import {
   FormLabel,
 } from "@repo/ui/components/ui/form";
 import { Switch } from "@repo/ui/components/ui/switch";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@repo/ui/hooks/use-toast";
 import { autosaveFormSchema } from "@/data/form-schemas";
 import { db } from "@/lib/firebase/services/db";
 import { useAuth } from "@/context/auth";
