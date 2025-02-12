@@ -1,6 +1,5 @@
 "use client";
 
-import { Logo } from "@/components/assets/logo";
 import {
   Collapsible,
   CollapsibleContent,
@@ -16,89 +15,18 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@repo/ui/components/ui/sidebar";
-import { ChevronRight, Grape, Home, Settings, UserPen } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import { useTranslateSidebarMenu } from "@/hooks/use-translate-sidebar-menu";
+import { MenuItemType } from "@/types/sidebar";
 
-type MenuItemType = {
-  title: string;
-  url: string;
-  isActive: boolean;
-};
-
-type MenuType = {
-  title: string;
-  url: string;
-  icon: any;
-  items: MenuItemType[] | null;
-  isActive: boolean;
-};
-// Menu items.
-const dataTemplate: MenuType[] = [
-  {
-    title: "Home",
-    url: "/dashboard/home",
-    icon: Home,
-    items: null,
-    isActive: true,
-  },
-  {
-    title: "My Winery",
-    url: "#",
-    icon: Grape,
-    isActive: false,
-    items: [
-      {
-        title: "Winery Details",
-        url: "/dashboard/winery-details",
-        isActive: false,
-      },
-      {
-        title: "My Wines",
-        url: "/dashboard/my-wines",
-        isActive: false,
-      },
-    ],
-  },
-  {
-    title: "My Account",
-    url: "#",
-    icon: UserPen,
-    isActive: false,
-    items: [
-      {
-        title: "Subscription",
-        url: "/dashboard/subscription",
-        isActive: false,
-      },
-      {
-        title: "Manage Account",
-        url: "/dashboard/manage-account",
-        isActive: false,
-      },
-    ],
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-    isActive: false,
-    items: [
-      {
-        title: "General Settings",
-        url: "/dashboard/general-settings",
-        isActive: false,
-      },
-    ],
-  },
-];
 export function AppSidebarMenu() {
   // * HOOKS
   const { t } = useTranslationHandler();
 
   // * STATES
-  const [data, setData] = useState<MenuType[]>(dataTemplate);
+  const { data, setData } = useTranslateSidebarMenu();
 
   const handleActiveSubItems = (tittle: string, selected: MenuItemType) => {
     setData((old) => {
