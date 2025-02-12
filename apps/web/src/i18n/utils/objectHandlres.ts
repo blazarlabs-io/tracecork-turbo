@@ -32,7 +32,21 @@ const getArrayTypeData = (fieldValue: any[]) => {
   if (!!linkData) return linkData;
   const statCardData = parseStatCardSanityData(fieldValue);
   if (!!statCardData) return statCardData;
-  return Object.assign({}, fieldValue);
+  return setArrayContent(fieldValue);
+};
+
+export const setArrayContent = (fieldValue: any[]) => {
+  const newArray = fieldValue.map((fValue) => {
+    const baseData: { [k: string]: any } = deepCopyObject(fValue);
+    Object.keys(fValue).forEach((docKey) => {
+      const docField = fValue[`${docKey}`];
+      if (Array.isArray(docField)) {
+        baseData[`${docKey}`] = Object.assign({}, docField);
+      }
+    });
+    return baseData;
+  });
+  return Object.assign({}, newArray);
 };
 
 export const setLanguageObject = (
