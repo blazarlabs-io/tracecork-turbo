@@ -14,7 +14,7 @@ import { Separator } from "@repo/ui/components/ui/separator";
 import { defineStepper } from "@stepperize/react";
 import { Clock } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useMemo } from "react";
 import { WinePreview } from "./wine-preview";
 import { WinePublish } from "./wine-publish";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
@@ -26,24 +26,28 @@ export interface WineStepperProps {
 
 export const WineStepper = ({ wineId, selectedStep }: WineStepperProps) => {
   // * HOOKS
-  const { t } = useTranslationHandler();
-  const { useStepper, steps } = defineStepper(
-    {
-      id: "editor",
-      title: t("wineStepper.wineryDetails.headline"),
-      description: t("wineStepper.wineryDetails.subHeadline"),
-    },
-    {
-      id: "preview",
-      title: t("wineStepper.previewWine.headline"),
-      description: t("wineStepper.previewWine.subHeadline"),
-    },
-    {
-      id: "publish",
-      title: t("wineStepper.publishWine.headline"),
-      description: "wineStepper.publishWine.subHeadline.",
-    },
-  );
+  const { t, locale } = useTranslationHandler();
+  const baseStepps = useMemo(() => {
+    return [
+      {
+        id: "editor",
+        title: t("wineStepper.wineryDetails.headline"),
+        description: t("wineStepper.wineryDetails.subHeadline"),
+      },
+      {
+        id: "preview",
+        title: t("wineStepper.previewWine.headline"),
+        description: t("wineStepper.previewWine.subHeadline"),
+      },
+      {
+        id: "publish",
+        title: t("wineStepper.publishWine.headline"),
+        description: t("wineStepper.publishWine.subHeadline"),
+      },
+    ];
+  }, [t, locale]);
+
+  const { useStepper, steps } = defineStepper(...baseStepps);
 
   const router = useRouter();
   const { wine } = useHandleWineToEdit(wineId);
@@ -58,8 +62,8 @@ export const WineStepper = ({ wineId, selectedStep }: WineStepperProps) => {
             {`${t("wineStepper.currentStep")} ${stepper.current.index + 1} / ${steps.length}`}
           </span>
           <PageHeader
-            title={stepper.current.title}
-            subtitle={stepper.current.description}
+            title={baseStepps[stepper.current.index]?.title || "NA"}
+            subtitle={baseStepps[stepper.current.index]?.description || "NA"}
           />
         </div>
         {wine && (
@@ -114,7 +118,9 @@ export const WineStepper = ({ wineId, selectedStep }: WineStepperProps) => {
               >
                 {index + 1}
               </Button>
-              <span className="text-sm font-medium">{step.title}</span>
+              <span className="text-sm font-medium">
+                {baseStepps[index]?.title}
+              </span>
             </li>
             {index < array.length - 1 && (
               <Separator
