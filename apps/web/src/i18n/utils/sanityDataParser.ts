@@ -62,7 +62,7 @@ export function parseLinkSanityData(data: SanityLinkType[]) {
   data.forEach((d, i) => {
     if (d._type !== "link") return;
     if (!d.label) return;
-    const pathName = d.url.split("//")[1]?.split("/")[1];
+    const pathName = d.url.split("//")[1]?.split("/").at(-1);
     const newKey = toCamelCase(pathName || `${i}`);
     linksObj[`${newKey}`] = {
       label: d.label,

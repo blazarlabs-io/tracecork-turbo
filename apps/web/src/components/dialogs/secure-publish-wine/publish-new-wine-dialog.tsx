@@ -16,7 +16,7 @@ import {
 } from "@repo/ui/components/ui/tooltip";
 import { useAuth } from "@/context/auth";
 import { dynamicQrCodeTemplate } from "@/data/templates";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@repo/ui/hooks/use-toast";
 import { db } from "@/lib/firebase/services/db";
 import { storage } from "@/lib/firebase/services/storage";
 import { useRouter } from "next/navigation";

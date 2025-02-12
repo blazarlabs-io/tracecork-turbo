@@ -5,12 +5,14 @@ import { cn } from "@/utils/shadcn";
 import { CircleCheck, CircleX } from "lucide-react";
 import { UpgradePlanDialog } from "../dialogs/upgrade-plan-dialog";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import { useTranslatePricing } from "@/hooks/use-translate-pricing";
 
 export interface PricingPageProps {
   pricing: { data: PricingLevel[] };
 }
 
 export const PricingPage = ({ pricing }: PricingPageProps) => {
+  const { tPricing } = useTranslatePricing(pricing.data);
   const { t } = useTranslationHandler();
 
   return (
@@ -25,7 +27,7 @@ export const PricingPage = ({ pricing }: PricingPageProps) => {
         <UpgradePlanDialog />
       </div>
       <div className="flex w-full flex-wrap items-center justify-center gap-8">
-        {pricing.data.map((level) => (
+        {tPricing.map((level) => (
           <div
             key={level.name}
             className="flex min-w-[320px] max-w-[320px] flex-col items-start justify-start gap-4 rounded-lg border p-8 shadow-sm"
@@ -42,7 +44,7 @@ export const PricingPage = ({ pricing }: PricingPageProps) => {
             <div className="flex items-center justify-start gap-2">
               <CircleCheck className="max-h-4 min-h-4 min-w-4 max-w-4 text-primary" />
               <span className="text-sm capitalize text-foreground">
-                {level.qrCodes} QR Codes
+                {level.qrCodes}
               </span>
             </div>
             <div className="flex items-center justify-start gap-2">

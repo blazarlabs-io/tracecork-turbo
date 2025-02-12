@@ -20,6 +20,8 @@ import "./login-form-styles.css";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 import { sendVerificationEmailService } from "@/services/auth/auth-emails-services";
 import { useCaptcha, useGoogleSignIn } from "@/hooks/auth";
+import { toast } from "@repo/ui/hooks/use-toast";
+import { firebaseAuthErrors } from "~/src/utils/firebaseAuthErrors";
 
 export const SignUpForm = () => {
   const [isSingingUp, setIsSingingUp] = useState(false);
@@ -57,9 +59,14 @@ export const SignUpForm = () => {
       // console.log("USER:", user);
       await sendVerificationEmailService(userEmail);
     } catch (error: any) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      console.error(error);
+      toast({
+        variant: "destructive",
+        title: t("toasts.globals.error.title"),
+        description: t("toasts.globals.error.description", {
+          message: firebaseAuthErrors[error.code],
+        }),
+      });
     } finally {
       setIsSingingUp(false);
     }
@@ -137,7 +144,9 @@ export const SignUpForm = () => {
       </Form>
       <div className="flex w-full items-center justify-between gap-4 py-2">
         <div className="h-[1px] w-full bg-border" />
-        <span className="min-w-fit">or</span>
+        <span className="min-w-fit">
+          {t("publicComponents.signup.separatorText")}
+        </span>
         <div className="h-[1px] w-full bg-border" />
       </div>
       <button
