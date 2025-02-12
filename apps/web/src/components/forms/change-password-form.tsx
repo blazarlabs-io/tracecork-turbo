@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/context/auth";
 import { changePasswordFormSchema } from "@/data/form-schemas";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@repo/ui/hooks/use-toast";
 import { auth } from "@/lib/firebase/client";
 import { firebaseAuthErrors } from "@/utils/firebaseAuthErrors";
 import { zodResolver } from "@hookform/resolvers/zod";

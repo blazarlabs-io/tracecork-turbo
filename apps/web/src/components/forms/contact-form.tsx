@@ -1,7 +1,7 @@
 "use client";
 
 import { contactFormSchema } from "@/data/form-schemas";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@repo/ui/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import Link from "next/link";
@@ -163,7 +163,7 @@ export const ContactForm = () => {
               );
             }}
           />
-          <div className="flex w-full items-center gap-2">
+          <div className="flex flex-col w-full items-center gap-4">
             <span className="text-sm text-muted-foreground copyright-container">
               <MarkdownPreviewer
                 content={t("publicPages.contactPage.copyright")}

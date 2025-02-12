@@ -20,7 +20,9 @@ export const Footer = () => {
               <Link href="/home" className="" prefetch={false}>
                 <Logo className="h-8" />
               </Link>
-              <span className="mt-2 text-xs">© 2023 All rights reserved.</span>
+              <span className="mt-2 text-xs">
+                {t("publicComponents.footer.copyright")}
+              </span>
             </div>
             <div className="flex flex-col items-start gap-2">
               {/* <Link href="/explore" className="text-sm">
@@ -33,10 +35,10 @@ export const Footer = () => {
                 Contact Us
               </Link> */}
               <Link href="/legal/terms-and-conditions" className="text-xs">
-                Terms & Conditions
+                {t("publicComponents.footer.links.termsAndConditions.label")}
               </Link>
               <Link href="/legal/terms-and-conditions" className="text-xs">
-                Privacy Policy
+                {t("publicComponents.footer.links.privacyPolicy.label")}
               </Link>
             </div>
           </footer>
@@ -51,24 +53,24 @@ export const Footer = () => {
                 <Logo className="" />
               </Link>
               <span className="mt-2 text-xs">
-                © 2023 Tracecork. All rights reserved.
+                {t("publicComponents.footer.copyright")}
               </span>
             </div>
             <div className="flex items-start gap-8">
               <Link href="/explore" className="text-sm">
-                {t("publicComponents.topBar.links.explore.label")}
+                {t("publicComponents.footer.links.explore.label")}
               </Link>
               <Link href="/pricing" className="text-sm">
-                {t("publicComponents.topBar.links.pricing.label")}
+                {t("publicComponents.footer.links.pricing.label")}
               </Link>
               <Link href="/contact" className="text-sm">
-                {t("publicComponents.topBar.links.contact.label")}
+                {t("publicComponents.footer.links.contact.label")}
               </Link>
               <Link href="/legal/terms-and-conditions" className="text-sm">
-                Terms & Conditions
+                {t("publicComponents.footer.links.termsAndConditions.label")}
               </Link>
               <Link href="/legal/terms-and-conditions" className="text-sm">
-                Privacy Policy
+                {t("publicComponents.footer.links.privacyPolicy.label")}
               </Link>
             </div>
           </footer>

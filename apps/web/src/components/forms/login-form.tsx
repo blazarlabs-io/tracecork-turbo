@@ -1,7 +1,7 @@
 "use client";
 
 import { loginFormSchema } from "@/data/form-schemas";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@repo/ui/hooks/use-toast";
 import { auth } from "@/lib/firebase/client";
 import { firebaseAuthErrors } from "@/utils/firebaseAuthErrors";
 import { cn } from "@/utils/shadcn";
@@ -117,7 +117,11 @@ export const LoginForm = () => {
             onClick={handleSignInWithGoogle}
             disabled={!isVerified}
             type="button"
-            className="flex w-full min-w-[320px] max-w-[320px] items-center justify-center gap-3 rounded-md border border-border bg-foreground px-4 py-2 text-base text-background disabled:bg-slate-400 disabled:text-slate-300"
+            className={cn(
+              "flex w-full min-w-[320px] max-w-[320px] items-center justify-center gap-3",
+              "rounded-md border border-border bg-foreground px-4 py-2 text-base text-background",
+              "disabled:bg-slate-400 disabled:text-slate-300",
+            )}
           >
             <Image
               src="/images/google-color-icon.svg"
