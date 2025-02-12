@@ -71,7 +71,6 @@ export const QrCodeQuaotaExceededDialog = ({
             <DialogClose asChild></DialogClose>
             <DialogClose asChild>
               <span className="flex h-10 cursor-pointer items-center justify-center rounded-md bg-primary px-6 text-primary-foreground transition duration-200 ease-in-out hover:bg-primary/80">
-                Ok
                 {`${t("dashboardGlobalComponents.dialogs.qrCodeQuotaExceededDialog.buttons.cancelButtonLabel")} `}
               </span>
             </DialogClose>
