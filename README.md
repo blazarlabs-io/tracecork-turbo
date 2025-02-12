@@ -1,6 +1,6 @@
 # Tracecork Turborepo
 
-## Using this repository
+## Using this repository:
 
 Clone the repository:
 
