@@ -105,7 +105,13 @@ export const LoginForm = () => {
   const isProcessing = isGoogleLogin || isSubmiting;
 
   return (
-    <div className="flex w-full min-w-[360px] max-w-[360px] flex-col gap-3 rounded-[12px] border p-6">
+    <div
+      className={cn(
+        "w-full sm:w-[360px] max-w-[360px]",
+        "flex flex-col gap-3",
+        "rounded-[12px] border px-2 py-4 sm:p-6",
+      )}
+    >
       <div className="mb-4">
         <h1 className="text-center text-2xl font-semibold">
           {t("publicComponents.login.title")}
@@ -118,7 +124,7 @@ export const LoginForm = () => {
             disabled={!isVerified}
             type="button"
             className={cn(
-              "flex w-full min-w-[320px] max-w-[320px] items-center justify-center gap-3",
+              "flex w-full sm:w-[320px] items-center justify-center gap-3",
               "rounded-md border border-border bg-foreground px-4 py-2 text-base text-background",
               "disabled:bg-slate-400 disabled:text-slate-300",
             )}
@@ -202,7 +208,7 @@ export const LoginForm = () => {
           {t("publicComponents.login.register.buttonLabel")}
         </Link>
       </div>
-      <div className="mt-[16px] min-w-[320px] max-w-[320px]">
+      <div className="mt-[16px] w-full sm:w-[320px] px-2">
         <MarkdownPreviewer
           className="text-xs leading-[20px] text-muted-foreground legal-text-container"
           content={t("publicComponents.login.legalText")}

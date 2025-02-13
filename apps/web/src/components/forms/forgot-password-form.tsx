@@ -22,6 +22,7 @@ import { sendPasswordRecoveryEmailService } from "@/services/auth/auth-emails-se
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/local-storage";
 import { ForgotPassStorage } from "@/types/authTypes";
 import { FORGOT_PASS_KEY } from "@/utils/authConstants";
+import { cn } from "@repo/ui/lib/utils";
 
 export const ForgotPasswordForm = () => {
   // * HOOKS
@@ -54,7 +55,13 @@ export const ForgotPasswordForm = () => {
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div
+      className={cn(
+        "w-full sm:w-[360px] max-w-[360px]",
+        "flex flex-col gap-3",
+        "rounded-[12px] border px-2 py-4 sm:p-6",
+      )}
+    >
       <div className="flex flex-col items-center justify-center gap-2">
         <h2 className="text-2xl font-bold">
           {t("authPages.forgotPassword.title")}

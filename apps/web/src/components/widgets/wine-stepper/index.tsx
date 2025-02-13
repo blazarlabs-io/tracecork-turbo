@@ -33,16 +33,19 @@ export const WineStepper = ({ wineId, selectedStep }: WineStepperProps) => {
         id: "editor",
         title: t("wineStepper.wineryDetails.headline"),
         description: t("wineStepper.wineryDetails.subHeadline"),
+        index: 0,
       },
       {
         id: "preview",
         title: t("wineStepper.previewWine.headline"),
         description: t("wineStepper.previewWine.subHeadline"),
+        index: 1,
       },
       {
         id: "publish",
         title: t("wineStepper.publishWine.headline"),
         description: t("wineStepper.publishWine.subHeadline"),
+        index: 2,
       },
     ];
   }, [t, locale]);
@@ -97,7 +100,8 @@ export const WineStepper = ({ wineId, selectedStep }: WineStepperProps) => {
           <React.Fragment key={step.id}>
             <li
               className={cn(
-                "flex flex-shrink-0 items-center gap-4",
+                "flex flex-shrink-0 items-center flex-1 sm:flex-grow-0",
+                "gap-1 sm:gap-2 md:gap-3 lg:gap-4",
                 device === "mobile" ? "flex-col" : "flex-row",
               )}
             >
@@ -118,7 +122,7 @@ export const WineStepper = ({ wineId, selectedStep }: WineStepperProps) => {
               >
                 {index + 1}
               </Button>
-              <span className="text-sm font-medium">
+              <span className="text-sm font-medium w-[60px] text-center sm:text-start sm:w-[90px] lg:w-[110px]">
                 {baseStepps[index]?.title}
               </span>
             </li>
