@@ -12,6 +12,7 @@ import { z } from "zod";
 import { useConfirmResetPassword, useResetPasswordForm } from "@/hooks/auth";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import { Button } from "@repo/ui/components/ui/button";
+import { cn } from "@repo/ui/lib/utils";
 
 export const PasswordResetPage = ({ oobCode }: ConfirmEmailParamsType) => {
   const [isSubmiting, setIsSubmiting] = useState(false);
@@ -44,14 +45,19 @@ export const PasswordResetPage = ({ oobCode }: ConfirmEmailParamsType) => {
   };
 
   return (
-    <div className="flex w-full min-w-[360px] max-w-[360px] flex-col gap-3 rounded-[12px] border p-6">
+    <div
+      className={cn(
+        "flex w-full max-w-[360px] flex-col gap-3",
+        "rounded-[12px] border px-2 py-4 sm:p-6",
+      )}
+    >
       {isConfirming ? (
-        <h1 className="text-3xl pb-4 font-medium">
+        <h1 className="text-3xl pb-4 font-medium text-center">
           {t("authPages.resetPassword.confirmMessage")}
         </h1>
       ) : isError ? (
         <>
-          <h1 className="text-3xl pb-4 font-medium">
+          <h1 className="text-3xl pb-4 font-medium text-center">
             {t("authPages.resetPassword.errorMessage")}
           </h1>
           <Button size="lg" onClick={handleContinue}>

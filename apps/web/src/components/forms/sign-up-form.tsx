@@ -75,7 +75,13 @@ export const SignUpForm = () => {
   const isProcessing = isSingingUp || isGoogleLogin;
 
   return (
-    <div className="mb-4 flex w-full min-w-[360px] max-w-[360px] flex-col gap-3 rounded-[12px] border p-6">
+    <div
+      className={cn(
+        "w-full sm:w-[360px] max-w-[360px]",
+        "flex flex-col gap-3",
+        "rounded-[12px] border px-2 py-4 sm:p-6",
+      )}
+    >
       <h1 className="pb-4 text-center text-2xl font-semibold">
         {t("publicComponents.signup.title")}
       </h1>
@@ -153,7 +159,7 @@ export const SignUpForm = () => {
         disabled={!isVerified || isProcessing}
         onClick={handleSignInWithGoogle}
         className={cn(
-          "w-full min-w-[320px] max-w-[320px]",
+          "flex w-full sm:w-[320px]",
           "flex items-center justify-center gap-3",
           "rounded-md border border-border bg-foreground px-4 py-2 text-base text-background",
           "disabled:bg-slate-400 disabled:text-slate-300",
@@ -168,7 +174,7 @@ export const SignUpForm = () => {
         />
         {t("publicComponents.signup.googleButtonLabel")}
       </button>
-      <div className="mt-[16px]">
+      <div className="mt-[16px] w-full sm:w-[320px] px-2">
         <MarkdownPreviewer
           className="text-xs leading-[20px] text-muted-foreground legal-text-container"
           content={t("publicComponents.login.legalText")}

@@ -19,6 +19,7 @@ import { WinesTable } from "@/components/widgets/wines-table";
 import { columns } from "@/components/widgets/wines-table/columns";
 // import { taskSchema } from "@/components/widgets/wines-table/data/schema";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import { cn } from "@repo/ui/lib/utils";
 
 export const MyWinesPage = () => {
   // * HOOKS
@@ -48,7 +49,7 @@ export const MyWinesPage = () => {
   }, [user, wines]);
 
   return (
-    <div className="flex w-full flex-col gap-6">
+    <div className={cn("flex w-full flex-col", "gap-2 md:gap-4 lg:gap-6")}>
       <div className="flex w-full items-center justify-between">
         <PageHeader
           title={t("myWines.headline")}

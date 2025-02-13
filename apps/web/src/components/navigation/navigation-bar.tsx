@@ -5,6 +5,7 @@ import {
   SheetTrigger,
   SheetContent,
   SheetTitle,
+  SheetClose,
 } from "@repo/ui/components/ui/sheet";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
@@ -13,29 +14,51 @@ import { useAuth } from "@/context/auth";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { LocaleSwitcher } from "@/components/widgets/locale-switcher/locale-switcher";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import { cn } from "@repo/ui/lib/utils";
+import { useState } from "react";
 
 export const NavigationBar = () => {
   const { t } = useTranslationHandler();
   const { user } = useAuth();
+  const [open, setOpen] = useState(false);
 
   return (
-    <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
-      <Sheet>
+    <header className="flex h-20 w-full shrink-0 items-center px-0 sm:px-2 md:px-4 lg:px-6">
+      <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <Button variant="outline" size="icon" className="xl:hidden">
+          <Button
+            variant="outline"
+            size="icon"
+            className="sm:hidden"
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
             <MenuIcon className="h-6 w-6" />
           </Button>
         </SheetTrigger>
         <SheetContent side="left">
           <SheetTitle></SheetTitle>
-          <Link href="/home" className="mr-6 hidden xl:flex" prefetch={false}>
-            <Logo className="" />
-          </Link>
+          <SheetClose>
+            <Link
+              href="/home"
+              className="mr-6 flex"
+              prefetch={false}
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <Logo className="" />
+            </Link>
+          </SheetClose>
           <div className="grid gap-2 py-6">
             <Link
               href="/home"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
+              onClick={() => {
+                setOpen(false);
+              }}
             >
               {t("publicComponents.topBar.links.home.label")}
             </Link>
@@ -43,6 +66,9 @@ export const NavigationBar = () => {
               href="/explore"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
+              onClick={() => {
+                setOpen(false);
+              }}
             >
               {t("publicComponents.topBar.links.explore.label")}
             </Link>
@@ -50,6 +76,9 @@ export const NavigationBar = () => {
               href="/pricing"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
+              onClick={() => {
+                setOpen(false);
+              }}
             >
               {t("publicComponents.topBar.links.pricing.label")}
             </Link>
@@ -57,53 +86,88 @@ export const NavigationBar = () => {
               href="/contact"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
+              onClick={() => {
+                setOpen(false);
+              }}
             >
               {t("publicComponents.topBar.links.contact.label")}
             </Link>
           </div>
         </SheetContent>
       </Sheet>
-      <div className="flex w-full items-center justify-between">
-        <div className="flex items-center gap-6">
-          <Link href="/home" className="mr-6 hidden xl:flex" prefetch={false}>
+      <div className="flex w-full gap-1 items-center justify-between">
+        <div className="flex flex-grow items-center gap-1 sm:gap-6">
+          <Link href="/home" className="mr-6 hidden lg:flex" prefetch={false}>
             <Logo className="" />
           </Link>
           <Separator
             orientation="vertical"
-            className="hidden h-6 w-[1.5px] xl:flex"
+            className="hidden h-6 w-[1.5px] lg:flex"
           />
-          <nav className="hidden gap-6 xl:flex">
+          <nav className="hidden sm:gap-1 md:gap-4 lg:gap-6 sm:flex sm:flex-grow">
             <Link
               href="/home"
-              className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+              className={cn(
+                "group inline-flex h-9 sm:w-[90px] md:w-max",
+                "items-center justify-center rounded-md bg-white",
+                "px-2 md:px-4 py-2 text-sm font-medium transition-colors",
+                "hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none",
+                "disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50",
+                "dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50",
+                "dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50",
+              )}
               prefetch={false}
             >
               {t("publicComponents.topBar.links.home.label")}
             </Link>
             <Link
               href="/explore"
-              className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+              className={cn(
+                "group inline-flex h-9 sm:w-[90px] md:w-max",
+                "items-center justify-center rounded-md bg-white",
+                "px-2 md:px-4 py-2 text-sm font-medium transition-colors",
+                "hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none",
+                "disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50",
+                "dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50",
+                "dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50",
+              )}
               prefetch={false}
             >
               {t("publicComponents.topBar.links.explore.label")}
             </Link>
             <Link
               href="/pricing"
-              className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+              className={cn(
+                "group inline-flex h-9 sm:w-[90px] md:w-max",
+                "items-center justify-center rounded-md bg-white",
+                "px-2 md:px-4 py-2 text-sm font-medium transition-colors",
+                "hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none",
+                "disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50",
+                "dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50",
+                "dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50",
+              )}
               prefetch={false}
             >
               {t("publicComponents.topBar.links.pricing.label")}
             </Link>
             <Link
               href="/contact"
-              className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+              className={cn(
+                "group inline-flex h-9 sm:w-[90px] md:w-max",
+                "items-center justify-center rounded-md bg-white",
+                "px-2 md:px-4 py-2 text-sm font-medium transition-colors",
+                "hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none",
+                "disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50",
+                "dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50",
+                "dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50",
+              )}
               prefetch={false}
             >
               {t("publicComponents.topBar.links.contact.label")}
             </Link>
           </nav>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex w-fit items-center gap-1 sm:gap-2 md:gap-3 lg:gap-3">
           <LocaleSwitcher />
           {user && user.emailVerified ? (
             <Button variant="outline" size="sm">
@@ -112,13 +176,20 @@ export const NavigationBar = () => {
               </Link>
             </Button>
           ) : (
-            <div className="flex gap-4">
-              <Button variant="outline">
+            <div className="flex gap-1 sm:gap-2 md:gap-4">
+              <Button
+                variant="outline"
+                size="sm" // Default size
+                className="md:size-sm lg:size-lg"
+              >
                 <Link href="/login">
                   {t("publicComponents.topBar.buttons.logIn.label")}
                 </Link>
               </Button>
-              <Button>
+              <Button
+                size="sm" // Default size
+                className="md:size-sm lg:size-lg w-[90px]"
+              >
                 <Link href="/signup">
                   {t("publicComponents.topBar.buttons.signUp.label")}
                 </Link>
