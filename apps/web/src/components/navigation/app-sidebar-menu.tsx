@@ -21,11 +21,13 @@ import Link from "next/link";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import { useTranslateSidebarMenu } from "@/hooks/use-translate-sidebar-menu";
 import { MenuItemType } from "@/types/sidebar";
+import { useResponsiveSize } from "@/hooks/use-responsive-size";
 
 export function AppSidebarMenu() {
   // * HOOKS
   const { t } = useTranslationHandler();
   const { toggleSidebar } = useSidebar();
+  const { device } = useResponsiveSize();
 
   // * STATES
   const { data, setData } = useTranslateSidebarMenu();
@@ -54,7 +56,7 @@ export function AppSidebarMenu() {
         };
       });
     });
-    toggleSidebar();
+    if (device === "mobile") toggleSidebar();
   };
 
   const handleActiveItems = (selected: any) => {
@@ -76,7 +78,7 @@ export function AppSidebarMenu() {
           };
         });
       });
-      toggleSidebar();
+      if (device === "mobile") toggleSidebar();
     }
   };
 
