@@ -14,6 +14,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from "@repo/ui/components/ui/sidebar";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -24,6 +25,7 @@ import { MenuItemType } from "@/types/sidebar";
 export function AppSidebarMenu() {
   // * HOOKS
   const { t } = useTranslationHandler();
+  const { toggleSidebar } = useSidebar();
 
   // * STATES
   const { data, setData } = useTranslateSidebarMenu();
@@ -52,6 +54,7 @@ export function AppSidebarMenu() {
         };
       });
     });
+    toggleSidebar();
   };
 
   const handleActiveItems = (selected: any) => {
@@ -73,6 +76,7 @@ export function AppSidebarMenu() {
           };
         });
       });
+      toggleSidebar();
     }
   };
 
