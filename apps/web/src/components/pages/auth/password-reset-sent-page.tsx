@@ -41,7 +41,7 @@ export const PasswordResetSentPage = () => {
         width={520}
         height={48}
       />
-      <h2 className="mt-12 text-2xl font-bold">
+      <h2 className="mt-12 text-2xl font-bold text-center">
         {t("authPages.passwordResetSent.title")}
       </h2>
       <p className="text-center">{t("authPages.passwordResetSent.message")}</p>
