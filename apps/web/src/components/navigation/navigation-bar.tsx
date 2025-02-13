@@ -5,6 +5,7 @@ import {
   SheetTrigger,
   SheetContent,
   SheetTitle,
+  SheetClose,
 } from "@repo/ui/components/ui/sheet";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
@@ -14,29 +15,50 @@ import { Separator } from "@repo/ui/components/ui/separator";
 import { LocaleSwitcher } from "@/components/widgets/locale-switcher/locale-switcher";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import { cn } from "@repo/ui/lib/utils";
+import { useState } from "react";
 
 export const NavigationBar = () => {
   const { t } = useTranslationHandler();
   const { user } = useAuth();
+  const [open, setOpen] = useState(false);
 
   return (
     <header className="flex h-20 w-full shrink-0 items-center px-0 sm:px-2 md:px-4 lg:px-6">
-      <Sheet>
+      <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <Button variant="outline" size="icon" className="sm:hidden">
+          <Button
+            variant="outline"
+            size="icon"
+            className="sm:hidden"
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
             <MenuIcon className="h-6 w-6" />
           </Button>
         </SheetTrigger>
         <SheetContent side="left">
           <SheetTitle></SheetTitle>
-          <Link href="/home" className="mr-6 hidden xl:flex" prefetch={false}>
-            <Logo className="" />
-          </Link>
+          <SheetClose>
+            <Link
+              href="/home"
+              className="mr-6 flex"
+              prefetch={false}
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <Logo className="" />
+            </Link>
+          </SheetClose>
           <div className="grid gap-2 py-6">
             <Link
               href="/home"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
+              onClick={() => {
+                setOpen(false);
+              }}
             >
               {t("publicComponents.topBar.links.home.label")}
             </Link>
@@ -44,6 +66,9 @@ export const NavigationBar = () => {
               href="/explore"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
+              onClick={() => {
+                setOpen(false);
+              }}
             >
               {t("publicComponents.topBar.links.explore.label")}
             </Link>
@@ -51,6 +76,9 @@ export const NavigationBar = () => {
               href="/pricing"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
+              onClick={() => {
+                setOpen(false);
+              }}
             >
               {t("publicComponents.topBar.links.pricing.label")}
             </Link>
@@ -58,6 +86,9 @@ export const NavigationBar = () => {
               href="/contact"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
+              onClick={() => {
+                setOpen(false);
+              }}
             >
               {t("publicComponents.topBar.links.contact.label")}
             </Link>
