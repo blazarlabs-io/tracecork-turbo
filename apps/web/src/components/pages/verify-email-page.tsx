@@ -31,14 +31,20 @@ export const VerifyEmailPage = () => {
   };
 
   return (
-    <div className="flex w-full max-w-[640px] flex-col items-center justify-center gap-6">
+    <div
+      className={cn(
+        "w-full max-w-[640px]",
+        "flex flex-col gap-3",
+        "rounded-[12px] border px-2 py-4 sm:p-6",
+      )}
+    >
       <Image
         src="/images/verify-email.svg"
         alt="Verify Email"
         width={640}
         height={234}
       />
-      <h2 className="text-center text-2xl font-bold text-foreground">
+      <h2 className="text-center text-2xl font-bold text-foreground px-2">
         {t("authPages.verifyEmail.title")}
       </h2>
       <p className="text-center text-foreground">
