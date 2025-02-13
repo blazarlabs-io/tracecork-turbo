@@ -37,7 +37,7 @@ export const LocaleSwitcherSelect = ({ defaultValue, items, label }: Props) => {
         <SelectTrigger
           aria-label={label}
           className={clsx(
-            "rounded-sm p-2 transition-colors hover:bg-slate-200 gap-2",
+            "rounded-sm p-1 sm:p-2 transition-colors hover:bg-slate-200 gap-1 sm:gap-2",
             isPending && "pointer-events-none opacity-60",
           )}
         >
