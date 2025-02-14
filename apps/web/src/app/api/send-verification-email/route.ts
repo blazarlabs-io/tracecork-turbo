@@ -15,10 +15,13 @@ export async function POST(request: Request) {
 
   sgMail.setApiKey(NEXT_PUBLIC_SENDGRID_API_KEY as string);
 
+  const baseUrl =
+    NEXT_PUBLIC_EMAIL_VERIFICATION_REDIRECT_URL + "/confirm-email";
+
   const actionCodeSettings: ActionCodeSettings = {
     // URL you want to redirect back to. The domain (www.example.com) for
     // this URL must be whitelisted in the Firebase Console.
-    url: NEXT_PUBLIC_EMAIL_VERIFICATION_REDIRECT_URL,
+    url: baseUrl,
     // This must be true for email link sign-in.
     handleCodeInApp: true,
   };
@@ -28,6 +31,9 @@ export async function POST(request: Request) {
     actionCodeSettings,
   );
 
+  const params = url.split("?")[1];
+  const verificationUrl = `${baseUrl}?${params}`;
+
   const msg: sgMail.MailDataRequired = {
     to: data.email,
     from: NEXT_PUBLIC_TRACECORK_EMAIL, // Use the email address or domain you verified above
@@ -36,7 +42,7 @@ export async function POST(request: Request) {
       {
         to: [{ email: data.email }],
         dynamicTemplateData: {
-          verificationUrl: url,
+          verificationUrl,
         },
       },
     ],

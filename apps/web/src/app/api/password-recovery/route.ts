@@ -14,6 +14,9 @@ export async function POST(request: Request) {
 
   sgMail.setApiKey(NEXT_PUBLIC_SENDGRID_API_KEY);
 
+  const baseUrl =
+    NEXT_PUBLIC_EMAIL_VERIFICATION_REDIRECT_URL + "/password-reset";
+
   const actionCodeSettings: ActionCodeSettings = {
     url: NEXT_PUBLIC_EMAIL_VERIFICATION_REDIRECT_URL + "/password-reset",
     handleCodeInApp: true,
@@ -21,9 +24,12 @@ export async function POST(request: Request) {
 
   const data = await request.json();
 
-  const link = await admin
+  const url = await admin
     .auth()
     .generatePasswordResetLink(data.email, actionCodeSettings);
+
+  const params = url.split("?")[1];
+  const recoveryLink = `${baseUrl}?${params}`;
 
   const msg: sgMail.MailDataRequired = {
     to: data.email,
@@ -33,7 +39,7 @@ export async function POST(request: Request) {
       {
         to: [{ email: data.email }],
         dynamicTemplateData: {
-          recoveryLink: link,
+          recoveryLink,
         },
       },
     ],
