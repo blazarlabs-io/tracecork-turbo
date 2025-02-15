@@ -7,7 +7,7 @@ import Image from "next/image";
 import { NutritionTable } from "@/components/widgets/nutrition-table";
 import { useGetWine } from "@/hooks/use-get-wine";
 import { DynamicIngredients } from "@/components/widgets/dynamic-ingredients";
-import { useEffect } from "react";
+import { useQrCodeDomainHandler } from "~/src/hooks/qr-code-domain";
 
 export interface WineDetailsPageProps {
   wineId: string;
@@ -15,13 +15,11 @@ export interface WineDetailsPageProps {
 
 export const WineDetailsPage = ({ wineId }: WineDetailsPageProps) => {
   // * HOOKS
+  const { isChecking } = useQrCodeDomainHandler(wineId);
   const { wine } = useGetWine(wineId);
   const { vintage } = useGetVintage(wine as Wine);
 
-  // useEffect(() => {
-  //   console.log(wine);
-  // }, [wine]);
-
+  if (isChecking) return <h1>Loading...</h1>;
   return (
     <>
       {wine && vintage && (
