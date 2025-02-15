@@ -1,8 +1,6 @@
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { NEXT_PUBLIC_EMAIL_VERIFICATION_REDIRECT_URL } from "../utils/envConstants";
-
-const APP_URL = NEXT_PUBLIC_EMAIL_VERIFICATION_REDIRECT_URL;
+import { NEXT_PUBLIC_APP_URL } from "../utils/envConstants";
 
 export function urlDomailHandler() {
   const router = useRouter();
@@ -11,9 +9,9 @@ export function urlDomailHandler() {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      if (window.location.host === APP_URL) return;
+      if (window.location.host === NEXT_PUBLIC_APP_URL) return;
       const queryParams = searchParams.toString();
-      const newUrl = `${APP_URL}/${pathname}?${queryParams}`;
+      const newUrl = `${NEXT_PUBLIC_APP_URL}/${pathname}?${queryParams}`;
       router.replace(newUrl);
     }, 300);
     return () => {
