@@ -3,6 +3,7 @@ import { initialCoordinates } from "@/data/templates";
 import { Coordinates } from "@/types/db";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { PositionSetMap } from "./position-set-map";
+import { NEXT_PUBLIC_GOOGLE_MAPS_API_KEY } from "@/utils/envConstants";
 
 export interface MapItemProps {
   initialPosition: Coordinates | null;
@@ -70,7 +71,7 @@ export const MapItem = ({
               </div>
               {mapRef.current && (
                 <img
-                  src={`https://maps.googleapis.com/maps/api/staticmap?center=${coordinateString}&zoom=13&size=${mapRef.current?.clientWidth.toString()}x${mapRef.current?.clientHeight.toString()}&maptype=terrain&markers=${coordinateString}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
+                  src={`https://maps.googleapis.com/maps/api/staticmap?center=${coordinateString}&zoom=13&size=${mapRef.current?.clientWidth.toString()}x${mapRef.current?.clientHeight.toString()}&maptype=terrain&markers=${coordinateString}&key=${NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
                   alt=""
                   className="h-full w-full rounded-[8px]"
                 />
