@@ -7,8 +7,11 @@ import { WineryProvider } from "./winery";
 import { ExplorerProvider } from "./explorer";
 import { SystemVariablesProvider } from "./system-variables";
 import { CmsProvider } from "./cms";
+import { urlDomailHandler } from "../hooks/url-domain-handler";
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
+  urlDomailHandler();
+
   return (
     <>
       <Toaster />
