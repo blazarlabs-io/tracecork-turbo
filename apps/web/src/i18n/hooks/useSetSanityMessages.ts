@@ -3,7 +3,7 @@ import { client } from "../../lib/sanity/client";
 import {
   cleanedObj,
   setLanguageObject,
-  setLanguagesArray,
+  setMainLanguages,
   setObjectContent,
 } from "../utils/objectHandlres";
 
@@ -17,11 +17,7 @@ export const useSetSanityMessages = async () => {
 
   const sanityData = await client.fetch<SanityDocument>("*");
 
-  const mainData: any = {
-    LocaleSwitcher: {
-      label: "Language",
-    },
-  };
+  const mainData: { [key: string]: any } = {};
 
   const langObject: { [key: string]: Set<string> } = {};
 
@@ -40,7 +36,7 @@ export const useSetSanityMessages = async () => {
     setLanguageObject(page["_type"], lang, langObject);
   });
 
-  setLanguagesArray(mainData, langObject);
+  setMainLanguages(mainData, langObject);
 
   return mainData;
 };
