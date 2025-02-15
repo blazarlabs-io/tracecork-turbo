@@ -22,7 +22,7 @@ import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../../markdown-previewer/MarkdownPreviewer";
 import { sendEmailService } from "@/services/email-services";
 import { emailTemplates } from "@/utils/email-templates";
-import { NEXT_PUBLIC_DYNAMIC_QR_CODES_REDIRECT_URL } from "@/utils/envConstants";
+import { NEXT_PUBLIC_QR_CODES_URL } from "@/utils/envConstants";
 
 interface PublishOldWineDialogProps {
   children: React.ReactNode;
@@ -69,7 +69,7 @@ export const PublishOldWineDialog = ({
       templateId: emailTemplates["publish-wine"],
       dynamicTemplateData: {
         user: user?.displayName || user?.email,
-        wineUrl: `${NEXT_PUBLIC_DYNAMIC_QR_CODES_REDIRECT_URL}${wineId}`,
+        wineUrl: `${NEXT_PUBLIC_QR_CODES_URL}/explore/wine/${wineId}`,
       },
     });
 
