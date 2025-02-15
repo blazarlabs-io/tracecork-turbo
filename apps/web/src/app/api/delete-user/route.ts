@@ -1,17 +1,21 @@
 import { initAdmin } from "@/lib/firebase/admin";
 import * as admin from "firebase-admin";
 import * as sgMail from "@sendgrid/mail";
+import {
+  NEXT_PUBLIC_SENDGRID_API_KEY,
+  NEXT_PUBLIC_TRACECORK_EMAIL,
+} from "@/utils/envConstants";
 
 export async function POST(request: Request) {
   await initAdmin();
 
-  sgMail.setApiKey(process.env.NEXT_PUBLIC_SENDGRID_API_KEY as string);
+  sgMail.setApiKey(NEXT_PUBLIC_SENDGRID_API_KEY);
 
   const data = await request.json();
 
   const msg: any = {
     to: data.email,
-    from: process.env.NEXT_PUBLIC_TRACECORK_EMAIL as string, // Use the email address or domain you verified above
+    from: NEXT_PUBLIC_TRACECORK_EMAIL, // Use the email address or domain you verified above
     templateId: data.templateId,
     personalizations: [
       {

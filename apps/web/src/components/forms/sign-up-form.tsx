@@ -21,7 +21,8 @@ import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 import { sendVerificationEmailService } from "@/services/auth/auth-emails-services";
 import { useCaptcha, useGoogleSignIn } from "@/hooks/auth";
 import { toast } from "@repo/ui/hooks/use-toast";
-import { firebaseAuthErrors } from "~/src/utils/firebaseAuthErrors";
+import { firebaseAuthErrors } from "@/utils/firebaseAuthErrors";
+import { NEXT_PUBLIC_CAPTCHA_SITE_KEY } from "@/utils/envConstants";
 
 export const SignUpForm = () => {
   const [isSingingUp, setIsSingingUp] = useState(false);
@@ -119,9 +120,7 @@ export const SignUpForm = () => {
           />
           <div className="flex w-full items-center justify-center">
             <ReCAPTCHA
-              sitekey={
-                (process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY as string) || ""
-              }
+              sitekey={NEXT_PUBLIC_CAPTCHA_SITE_KEY}
               ref={recaptchaRef}
               onChange={handleChange}
               onExpired={handleExpired}
