@@ -9,6 +9,7 @@ import { useGetWine } from "@/hooks/use-get-wine";
 import { DynamicIngredients } from "@/components/widgets/dynamic-ingredients";
 import { useQrCodeDomainHandler } from "@/hooks/qr-code-domain";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 
 export interface WineDetailsPageProps {
   wineId: string;
@@ -154,7 +155,9 @@ export const WineDetailsPage = ({ wineId }: WineDetailsPageProps) => {
                 </div>
                 {/* * INGREDIENTS */}
                 <div className="mt-8 flex max-w-[640px] flex-col items-start justify-start gap-4 sm:min-w-[320px] md:min-w-[640px]">
-                  <h2 className="text-base font-bold">INGREDIENTS</h2>
+                  <h2 className="text-base font-bold">
+                    {t("wineDetails.ingredientsTitle")}
+                  </h2>
                   <DynamicIngredients wine={wine} />
                 </div>
                 {/* * NUTRITION INFORMATION */}
@@ -175,11 +178,9 @@ export const WineDetailsPage = ({ wineId }: WineDetailsPageProps) => {
                   />
                 </div>
                 <div className="max-w-[640px]">
-                  <span>
-                    <span className="font-bold">Please Drink Responsibly:</span>{" "}
-                    We encourage you to enjoy the beverages with mindfulness and
-                    moderation.
-                  </span>
+                  <MarkdownPreviewer
+                    content={t("wineDetails.drinkResponsiblyText")}
+                  />
                 </div>
               </div>
             </div>

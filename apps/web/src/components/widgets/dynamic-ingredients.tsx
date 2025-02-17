@@ -98,13 +98,11 @@ export const DynamicIngredients = ({ wine }: DynamicIngredientsProps) => {
                 ;{" "}
               </span>
             )}
-            {t("wineStepper.previewWine.bottledText")}
+            {t("wineDetails.bottledText")}
           </span>
         )}
       <span className="text-sm">
-        <MarkdownPreviewer
-          content={t("wineStepper.previewWine.reminderText")}
-        />
+        <MarkdownPreviewer content={t("wineDetails.reminderText")} />
       </span>
     </>
   );
