@@ -30,19 +30,19 @@ export const NutritionTable = ({
     <div className="flex w-full max-w-[640px] flex-col gap-3 rounded-md border p-6">
       <div className="w-full">
         <h2 className="text-xl font-black">
-          {t("wineStepper.previewWine.nutritionTable.title")}
+          {t("wineDetails.nutritionTable.title")}
         </h2>
       </div>
       <div className="flex w-full items-center justify-end">
         <h2 className="text-sm">
-          {`${t("wineStepper.previewWine.nutritionTable.perMlText")} 100 ml`}
+          {`${t("wineDetails.nutritionTable.perMlText")} 100 ml`}
         </h2>
       </div>
       <div className="h-2 w-full bg-border" />
       {/* * ENERGY */}
       <div className="flex w-full items-center justify-between">
         <span className="text-base font-bold">
-          {t("wineStepper.previewWine.nutritionTable.energy")}
+          {t("wineDetails.nutritionTable.energy")}
         </span>
         {/* <span className="text-base font-bold">{data.energy} kj</span> */}
         <span className="text-base font-bold">{kj} kj</span>
@@ -58,7 +58,7 @@ export const NutritionTable = ({
       {/* * CARBOHYDRATES */}
       <div className="flex w-full items-center justify-between">
         <span className="text-base font-bold">
-          {t("wineStepper.previewWine.nutritionTable.carbohydrates.label")}
+          {t("wineDetails.nutritionTable.carbohydrates.label")}
         </span>
         <span className="text-base font-bold">
           {(parseFloat(data.carbohydrates as string) / 10)
@@ -69,9 +69,7 @@ export const NutritionTable = ({
       </div>
       <div className="flex w-full items-center justify-between">
         <span className="text-base">
-          {t(
-            "wineStepper.previewWine.nutritionTable.carbohydrates.description",
-          )}
+          {t("wineDetails.nutritionTable.carbohydrates.description")}
         </span>
         <span className="text-base">
           {(parseFloat(sugar) / 10).toFixed(1).toString()} g
@@ -81,7 +79,7 @@ export const NutritionTable = ({
       {/* * FAT */}
       <div className="flex w-full items-center justify-between">
         <span className="text-base font-bold">
-          {t("wineStepper.previewWine.nutritionTable.fat.label")}
+          {t("wineDetails.nutritionTable.fat.label")}
         </span>
         <span className="text-base font-bold">
           {(parseFloat(data.fat as string) / 10).toFixed(1).toString()} g
@@ -89,7 +87,7 @@ export const NutritionTable = ({
       </div>
       <div className="flex w-full items-center justify-between">
         <span className="text-base">
-          {t("wineStepper.previewWine.nutritionTable.fat.description")}
+          {t("wineDetails.nutritionTable.fat.description")}
         </span>
         <span className="text-base">
           {(parseFloat(data.fat as string) / 10).toFixed(1).toString()} g
@@ -99,7 +97,7 @@ export const NutritionTable = ({
       {/* * PROTEIN */}
       <div className="flex w-full items-center justify-between">
         <span className="text-base font-bold">
-          {t("wineStepper.previewWine.nutritionTable.protein")}
+          {t("wineDetails.nutritionTable.protein")}
         </span>
         <span className="text-base font-bold">
           {(parseFloat(data.protein as string) / 10).toFixed(1).toString()} g
@@ -109,7 +107,7 @@ export const NutritionTable = ({
       {/* * SALT */}
       <div className="flex w-full items-center justify-between">
         <span className="text-base font-bold">
-          {t("wineStepper.previewWine.nutritionTable.salt")}
+          {t("wineDetails.nutritionTable.salt")}
         </span>
         <span className="text-base font-bold">
           {(parseFloat(data.salt as string) / 10).toFixed(1).toString()} g
@@ -117,7 +115,9 @@ export const NutritionTable = ({
       </div>
       <div className="mt-4">
         <span className="text-base">
-          Contains {parseInt(volume) / 100} portions of 100 ml
+          {t("wineDetails.nutritionTable.containsPortionsText", {
+            value: parseInt(volume) / 100,
+          })}
         </span>
       </div>
     </div>

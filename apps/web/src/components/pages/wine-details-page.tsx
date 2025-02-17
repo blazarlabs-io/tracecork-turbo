@@ -7,7 +7,8 @@ import Image from "next/image";
 import { NutritionTable } from "@/components/widgets/nutrition-table";
 import { useGetWine } from "@/hooks/use-get-wine";
 import { DynamicIngredients } from "@/components/widgets/dynamic-ingredients";
-import { useQrCodeDomainHandler } from "~/src/hooks/qr-code-domain";
+import { useQrCodeDomainHandler } from "@/hooks/qr-code-domain";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export interface WineDetailsPageProps {
   wineId: string;
@@ -15,6 +16,7 @@ export interface WineDetailsPageProps {
 
 export const WineDetailsPage = ({ wineId }: WineDetailsPageProps) => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const { isChecking } = useQrCodeDomainHandler(wineId);
   const { wine } = useGetWine(wineId);
   const { vintage } = useGetVintage(wine as Wine);
