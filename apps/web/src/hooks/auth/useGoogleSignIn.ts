@@ -11,11 +11,12 @@ export const useGoogleSignIn = () => {
       setIsGoogleLogin(true);
       await signInWithPopup(auth, provider);
     } catch (error: any) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      const email = error.customData.email;
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      console.log(errorCode, errorMessage, email, credential);
+      console.error(error);
+      // const errorCode = error.code;
+      // const errorMessage = error.message;
+      // const email = error.customData.email;
+      // const credential = GoogleAuthProvider.credentialFromError(error);
+      // console.log(errorCode, errorMessage, email, credential);
     } finally {
       setIsGoogleLogin(false);
     }

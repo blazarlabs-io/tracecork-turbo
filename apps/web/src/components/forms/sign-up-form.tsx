@@ -29,8 +29,6 @@ export const SignUpForm = () => {
   const { t } = useTranslationHandler();
 
   // * HOOKS
-  const { recaptchaRef, isVerified, handleExpired, handleChange } =
-    useCaptcha();
   const { isGoogleLogin, handleSignInWithGoogle } = useGoogleSignIn();
 
   const form = useForm<z.infer<typeof signUpFormSchema>>({
@@ -41,6 +39,9 @@ export const SignUpForm = () => {
       confirmPassword: "",
     },
     mode: "onChange",
+  });
+  const { recaptchaRef, isVerified, handleExpired, handleChange } = useCaptcha({
+    refreshForm: form.trigger,
   });
 
   // * HANDLERS
