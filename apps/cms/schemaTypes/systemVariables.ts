@@ -47,6 +47,7 @@ export const systemVariables = defineType({
           ],
         }),
       ],
+      description: 'List of wine types.',
     }),
     // Old Raw Materials
     defineField({
