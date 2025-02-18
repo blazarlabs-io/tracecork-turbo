@@ -1,8 +1,8 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { sendRecaptchaService } from "@/services/auth";
 
-export const useCaptcha = () => {
+export const useCaptcha = ({ refreshForm }: { refreshForm: () => void }) => {
   const recaptchaRef = useRef<typeof ReCAPTCHA>(null);
   const [isVerified, setIsVerified] = useState(false);
 
@@ -10,7 +10,8 @@ export const useCaptcha = () => {
     setIsVerified(false);
   };
 
-  const handleCaptchaSubmission = async (token: string | null) => {
+  // * STATIC HANDLERS
+  const handleCaptchaSubmission = useCallback(async (token: string | null) => {
     try {
       if (!token) return;
       await sendRecaptchaService(token);
@@ -18,11 +19,16 @@ export const useCaptcha = () => {
     } catch (e) {
       setIsVerified(false);
     }
-  };
+  }, []);
 
-  const handleChange = (token: string | null) => {
+  const handleChange = useCallback((token: string | null) => {
     handleCaptchaSubmission(token);
-  };
+    try {
+      refreshForm();
+    } catch (e) {
+      return;
+    }
+  }, []);
 
   return { recaptchaRef, isVerified, handleExpired, handleChange };
 };

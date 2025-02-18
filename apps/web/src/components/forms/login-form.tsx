@@ -37,13 +37,10 @@ import { useGoogleSignIn, useCaptcha } from "@/hooks/auth";
 export const LoginForm = () => {
   const { t } = useTranslationHandler();
   const router = useRouter();
-  const [isSubmiting, setIsSubmiting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // * HOOKS
-  const { recaptchaRef, isVerified, handleExpired, handleChange } =
-    useCaptcha();
   const { isGoogleLogin, handleSignInWithGoogle } = useGoogleSignIn();
-
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -52,11 +49,13 @@ export const LoginForm = () => {
       password: "",
     },
   });
-
+  const { recaptchaRef, isVerified, handleExpired, handleChange } = useCaptcha({
+    refreshForm: form.trigger,
+  });
   // * HANDLERS
   const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
     try {
-      setIsSubmiting(true);
+      setIsSubmitting(true);
       setToLocalStorage<LoginStorage>(LOGIN_CREDENTIALS_KEY, {
         email: values.email,
       });
@@ -94,7 +93,7 @@ export const LoginForm = () => {
         }),
       });
     } finally {
-      setIsSubmiting(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -102,8 +101,8 @@ export const LoginForm = () => {
     router.push("/forgot-password");
   };
 
-  const isProcessing = isGoogleLogin || isSubmiting;
-
+  // * It will be on processing if the Google sign-in process is initiated (Google modal Open) and when form is submitting
+  const isProcessing = isGoogleLogin || isSubmitting;
   return (
     <div
       className={cn(
