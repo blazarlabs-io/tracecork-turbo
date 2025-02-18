@@ -19,10 +19,11 @@ import {
 import { z } from "zod";
 import { useEffect, useState } from "react";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import { KeyValueType } from "@/types/db";
 
 export interface WineTypeAndSweetnessFieldProps {
   form: any;
-  wineTypes: string[];
+  wineTypes: KeyValueType[];
   selectedWineType: string | null;
   selectedSweetness: string[] | null;
   autosave: boolean;
@@ -81,9 +82,9 @@ export const WineTypeAndSweetnessField = ({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      {wineTypes.map((type: string) => (
-                        <SelectItem key={type} value={type}>
-                          {type}
+                      {wineTypes.map((type) => (
+                        <SelectItem key={type.key} value={type.key}>
+                          {t(`systemVariables.dictWineTypes.${type.key}`)}
                         </SelectItem>
                       ))}
                     </SelectGroup>
@@ -139,7 +140,9 @@ export const WineTypeAndSweetnessField = ({
                             value={type}
                             className="capitalize"
                           >
-                            {type}
+                            {t(
+                              `systemVariables.dictSweetness.${type.split("-")[0]}.${type}`,
+                            )}
                           </SelectItem>
                         ))}
                       </SelectGroup>
