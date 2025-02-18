@@ -11,6 +11,7 @@ export const systemVariables = defineType({
       title: 'Language',
       readOnly: true,
     }),
+    // Old Wine Types
     defineField({
       name: 'wineTypes',
       title: 'Wine Types',
@@ -22,6 +23,32 @@ export const systemVariables = defineType({
       ],
       description: 'List of wine types.',
     }),
+    // New Wine Types
+    defineField({
+      name: 'dictWineTypes',
+      title: 'Wine Types',
+      type: 'array',
+      of: [
+        defineField({
+          name: 'dictionary',
+          title: 'Dictionary',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'value',
+              title: 'Value',
+              type: 'string',
+            }),
+            defineField({
+              name: 'key',
+              title: 'Key',
+              type: 'string',
+            }),
+          ],
+        }),
+      ],
+    }),
+    // Old Raw Materials
     defineField({
       name: 'rawMaterials',
       title: 'Raw Materials',
@@ -33,6 +60,33 @@ export const systemVariables = defineType({
       ],
       description: 'List of raw materials.',
     }),
+    // New Raw Materials
+    defineField({
+      name: 'dictRawMaterials',
+      title: 'Raw Materials',
+      type: 'array',
+      of: [
+        defineField({
+          name: 'dictionary',
+          title: 'Dictionary',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'value',
+              title: 'Value',
+              type: 'string',
+            }),
+            defineField({
+              name: 'key',
+              title: 'Key',
+              type: 'string',
+            }),
+          ],
+        }),
+      ],
+      description: 'List of raw materials.',
+    }),
+    // Old allergens
     defineField({
       name: 'allergens',
       title: 'Allergens',
@@ -44,6 +98,33 @@ export const systemVariables = defineType({
       ],
       description: 'List of allergens.',
     }),
+    // New allergens
+    defineField({
+      name: 'dictAllergens',
+      title: 'Allergens',
+      type: 'array',
+      of: [
+        defineField({
+          name: 'dictionary',
+          title: 'Dictionary',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'value',
+              title: 'Value',
+              type: 'string',
+            }),
+            defineField({
+              name: 'key',
+              title: 'Key',
+              type: 'string',
+            }),
+          ],
+        }),
+      ],
+      description: 'List of allergens.',
+    }),
+    // Old sweetness
     defineField({
       name: 'sweetness',
       title: 'Sweetness',
@@ -78,6 +159,87 @@ export const systemVariables = defineType({
             {
               type: 'string',
             },
+          ],
+        }),
+      ],
+    }),
+    // New sweetness
+    defineField({
+      name: 'dictSweetness',
+      title: 'Sweetness',
+      description: 'List of sweetness levels.',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'dessert',
+          type: 'array',
+          title: 'Dessert',
+          of: [
+            defineField({
+              name: 'dictionary',
+              title: 'Dictionary',
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'value',
+                  title: 'Value',
+                  type: 'string',
+                }),
+                defineField({
+                  name: 'key',
+                  title: 'Key',
+                  type: 'string',
+                }),
+              ],
+            }),
+          ],
+        }),
+        defineField({
+          name: 'sparkling',
+          type: 'array',
+          title: 'Sparkling',
+          of: [
+            defineField({
+              name: 'dictionary',
+              title: 'Dictionary',
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'value',
+                  title: 'Value',
+                  type: 'string',
+                }),
+                defineField({
+                  name: 'key',
+                  title: 'Key',
+                  type: 'string',
+                }),
+              ],
+            }),
+          ],
+        }),
+        defineField({
+          name: 'other',
+          type: 'array',
+          title: 'Other',
+          of: [
+            defineField({
+              name: 'dictionary',
+              title: 'Dictionary',
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'value',
+                  title: 'Value',
+                  type: 'string',
+                }),
+                defineField({
+                  name: 'key',
+                  title: 'Key',
+                  type: 'string',
+                }),
+              ],
+            }),
           ],
         }),
       ],
