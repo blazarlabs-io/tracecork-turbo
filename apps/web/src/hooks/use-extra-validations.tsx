@@ -44,13 +44,13 @@ export const useExtraValidations = (form: any) => {
         ) {
           setSelectedWineType(values.generalInfo?.type);
           if (values.generalInfo?.type.toLowerCase() === "sparkling wine") {
-            setSelectedSweetness(sweetness?.sparkling);
+            setSelectedSweetness(sweetness?.sparkling.map((d) => d.key));
           } else if (
             values.generalInfo?.type.toLowerCase() === "dessert wine"
           ) {
-            setSelectedSweetness(sweetness?.dessert);
+            setSelectedSweetness(sweetness?.dessert.map((d) => d.key));
           } else {
-            setSelectedSweetness(sweetness?.other);
+            setSelectedSweetness(sweetness?.other.map((d) => d.key));
           }
         }
       }

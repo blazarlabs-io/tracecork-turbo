@@ -17,6 +17,7 @@ import {
   SelectItem,
 } from "@repo/ui/components/ui/select";
 import { z } from "zod";
+import { KeyValueType } from "@/types/db";
 
 export interface WineSelectFieldProps {
   name: string;
@@ -29,7 +30,7 @@ export interface WineSelectFieldProps {
   onSubmit: (data: z.infer<typeof wineFormSchema>) => void;
 }
 
-export const WineSelectField = ({
+export const WineSelectStringField = ({
   name,
   label,
   description,
@@ -71,7 +72,7 @@ export const WineSelectField = ({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    {options.map((option: string) => (
+                    {options.map((option) => (
                       <SelectItem key={option} value={option}>
                         {option}
                       </SelectItem>
