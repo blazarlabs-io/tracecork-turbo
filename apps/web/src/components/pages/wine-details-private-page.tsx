@@ -20,6 +20,11 @@ export const WineDetailsPrivatePage = ({ wineId }: WineDetailsPageProps) => {
   const { wine } = useGetWine(wineId);
   const { vintage } = useGetVintage(wine as Wine);
 
+  if (!wine) return <h1>Lading Wine...</h1>;
+
+  const { generalInfo, profile } = wine;
+  const { type: wineType } = generalInfo;
+
   return (
     <>
       {wine && vintage && (
@@ -59,9 +64,9 @@ export const WineDetailsPrivatePage = ({ wineId }: WineDetailsPageProps) => {
               <div className="flex w-full flex-col items-center justify-center gap-2">
                 <div className="flex w-full items-center justify-center gap-4 text-sm font-semibold text-muted-foreground">
                   <div className="flex flex-col items-center justify-center gap-1">
-                    {wine.generalInfo.type ? (
+                    {wineType && profile ? (
                       <span className="capitalize">
-                        {wine.profile?.sweetness} {wine.generalInfo.type}
+                        {`${t(`systemVariables.dictSweetness.${profile.sweetness?.split("-")[0]}.${profile.sweetness}`)} ${t(`systemVariables.dictWineTypes.${wineType}`)}`}
                       </span>
                     ) : (
                       <span className="text-destructive">

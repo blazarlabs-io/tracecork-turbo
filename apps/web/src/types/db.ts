@@ -157,10 +157,15 @@ export interface DbResponse {
   code: number;
 }
 
+export type KeyValueType = {
+  key: string;
+  value: string;
+};
+
 export interface Sweetness {
-  dessert: string[];
-  sparkling: string[];
-  other: string[];
+  dessert: KeyValueType[];
+  sparkling: KeyValueType[];
+  other: KeyValueType[];
 }
 
 // export type Sweetness = string[];

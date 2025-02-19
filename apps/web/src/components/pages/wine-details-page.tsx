@@ -10,7 +10,6 @@ import { DynamicIngredients } from "@/components/widgets/dynamic-ingredients";
 import { useQrCodeDomainHandler } from "@/hooks/qr-code-domain";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
-import { useSystemVariablesTranslations } from "@/hooks/wine-details/use-system-variables-translations";
 
 export interface WineDetailsPageProps {
   wineId: string;
@@ -22,12 +21,13 @@ export const WineDetailsPage = ({ wineId }: WineDetailsPageProps) => {
   const { isChecking } = useQrCodeDomainHandler(wineId);
   const { wine } = useGetWine(wineId);
   const { vintage } = useGetVintage(wine as Wine);
-  const { wineTypeIndex, swwetnessTransData } = useSystemVariablesTranslations({
-    wineType: wine?.generalInfo.type || "",
-    wienSweetness: wine?.profile?.sweetness || "",
-  });
 
   if (isChecking) return <h1>Loading...</h1>;
+  if (!wine) return <h1>Lading Wine...</h1>;
+
+  const { generalInfo, profile } = wine;
+  const { type: wineType } = generalInfo;
+
   return (
     <>
       {wine && vintage && (
@@ -68,12 +68,9 @@ export const WineDetailsPage = ({ wineId }: WineDetailsPageProps) => {
                 <div className="flex w-full flex-col items-center justify-center gap-2">
                   <div className="flex w-full items-center justify-center gap-4 text-sm font-semibold text-muted-foreground">
                     <div className="flex flex-col items-center justify-center gap-1">
-                      {wine.generalInfo.type ? (
-                        // <span className="capitalize">
-                        //   {wine.profile?.sweetness} {wine.generalInfo.type}
-                        // </span>
+                      {wineType && profile ? (
                         <span className="capitalize">
-                          {`${t(`systemVariables.sweetness.${swwetnessTransData.field}.${swwetnessTransData.index}`)} ${t(`systemVariables.wineTypes.${wineTypeIndex}`)}`}
+                          {`${t(`systemVariables.dictSweetness.${profile.sweetness?.split("-")[0]}.${profile.sweetness}`)} ${t(`systemVariables.dictWineTypes.${wineType}`)}`}
                         </span>
                       ) : (
                         <span className="text-destructive">

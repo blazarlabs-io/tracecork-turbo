@@ -1,16 +1,16 @@
 "use client";
 
-import { DbResponse, PricingLevel, Sweetness } from "@/types/db";
+import { DbResponse, KeyValueType, PricingLevel, Sweetness } from "@/types/db";
 import { db } from "@/lib/firebase/services/db";
 import { createContext, useContext, useEffect, useState } from "react";
 
 export interface SystemVariablesContextInterface {
-  pricing: PricingLevel[];
-  allergens: string[];
   countries: string[];
-  rawMaterials: string[];
   volumes: string[];
-  wineTypes: string[];
+  pricing: PricingLevel[];
+  allergens: KeyValueType[];
+  rawMaterials: KeyValueType[];
+  wineTypes: KeyValueType[];
   sweetness: Sweetness;
 }
 
@@ -44,11 +44,12 @@ export const SystemVariablesProvider = ({
   children,
 }: React.PropsWithChildren): JSX.Element => {
   const [pricing, setPricing] = useState<PricingLevel[]>([]);
-  const [allergens, setAllergens] = useState<string[]>([]);
   const [countries, setCountries] = useState<string[]>([]);
-  const [rawMaterials, setRawMaterials] = useState<string[]>([]);
   const [volumes, setVolumes] = useState<string[]>([]);
-  const [wineTypes, setWineTypes] = useState<string[]>([]);
+
+  const [allergens, setAllergens] = useState<KeyValueType[]>([]);
+  const [rawMaterials, setRawMaterials] = useState<KeyValueType[]>([]);
+  const [wineTypes, setWineTypes] = useState<KeyValueType[]>([]);
   const [sweetness, setSweetness] = useState<Sweetness>({} as Sweetness);
 
   useEffect(() => {
