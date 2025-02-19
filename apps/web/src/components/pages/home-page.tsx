@@ -29,7 +29,7 @@ export const HomePage = () => {
                 <p className="py-6 text-xl font-normal text-muted-foreground">
                   {t("publicPages.homePage.subHeadline")}
                 </p>
-                <Button size="lg">
+                <Button size="lg" asChild>
                   <Link href={user ? "/dashboard/home" : "/signup"}>
                     {t("publicPages.homePage.buttonLabel")}
                   </Link>

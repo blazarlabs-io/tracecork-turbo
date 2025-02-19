@@ -1,4 +1,5 @@
 import {
+  parseDictionarySanityData,
   parseLinkSanityData,
   parseStatCardSanityData,
   sanityBlockToMarkdown,
@@ -32,6 +33,8 @@ const getArrayTypeData = (fieldValue: any[]) => {
   if (!!linkData) return linkData;
   const statCardData = parseStatCardSanityData(fieldValue);
   if (!!statCardData) return statCardData;
+  const dictionaryData = parseDictionarySanityData(fieldValue);
+  if (!!dictionaryData) return dictionaryData;
   return setArrayContent(fieldValue);
 };
 

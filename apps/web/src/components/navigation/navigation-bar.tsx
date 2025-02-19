@@ -178,6 +178,7 @@ export const NavigationBar = () => {
           ) : (
             <div className="flex gap-1 sm:gap-2 md:gap-4">
               <Button
+                asChild
                 variant="outline"
                 size="sm" // Default size
                 className="md:size-sm lg:size-lg"
@@ -187,6 +188,7 @@ export const NavigationBar = () => {
                 </Link>
               </Button>
               <Button
+                asChild
                 size="sm" // Default size
                 className="md:size-sm lg:size-lg w-[90px]"
               >
