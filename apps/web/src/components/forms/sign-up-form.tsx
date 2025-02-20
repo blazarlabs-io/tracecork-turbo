@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Control, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -25,12 +25,12 @@ import { firebaseAuthErrors } from "@/utils/firebaseAuthErrors";
 import { NEXT_PUBLIC_CAPTCHA_SITE_KEY } from "@/utils/envConstants";
 
 export const SignUpForm = () => {
+  // * STATE
   const [isSingingUp, setIsSingingUp] = useState(false);
-  const { t } = useTranslationHandler();
 
   // * HOOKS
+  const { t } = useTranslationHandler();
   const { isGoogleLogin, handleSignInWithGoogle } = useGoogleSignIn();
-
   const form = useForm<z.infer<typeof signUpFormSchema>>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
@@ -40,8 +40,17 @@ export const SignUpForm = () => {
     },
     mode: "onChange",
   });
+  // This avoid doing validation and showing errors after captcha validation if the input values are not dirty (different from the default values)
+  const handleRefreshForm = useCallback(() => {
+    try {
+      if (form.formState.isDirty) form.trigger();
+      return;
+    } catch (e) {
+      console.error(e);
+    }
+  }, [form.formState.isDirty]);
   const { recaptchaRef, isVerified, handleExpired, handleChange } = useCaptcha({
-    refreshForm: form.trigger,
+    synchWithFormState: handleRefreshForm,
   });
 
   // * HANDLERS
@@ -73,7 +82,6 @@ export const SignUpForm = () => {
       setIsSingingUp(false);
     }
   };
-
   const isProcessing = isSingingUp || isGoogleLogin;
 
   return (

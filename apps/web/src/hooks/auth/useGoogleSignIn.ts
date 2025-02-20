@@ -15,7 +15,8 @@ export const useGoogleSignIn = () => {
 
   // * HANDLERS
   function isUserNew(createdAt: string): boolean {
-    const NEW_USER_GRACE_PERIOD = 10 * 1000; // 10 seconds threshold
+    // Determines if a user is new by checking if the user was created after a certain threshold based on the NEW_USER_GRACE_PERIOD
+    const NEW_USER_GRACE_PERIOD = 6 * 1000; // 6 seconds threshold
     const now = new Date().getTime();
     const created = new Date(createdAt).getTime();
     return created > now - NEW_USER_GRACE_PERIOD;
