@@ -10,7 +10,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -49,8 +49,17 @@ export const LoginForm = () => {
       password: "",
     },
   });
+  // This avoid doing validation and showing errors after captcha validation if the input values are not dirty (different from the default values)
+  const handleRefreshForm = useCallback(() => {
+    try {
+      if (form.formState.isDirty) form.trigger();
+      return;
+    } catch (e) {
+      console.error(e);
+    }
+  }, [form.formState.isDirty]);
   const { recaptchaRef, isVerified, handleExpired, handleChange } = useCaptcha({
-    refreshForm: form.trigger,
+    synchWithFormState: handleRefreshForm,
   });
   // * HANDLERS
   const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
