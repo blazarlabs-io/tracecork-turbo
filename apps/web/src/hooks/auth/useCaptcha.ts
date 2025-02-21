@@ -2,7 +2,11 @@ import { useCallback, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { sendRecaptchaService } from "@/services/auth";
 
-export const useCaptcha = ({ refreshForm }: { refreshForm: () => void }) => {
+export const useCaptcha = ({
+  synchWithFormState,
+}: {
+  synchWithFormState: () => void;
+}) => {
   const recaptchaRef = useRef<typeof ReCAPTCHA>(null);
   const [isVerified, setIsVerified] = useState(false);
 
@@ -24,7 +28,7 @@ export const useCaptcha = ({ refreshForm }: { refreshForm: () => void }) => {
   const handleChange = useCallback((token: string | null) => {
     handleCaptchaSubmission(token);
     try {
-      refreshForm();
+      synchWithFormState();
     } catch (e) {
       return;
     }
