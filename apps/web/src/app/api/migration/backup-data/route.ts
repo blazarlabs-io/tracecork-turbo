@@ -1,8 +1,8 @@
 // import { initAdmin } from "@/lib/firebase/admin";
 // import * as admin from "firebase-admin";
-// import { getCollectionNestedDataService } from "~/src/services/db/db-migration-services";
+// import { getCollectionNestedDataService } from "@/services/db/db-migration-services";
 
-// import { writeLocalFile } from "~/src/utils/files";
+// import { writeLocalFile } from "@/utils/files";
 
 export async function POST(request: Request) {
   return Response.json({

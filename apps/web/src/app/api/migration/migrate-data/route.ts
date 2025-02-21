@@ -7,13 +7,13 @@
 // import {
 //   getTargetDateToMigrate,
 //   setTargetKeys,
-// } from "~/src/services/db/db.migration-utils-services";
+// } from "@/services/db/db.migration-utils-services";
 // import {
 //   getRawMaterialsServie,
 //   getSweetnessServie,
 //   getWineTypesServie,
 // } from "@/services/db/system-variables-services";
-// import { getApplyDataService } from "~/src/services/db/db-migration-services";
+// import { getApplyDataService } from "@/services/db/db-migration-services";
 
 export async function POST(request: Request) {
   return Response.json({
