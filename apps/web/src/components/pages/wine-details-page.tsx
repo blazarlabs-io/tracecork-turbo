@@ -11,7 +11,7 @@ import { useQrCodeDomainHandler } from "@/hooks/qr-code-domain";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 import { setUserLocale } from "@/services/locale";
-import { useLocaleContext } from "~/src/context/LanguageProvider";
+import { useLocaleContext } from "@/context/LanguageProvider";
 
 export interface WineDetailsPageProps {
   wineId: string;

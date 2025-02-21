@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { LocaleSwitcherSelect } from "./locale-switcher-select";
 import { useLocaleOptions } from "@/hooks/use-locale-options";
-import { useLocaleContext } from "~/src/context/LanguageProvider";
+import { useLocaleContext } from "@/context/LanguageProvider";
 
 export const LocaleSwitcher = () => {
   const { locale, items, label } = useLocaleOptions();
