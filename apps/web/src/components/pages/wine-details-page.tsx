@@ -10,6 +10,8 @@ import { DynamicIngredients } from "@/components/widgets/dynamic-ingredients";
 import { useQrCodeDomainHandler } from "@/hooks/qr-code-domain";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
+import { setUserLocale } from "@/services/locale";
+import { useLocaleContext } from "~/src/context/LanguageProvider";
 
 export interface WineDetailsPageProps {
   wineId: string;

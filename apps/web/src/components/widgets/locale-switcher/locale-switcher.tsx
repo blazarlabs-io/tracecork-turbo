@@ -1,45 +1,26 @@
 "use client";
 
+import { useEffect } from "react";
 import { LocaleSwitcherSelect } from "./locale-switcher-select";
-import { useEffect, useMemo, useState } from "react";
-import { useTranslationHandler } from "@/hooks/use-translation-handler";
-import { usePathname } from "next/navigation";
+import { useLocaleOptions } from "@/hooks/use-locale-options";
+import { useLocaleContext } from "~/src/context/LanguageProvider";
 
 export const LocaleSwitcher = () => {
-  const { locale, msg } = useTranslationHandler();
-  const pathname = usePathname();
-  const [isFullLang, setIsFullLang] = useState(false);
+  const { locale, items, label } = useLocaleOptions();
+  const { localeSelected, onLocaleChange } = useLocaleContext();
 
+  /* Thi is in charge to validate if the locale selected is in the locale options
+    this could happen when go to a page with many languages and select one outisede
+    the short options available (6), then this will set as locale selected english
+   */
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setIsFullLang(pathname.includes("/explore/wine"));
-    }, 300);
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [pathname]);
-
-  const items = useMemo(() => {
-    if (!msg["language"] || typeof msg["language"] === "string") return [];
-    const commongLang = msg["language"]["common-lang"];
-    if (isFullLang) {
-      const fullLang = msg["language"]["all-lang"];
-      if (!fullLang || typeof fullLang === "string") return [];
-      if (!Array.isArray(fullLang)) return [];
-      return fullLang.map((v) => ({ value: v, label: v }));
-    }
-    if (!commongLang || typeof commongLang === "string") return [];
-    if (!Array.isArray(commongLang)) return [];
-    return commongLang.map((v) => ({ value: v, label: v }));
-  }, [msg["language"], isFullLang]);
-
-  const label = useMemo(() => {
-    if (!msg["language"] || typeof msg["language"] === "string")
-      return "Language";
-    const { label } = msg["language"];
-    if (!label || typeof label != "string") return "Language";
-    return label;
-  }, [msg["language"]]);
+      const current = items.find((v) => v.value === localeSelected);
+      if (current) return;
+      onLocaleChange("en");
+    }, 100);
+    return () => clearTimeout(timeoutId);
+  }, [items, localeSelected]);
 
   return (
     <LocaleSwitcherSelect defaultValue={locale} items={items} label={label} />

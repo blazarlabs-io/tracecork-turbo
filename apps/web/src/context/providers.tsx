@@ -8,6 +8,7 @@ import { ExplorerProvider } from "./explorer";
 import { SystemVariablesProvider } from "./system-variables";
 import { CmsProvider } from "./cms";
 import { NEXT_PUBLIC_GOOGLE_MAPS_API_KEY } from "../utils/envConstants";
+import { LocaleProvider } from "./LanguageProvider";
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -19,7 +20,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
             <AuthProvider>
               <WineryProvider>
                 <APIProvider apiKey={NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
-                  {children}
+                  <LocaleProvider>{children}</LocaleProvider>
                 </APIProvider>
               </WineryProvider>
             </AuthProvider>
