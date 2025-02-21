@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@repo/ui/components/ui/select";
-import db from "~/src/lib/firebase/services/db";
+import db from "@/lib/firebase/services/db";
 import { useToast } from "@repo/ui/hooks/use-toast";
 import {
   Avatar,
