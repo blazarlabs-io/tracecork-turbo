@@ -21,6 +21,8 @@ export async function middleware(request: NextRequest) {
     if (!authData) request.cookies.delete(AUTH_COOKIE);
   }
 
+  const isPrivateRutes = pathname.startsWith("/dashboard");
+
   if (authData) {
     const {
       decodedData: { email_verified },
@@ -32,7 +34,6 @@ export async function middleware(request: NextRequest) {
     if (pathname === "/" || isAuthRoute) {
       return NextResponse.redirect(new URL(newUrl, request.url));
     }
-    const isPrivateRutes = pathname.startsWith("/dashboard");
     if (isPrivateRutes && !email_verified) {
       return NextResponse.redirect(new URL("/verify-email", request.url));
     }
@@ -42,7 +43,6 @@ export async function middleware(request: NextRequest) {
     }
     return NextResponse.next();
   } else {
-    const isPrivateRutes = pathname.startsWith("/dashboard");
     const isVerifyEmail = pathname.startsWith("/verify-email");
     if (isPrivateRutes || isVerifyEmail) {
       return NextResponse.redirect(new URL("/login", request.url));

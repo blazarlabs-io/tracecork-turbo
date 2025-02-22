@@ -16,10 +16,12 @@ import { LocaleSwitcher } from "@/components/widgets/locale-switcher/locale-swit
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import { cn } from "@repo/ui/lib/utils";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const NavigationBar = () => {
+  const router = useRouter();
   const { t } = useTranslationHandler();
-  const { user } = useAuth();
+  const { user, singOutUserHandler } = useAuth();
   const [open, setOpen] = useState(false);
 
   return (
@@ -170,11 +172,26 @@ export const NavigationBar = () => {
         <div className="flex w-fit items-center gap-1 sm:gap-2 md:gap-3 lg:gap-3">
           <LocaleSwitcher />
           {user ? (
-            <Button variant="outline" size="sm" asChild>
-              <Link href="/dashboard/home">
-                {t("publicComponents.topBar.buttons.backToDashboard.label")}
-              </Link>
-            </Button>
+            <>
+              <Button variant="outline" size="sm" asChild>
+                <Link href="/dashboard/home">
+                  {t("publicComponents.topBar.buttons.backToDashboard.label")}
+                </Link>
+              </Button>
+              {!user.emailVerified && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    singOutUserHandler().then(() => {
+                      router.replace("/");
+                    });
+                  }}
+                >
+                  {t("dashboardGlobalComponents.topBar.dropdown.0.label")}
+                </Button>
+              )}
+            </>
           ) : (
             <div className="flex gap-1 sm:gap-2 md:gap-4">
               <Button

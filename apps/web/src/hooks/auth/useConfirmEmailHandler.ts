@@ -64,6 +64,7 @@ export const useConfirmEmailHandler = (params: ConfirmEmailParamsType) => {
     try {
       if (!oobCode) {
         router.replace("/");
+        return;
       }
       setIsError(false);
       const action = await checkActionCode(auth, oobCode);
