@@ -16,35 +16,43 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const idToken = request.cookies.get(AUTH_COOKIE)?.value;
   let authData: CheckIdTokenResp | undefined = undefined;
+  // if there is a token, check if it is valid if not delete it
   if (!!idToken) {
     authData = await checkIdToken(idToken, request.url);
     if (!authData) request.cookies.delete(AUTH_COOKIE);
   }
 
-  const isPrivateRutes = pathname.startsWith("/dashboard");
+  // Being user logged in, redirect by user privileges if necessary, otherwise continue with free access
+  const onPrivateRoute = pathname.startsWith("/dashboard");
+  const onConfirmEmail = pathname.startsWith("/confirm-email");
+  const OnVerifyEmail = pathname.startsWith("/verify-email");
 
   if (authData) {
     const {
       decodedData: { email_verified },
     } = authData;
-    const isAuthRoute = authProtectedRoutes.some((authRoute) =>
+    const onAuthRoute = authProtectedRoutes.some((authRoute) =>
       pathname.startsWith(authRoute),
     );
-    const newUrl = email_verified ? "/dashboard/home" : "/verify-email";
-    if (pathname === "/" || isAuthRoute) {
-      return NextResponse.redirect(new URL(newUrl, request.url));
+
+    //  * IF TRIES ACCESSING TO AN AUTH OR ROOT PAGE PREVENT ACCESS IF EMAIL IS VERIFIED
+    if (pathname === "/" || onAuthRoute) {
+      const redirectPath = email_verified ? "/dashboard/home" : "/verify-email";
+      return NextResponse.redirect(new URL(redirectPath, request.url));
     }
-    if (isPrivateRutes && !email_verified) {
+    // * IF TRIES ACCESSING TO A PRIVATE ROUTE, AND EMAIL IS NOT VERIFIED, REDIRECT TO VERIFY EMAIL PAGE
+    if (onPrivateRoute && !email_verified) {
       return NextResponse.redirect(new URL("/verify-email", request.url));
     }
-    const isConfirmEmailPage = pathname.startsWith("/confirm-email");
-    if (isConfirmEmailPage && email_verified) {
+    // * IF TRIES ACCESSING TO CONFIRM EMAIL OR VERIFY PAGE, AND BEING EMAIL ALREADY VERIFIED, REDIRECT TO DASHBOARD
+    if ((onConfirmEmail || OnVerifyEmail) && email_verified) {
       return NextResponse.redirect(new URL("/dashboard/home", request.url));
     }
     return NextResponse.next();
   } else {
-    const isVerifyEmail = pathname.startsWith("/verify-email");
-    if (isPrivateRutes || isVerifyEmail) {
+    // * BEING NOT LOGGED IN
+    // * IF TRIES ACCESSING PRIVATE ROUTES, VERIFY EMAIL PAGE, REDIRECT TO LOGIN
+    if (onPrivateRoute || OnVerifyEmail) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
     return NextResponse.next();
