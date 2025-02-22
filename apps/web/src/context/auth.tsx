@@ -1,20 +1,30 @@
 "use client";
 
 import { auth } from "@/lib/firebase/client";
-import { User, onAuthStateChanged } from "firebase/auth";
-import { useRouter, usePathname } from "next/navigation";
+import { User, onAuthStateChanged, signOut } from "firebase/auth";
 
 // LIBS
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { AUTH_COOKIE } from "../utils/cookieConstants";
-import { setCookie } from "cookies-next";
+import { deleteCookie, setCookie } from "cookies-next";
 
 export interface AuthContextInterface {
   user: User | null;
+  setUserHandler: (user: User) => Promise<void>;
+  singOutUserHandler: () => Promise<void>;
 }
 
 const contextInitialData: AuthContextInterface = {
   user: null,
+  setUserHandler: async () => {},
+  singOutUserHandler: async () => {},
 };
 
 const AuthContext = createContext(contextInitialData);
@@ -32,24 +42,30 @@ export const useAuth = (): AuthContextInterface => {
 export const AuthProvider = ({
   children,
 }: React.PropsWithChildren): JSX.Element => {
-  const router = useRouter();
-  const pathname = usePathname();
   const [user, setUser] = useState<User | null>(null);
 
+  const setUserHandler = async (user: User) => {
+    setUser(user);
+    const idToken = await user.getIdToken(true);
+    setCookie(AUTH_COOKIE, idToken, {
+      path: "/",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    });
+  };
+
+  const singOutUserHandler = async () => {
+    setUser(null);
+    signOut(auth);
+    await deleteCookie(AUTH_COOKIE);
+  };
+
+  /* This effect only set the user data if it is exist */
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      console.log({ user });
-      if (user) {
-        setUser(user);
-        const idToken = await user.getIdToken();
-        setCookie(AUTH_COOKIE, idToken, {
-          path: "/",
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "lax",
-        });
-      } else {
-        setUser(null);
-      }
+      console.log("Auth User", user);
+      if (!user) return;
+      await setUserHandler(user);
     });
 
     return () => {
@@ -57,7 +73,7 @@ export const AuthProvider = ({
     };
   }, []);
 
-  const value = { user };
+  const value = { user, setUserHandler, singOutUserHandler };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

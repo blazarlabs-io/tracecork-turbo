@@ -23,9 +23,13 @@ import { useCaptcha, useGoogleSignIn } from "@/hooks/auth";
 import { toast } from "@repo/ui/hooks/use-toast";
 import { firebaseAuthErrors } from "@/utils/firebaseAuthErrors";
 import { NEXT_PUBLIC_CAPTCHA_SITE_KEY } from "@/utils/envConstants";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/auth";
 
 export const SignUpForm = () => {
   // * STATE
+  const router = useRouter();
+  const { setUserHandler } = useAuth();
   const [isSingingUp, setIsSingingUp] = useState(false);
 
   // * HOOKS
@@ -65,10 +69,12 @@ export const SignUpForm = () => {
       );
       // Signed in
       const user = userCredential.user;
+      await setUserHandler(user);
       const userEmail = user.email ? user.email : values.email;
 
       // console.log("USER:", user);
       await sendVerificationEmailService(userEmail);
+      router.replace("/verify-email");
     } catch (error: any) {
       console.error(error);
       toast({

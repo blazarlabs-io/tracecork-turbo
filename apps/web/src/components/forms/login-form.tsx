@@ -35,9 +35,11 @@ import { LOGIN_CREDENTIALS_KEY } from "@/utils/authConstants";
 import { useGoogleSignIn, useCaptcha } from "@/hooks/auth";
 import { AUTH_COOKIE } from "@/utils/cookieConstants";
 import { setCookie } from "cookies-next";
+import { useAuth } from "@/context/auth";
 
 export const LoginForm = () => {
   const { t } = useTranslationHandler();
+  const { setUserHandler } = useAuth();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -78,6 +80,7 @@ export const LoginForm = () => {
 
       // Signed in
       const user = userCredential.user;
+      await setUserHandler(user);
       const idToken = await user.getIdToken();
       setCookie(AUTH_COOKIE, idToken, {
         path: "/",
@@ -136,7 +139,7 @@ export const LoginForm = () => {
         <Tooltip>
           <TooltipTrigger
             onClick={handleSignInWithGoogle}
-            disabled={!isVerified}
+            disabled={!isVerified || isSubmitting}
             type="button"
             className={cn(
               "flex w-full sm:w-[320px] items-center justify-center gap-3",
