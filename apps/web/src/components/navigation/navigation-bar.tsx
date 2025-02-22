@@ -169,7 +169,7 @@ export const NavigationBar = () => {
         </div>
         <div className="flex w-fit items-center gap-1 sm:gap-2 md:gap-3 lg:gap-3">
           <LocaleSwitcher />
-          {user && user.emailVerified ? (
+          {user ? (
             <Button variant="outline" size="sm" asChild>
               <Link href="/dashboard/home">
                 {t("publicComponents.topBar.buttons.backToDashboard.label")}

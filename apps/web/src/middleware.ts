@@ -28,13 +28,23 @@ export async function middleware(request: NextRequest) {
     const isAuthRoute = authProtectedRoutes.some((authRoute) =>
       pathname.startsWith(authRoute),
     );
-    const newUrl = email_verified ? "/dashboard/home" : "verify-email";
+    const newUrl = email_verified ? "/dashboard/home" : "/verify-email";
     if (pathname === "/" || isAuthRoute) {
       return NextResponse.redirect(new URL(newUrl, request.url));
     }
+    const isPrivateRutes = pathname.startsWith("/dashboard");
+    if (isPrivateRutes && !email_verified) {
+      return NextResponse.redirect(new URL("/verify-email", request.url));
+    }
+    const isConfirmEmailPage = pathname.startsWith("/confirm-email");
+    if (isConfirmEmailPage && email_verified) {
+      return NextResponse.redirect(new URL("/dashboard/home", request.url));
+    }
     return NextResponse.next();
   } else {
-    if (pathname.startsWith("/dashboard")) {
+    const isPrivateRutes = pathname.startsWith("/dashboard");
+    const isVerifyEmail = pathname.startsWith("/verify-email");
+    if (isPrivateRutes || isVerifyEmail) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
     return NextResponse.next();

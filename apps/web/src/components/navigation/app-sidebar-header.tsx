@@ -30,14 +30,13 @@ import { deleteCookie } from "cookies-next";
 export function AppSidebarHeader() {
   // * HOOKS
   const { t } = useTranslationHandler();
-  const { user } = useAuth();
+  const { user, singOutUserHandler } = useAuth();
   const { winery } = useWinery();
   const router = useRouter();
 
   // * HANDLERS
-  const handleSignOut = () => {
-    signOut(auth);
-    deleteCookie(AUTH_COOKIE);
+  const handleSignOut = async () => {
+    await singOutUserHandler();
     router.replace("/home");
   };
 
