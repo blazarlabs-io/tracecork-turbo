@@ -1,10 +1,9 @@
-import { initAdmin } from "@/lib/firebase/admin";
-import * as admin from "firebase-admin";
 import * as sgMail from "@sendgrid/mail";
 import {
   NEXT_PUBLIC_SENDGRID_API_KEY,
   NEXT_PUBLIC_TRACECORK_EMAIL,
 } from "@/utils/envConstants";
+import { adminAuth, initAdmin } from "@/lib/firebase/admin";
 
 export async function POST(request: Request) {
   await initAdmin();
@@ -26,9 +25,7 @@ export async function POST(request: Request) {
       },
     ],
   };
-
-  admin
-    .auth()
+  adminAuth
     .updateUser(data.uid, {
       email: data.email,
       disabled: true,

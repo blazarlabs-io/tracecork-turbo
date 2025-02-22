@@ -1,6 +1,6 @@
 import { DocumentData } from "firebase/firestore";
-import * as admin from "firebase-admin";
 import { BackupType } from "./db.migration-utils-services";
+import { adminFirestore } from "@/lib/firebase/admin";
 
 type DataType = {
   docId: string;
@@ -13,7 +13,7 @@ type DataType = {
 };
 
 export const getCollectionDataService = async (collectionName: string) => {
-  const db = admin.firestore();
+  const db = adminFirestore;
   const collection = await db.collection(collectionName).get();
 
   const data: DataType[] = [];
@@ -36,7 +36,7 @@ export const getCollectionDataService = async (collectionName: string) => {
 export const getCollectionNestedDataService = async (
   collectionName: string,
 ) => {
-  const db = admin.firestore();
+  const db = adminFirestore;
   const collection = await db.collection(collectionName).get();
 
   const data: DataType[] = [];
@@ -70,7 +70,7 @@ export const getApplyDataService = async (
     wines: BackupType[];
   }[],
 ) => {
-  const db = admin.firestore();
+  const db = adminFirestore;
 
   for (const uData of responseData) {
     if (!uData.uDocId) continue;

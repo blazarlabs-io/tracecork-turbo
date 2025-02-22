@@ -1,5 +1,3 @@
-import { initAdmin } from "@/lib/firebase/admin";
-import * as admin from "firebase-admin";
 import * as sgMail from "@sendgrid/mail";
 import { emailTemplates } from "@/utils/email-templates";
 import { ActionCodeSettings } from "firebase-admin/auth";
@@ -8,6 +6,7 @@ import {
   NEXT_PUBLIC_SENDGRID_API_KEY,
   NEXT_PUBLIC_TRACECORK_EMAIL,
 } from "@/utils/envConstants";
+import { adminAuth, initAdmin } from "@/lib/firebase/admin";
 
 export async function POST(request: Request) {
   await initAdmin();
@@ -23,9 +22,10 @@ export async function POST(request: Request) {
 
   const data = await request.json();
 
-  const url = await admin
-    .auth()
-    .generatePasswordResetLink(data.email, actionCodeSettings);
+  const url = await adminAuth.generatePasswordResetLink(
+    data.email,
+    actionCodeSettings,
+  );
 
   const params = url.split("?")[1];
   const recoveryLink = `${baseUrl}?${params}`;
