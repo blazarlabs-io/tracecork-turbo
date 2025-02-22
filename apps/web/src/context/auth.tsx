@@ -4,14 +4,7 @@ import { auth } from "@/lib/firebase/client";
 import { User, onAuthStateChanged, signOut } from "firebase/auth";
 
 // LIBS
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { AUTH_COOKIE } from "../utils/cookieConstants";
 import { deleteCookie, setCookie } from "cookies-next";
 
@@ -63,7 +56,7 @@ export const AuthProvider = ({
   /* This effect only set the user data if it is exist */
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      console.log("Auth User", user);
+      // console.log("Auth User", user);
       if (!user) return;
       await setUserHandler(user);
     });
