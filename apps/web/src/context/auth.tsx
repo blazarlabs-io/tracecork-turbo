@@ -1,11 +1,13 @@
 "use client";
 
 import { auth } from "@/lib/firebase/client";
-import { User, onAuthStateChanged, signOut } from "firebase/auth";
+import { User, onAuthStateChanged } from "firebase/auth";
 import { useRouter, usePathname } from "next/navigation";
 
 // LIBS
 import { createContext, useContext, useEffect, useState } from "react";
+import { AUTH_COOKIE } from "../utils/cookieConstants";
+import { setCookie } from "cookies-next";
 
 export interface AuthContextInterface {
   user: User | null;
@@ -35,22 +37,16 @@ export const AuthProvider = ({
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      // console.log(user);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      console.log({ user });
       if (user) {
         setUser(user);
-        if (
-          user.emailVerified &&
-          !pathname.startsWith("/explore") &&
-          !pathname.startsWith("/legal")
-        ) {
-          router.push("/dashboard/home");
-        } else if (
-          !user.emailVerified &&
-          !pathname.startsWith("/confirm-email")
-        ) {
-          router.push("/verify-email");
-        }
+        const idToken = await user.getIdToken();
+        setCookie(AUTH_COOKIE, idToken, {
+          path: "/",
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
+        });
       } else {
         setUser(null);
       }

@@ -1,4 +1,4 @@
-import * as admin from "firebase-admin";
+import { adminFirestore } from "@/lib/firebase/admin";
 
 export type KeyValueType = {
   key: string;
@@ -6,14 +6,14 @@ export type KeyValueType = {
 };
 
 export const getWineTypesServie = async () => {
-  const db = admin.firestore();
+  const db = adminFirestore;
   const doc = await db.collection("systemVariables").doc("wineTypes").get();
   if (!doc.exists) return;
   return doc.data()?.wineTypes as KeyValueType[];
 };
 
 export const getRawMaterialsServie = async () => {
-  const db = admin.firestore();
+  const db = adminFirestore;
   const doc = await db.collection("systemVariables").doc("rawMaterials").get();
   if (!doc.exists) return;
   return doc.data()?.rawMaterials as KeyValueType[];
@@ -26,7 +26,7 @@ export type sweetnessType = {
 };
 
 export const getSweetnessServie = async () => {
-  const db = admin.firestore();
+  const db = adminFirestore;
   const doc = await db.collection("systemVariables").doc("sweetness").get();
   if (!doc.exists) return;
   return doc.data()?.sweetness as sweetnessType;
