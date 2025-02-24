@@ -2,15 +2,19 @@
 
 import { useAuth } from "@/context/auth";
 import Image from "next/image";
-import { use, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import { sendVerificationEmailService } from "@/services/auth/auth-emails-services";
 import { useCustomCountDown } from "@/hooks/use-custom-count-down";
 import { cn } from "@repo/ui/lib/utils";
+import { useRouter } from "next/navigation";
+import { auth } from "@/lib/firebase/client";
 
 export const VerifyEmailPage = () => {
+  const [isChecking, setIsChecking] = useState(true);
   const [isSending, setIsSending] = useState(false);
   // * HOOKS
+  const router = useRouter();
   const { t } = useTranslationHandler();
   const { user } = useAuth();
 
@@ -20,8 +24,12 @@ export const VerifyEmailPage = () => {
     try {
       if (!user || !user.email) return;
       setIsSending(true);
-      // * Send verification email
-      await sendVerificationEmailService(user.email);
+      if (user.emailVerified) {
+        router.replace("/dashboard/home");
+      } else {
+        // * Send verification email
+        await sendVerificationEmailService(user.email);
+      }
       startCountDown();
     } catch (error) {
       console.error(error);
@@ -29,6 +37,21 @@ export const VerifyEmailPage = () => {
       setIsSending(false);
     }
   };
+
+  useEffect(() => {
+    if (!!user && !user.emailVerified) {
+      setIsChecking(false);
+      return;
+    }
+    user?.reload();
+    const newUrl = !!user ? "/dashboard/home" : "/login";
+    const timeoutId = setTimeout(() => {
+      router.replace(newUrl);
+    }, 200);
+    return () => clearTimeout(timeoutId);
+  }, [user]);
+
+  if (isChecking) return <h1>Loading...</h1>;
 
   return (
     <div

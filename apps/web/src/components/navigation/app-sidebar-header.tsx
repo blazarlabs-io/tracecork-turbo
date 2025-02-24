@@ -24,17 +24,19 @@ import { Button } from "@repo/ui/components/ui/button";
 import { LocaleSwitcher } from "../widgets/locale-switcher/locale-switcher";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import { cn } from "@repo/ui/lib/utils";
+import { AUTH_COOKIE } from "@/utils/cookieConstants";
+import { deleteCookie } from "cookies-next";
 
 export function AppSidebarHeader() {
   // * HOOKS
   const { t } = useTranslationHandler();
-  const { user } = useAuth();
+  const { user, singOutUserHandler } = useAuth();
   const { winery } = useWinery();
   const router = useRouter();
 
   // * HANDLERS
-  const handleSignOut = () => {
-    signOut(auth);
+  const handleSignOut = async () => {
+    await singOutUserHandler();
     router.replace("/home");
   };
 
@@ -65,7 +67,7 @@ export function AppSidebarHeader() {
           {t("dashboardGlobalComponents.topBar.buttons.exploreWines.label")}
         </Button>
         <Separator orientation="vertical" className="h-6" />
-        {user && winery && (
+        {user && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar className="cursor-pointer border">

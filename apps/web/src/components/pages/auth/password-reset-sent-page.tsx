@@ -12,7 +12,7 @@ import { cn } from "@repo/ui/lib/utils";
 import { useGetForgotPassEmail } from "@/hooks/auth";
 
 export const PasswordResetSentPage = () => {
-  const [isSubmiting, setIsSubmiting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   // * HOOKS
   const { t } = useTranslationHandler();
   const router = useRouter();
@@ -23,13 +23,13 @@ export const PasswordResetSentPage = () => {
   const resendHandler = async () => {
     try {
       if (!forgotPassEmail) return;
-      setIsSubmiting(true);
+      setIsSubmitting(true);
       await sendPasswordRecoveryEmailService(forgotPassEmail);
       startCountDown();
     } catch (error) {
-      console.error("Error submiting forgot password request");
+      console.error("Error Submitting forgot password request");
     } finally {
-      setIsSubmiting(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -55,7 +55,7 @@ export const PasswordResetSentPage = () => {
           </span>
         ) : (
           <button
-            disabled={isSubmiting}
+            disabled={isSubmitting}
             className={cn("text-primary underline", "disabled:opacity-50")}
             onClick={() => resendHandler()}
           >
