@@ -1,14 +1,8 @@
 "use client";
 
-import { auth } from "@/lib/firebase/client";
-import { User, onAuthStateChanged, signOut } from "firebase/auth";
-import { useRouter, usePathname } from "next/navigation";
-
 // LIBS
 import {
-  SetStateAction,
   createContext,
-  Dispatch,
   useContext,
   useEffect,
   useRef,

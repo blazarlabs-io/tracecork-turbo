@@ -1,12 +1,12 @@
-import { initAdmin } from "@/lib/firebase/admin";
 import * as sgMail from "@sendgrid/mail";
-import { ActionCodeSettings, getAuth } from "firebase-admin/auth";
+import { ActionCodeSettings } from "firebase-admin/auth";
 import { emailTemplates } from "@/utils/email-templates";
 import {
   NEXT_PUBLIC_APP_URL,
   NEXT_PUBLIC_SENDGRID_API_KEY,
   NEXT_PUBLIC_TRACECORK_EMAIL,
 } from "@/utils/envConstants";
+import { adminAuth, initAdmin } from "@/lib/firebase/admin";
 
 export async function POST(request: Request) {
   await initAdmin();
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     handleCodeInApp: true,
   };
 
-  const url = await getAuth().generateEmailVerificationLink(
+  const url = await adminAuth.generateEmailVerificationLink(
     data.email as string,
     actionCodeSettings,
   );

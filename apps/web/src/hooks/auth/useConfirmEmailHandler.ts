@@ -4,7 +4,7 @@ import {
   checkActionCode,
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { use, useCallback, useEffect, useRef, useState } from "react";
 import { useAuth } from "@/context/auth";
 import { auth } from "@/lib/firebase/client";
 import { ConfirmEmailParamsType } from "@/types/authTypes";
@@ -44,6 +44,7 @@ export const useConfirmEmailHandler = (params: ConfirmEmailParamsType) => {
           user: userName || email,
         },
       });
+      user?.reload();
       setIsConfirming(false);
     },
     [oobCode, user],
@@ -61,6 +62,10 @@ export const useConfirmEmailHandler = (params: ConfirmEmailParamsType) => {
 
   const mainHandler = useCallback(async () => {
     try {
+      if (!oobCode) {
+        router.replace("/");
+        return;
+      }
       setIsError(false);
       const action = await checkActionCode(auth, oobCode);
       if (action.operation === "VERIFY_EMAIL") {

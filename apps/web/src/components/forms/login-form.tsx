@@ -33,9 +33,13 @@ import { getFromLocalStorage, setToLocalStorage } from "@/utils/local-storage";
 import { LoginStorage } from "@/types/authTypes";
 import { LOGIN_CREDENTIALS_KEY } from "@/utils/authConstants";
 import { useGoogleSignIn, useCaptcha } from "@/hooks/auth";
+import { AUTH_COOKIE } from "@/utils/cookieConstants";
+import { setCookie } from "cookies-next";
+import { useAuth } from "@/context/auth";
 
 export const LoginForm = () => {
   const { t } = useTranslationHandler();
+  const { setUserHandler } = useAuth();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -76,13 +80,20 @@ export const LoginForm = () => {
 
       // Signed in
       const user = userCredential.user;
-
+      await setUserHandler(user);
+      const idToken = await user.getIdToken();
+      setCookie(AUTH_COOKIE, idToken, {
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+      });
       if (user.emailVerified) {
         toast({
           variant: "default",
           title: t("toasts.auth.loginSuccess.title"),
           description: t("toasts.auth.loginSuccess.description"),
         });
+        router.replace("/dashboard/home");
       } else {
         toast({
           variant: "destructive",
@@ -90,7 +101,7 @@ export const LoginForm = () => {
           description: t("toasts.auth.verifyEmailError.description"),
         });
         await sendVerificationEmailService(values.email);
-        router.push("/verify-email");
+        router.replace("/verify-email");
       }
     } catch (error: any) {
       console.error(error);
@@ -101,7 +112,6 @@ export const LoginForm = () => {
           message: firebaseAuthErrors[error.code],
         }),
       });
-    } finally {
       setIsSubmitting(false);
     }
   };
@@ -129,7 +139,7 @@ export const LoginForm = () => {
         <Tooltip>
           <TooltipTrigger
             onClick={handleSignInWithGoogle}
-            disabled={!isVerified}
+            disabled={!isVerified || isSubmitting}
             type="button"
             className={cn(
               "flex w-full sm:w-[320px] items-center justify-center gap-3",
