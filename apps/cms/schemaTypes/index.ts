@@ -1,4 +1,4 @@
-import {authPages} from './authPages'
+import {authPages} from '@/features/authentication/context/authPages'
 import {dashboardGlobalComponents} from './dashboardGlobalComponents'
 import {dashboardHome} from './dashboardHome'
 import {manageAccount} from './dashboardMyAccount/manageAccount'

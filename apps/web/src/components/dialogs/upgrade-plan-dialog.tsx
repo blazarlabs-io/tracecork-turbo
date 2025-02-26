@@ -12,11 +12,11 @@ import {
 } from "@repo/ui/components/ui/dialog";
 import { toast } from "@repo/ui/hooks/use-toast";
 import { useState } from "react";
-import { useAuth } from "@/context/auth";
+import { useAuth } from "~/src/features/authentication/context/auth-provider";
 import "./upgrade-plan-dialog-styles.css";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
-import { sendEmailService } from "~/src/features/authentication/services/email";
+import { sendEmailService } from "@/services/email";
 import { emailTemplates } from "@/utils/email-templates";
 import { NEXT_PUBLIC_TRACECORK_EMAIL } from "@/utils/envConstants";
 

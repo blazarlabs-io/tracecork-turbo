@@ -33,7 +33,7 @@ import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 import "./contact-form-styles.css";
 import { NEXT_PUBLIC_TRACECORK_EMAIL } from "@/utils/envConstants";
 import { emailTemplates } from "@/utils/email-templates";
-import { sendEmailService } from "~/src/features/authentication/services/email";
+import { sendEmailService } from "@/services/email";
 
 export const ContactForm = () => {
   const { t } = useTranslationHandler();

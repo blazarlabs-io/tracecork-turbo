@@ -14,8 +14,8 @@ import {
 } from "@repo/ui/components/ui/dropdown-menu";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { SidebarTrigger } from "@repo/ui/components/ui/sidebar";
-import { useAuth } from "@/context/auth";
-import { useWinery } from "@/context/winery";
+import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useWinery } from "~/src/features/wineries/context/winery";
 import { auth } from "@/lib/firebase/client";
 import { signOut } from "firebase/auth";
 import { LogOut } from "lucide-react";
@@ -24,7 +24,7 @@ import { Button } from "@repo/ui/components/ui/button";
 import { LocaleSwitcher } from "../widgets/locale-switcher/locale-switcher";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import { cn } from "@repo/ui/lib/utils";
-import { AUTH_COOKIE } from "@/utils/cookieConstants";
+import { AUTH_COOKIE } from "~/src/features/authentication/utils/cookie-constants";
 import { deleteCookie } from "cookies-next";
 
 export function AppSidebarHeader() {

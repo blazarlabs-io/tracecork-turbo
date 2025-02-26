@@ -1,4 +1,4 @@
-import { CheckIdTokenResp } from "@/types/authTypes";
+import { CheckIdTokenResp } from "~/src/features/authentication/types";
 
 export const checkIdToken = async (idToken: string, requestUrls: string) => {
   try {

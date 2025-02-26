@@ -4,7 +4,7 @@ import { onSnapshot, doc, collection, getDocs } from "firebase/firestore";
 // LIBS
 import { createContext, useContext, useEffect, useState } from "react";
 import { db } from "../lib/firebase/client";
-import { useAuth } from "./auth";
+import { useAuth } from "@/features/authentication/context/auth";
 
 export interface WineriesContextInterface {
   wineries: any[];

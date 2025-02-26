@@ -1,5 +1,5 @@
-import { ConfirmEmailPage } from "~/src/features/authentication/pages";
-import { ConfirmEmailParamsType } from "@/types/authTypes";
+import { ConfirmEmailPage } from "@/features/authentication/pages/confirm-email";
+import { ConfirmEmailParamsType } from "~/src/features/authentication/types";
 
 type Params = Promise<{ mode: string }>;
 type SearchParams = Promise<ConfirmEmailParamsType>;

@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/role-supports-aria-props */
 "use client";
 
-import { SecurePublishWineDialog } from "@/components/dialogs/secure-publish-wine-dialog";
-import { WineForm } from "@/components/forms/wine-form";
+import { SecurePublishWineDialog } from "~/src/features/wineries/components/dialogs/secure-publish-wine";
+import { WineForm } from "~/src/features/wineries/components/forms/wine";
 import { DraftIcon } from "@/components/icons/draft";
 import { PublishedIcon } from "@/components/icons/published";
 import { PageHeader } from "@/components/layouts/page-header";
-import { useHandleWineToEdit } from "@/hooks/use-handle-wine-to-edit";
+import { useHandleWineToEdit } from "~/src/features/wineries/hooks/use-handle-wine-to-edit";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
 import { cn } from "@/utils/shadcn";
 import { Button } from "@repo/ui/components/ui/button";

@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import { sendRecaptchaService } from "~/src/features/authentication/services";
+import { sendRecaptchaService } from "@/features/authentication/services/recaptcha";
 
 export const useCaptcha = ({
   synchWithFormState,

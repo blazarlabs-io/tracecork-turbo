@@ -5,11 +5,11 @@ import {
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { use, useCallback, useEffect, useRef, useState } from "react";
-import { useAuth } from "@/context/auth";
+import { useAuth } from "~/src/features/authentication/context/auth-provider";
 import { auth } from "@/lib/firebase/client";
-import { ConfirmEmailParamsType } from "@/types/authTypes";
+import { ConfirmEmailParamsType } from "@/features/authentication/types";
 import { emailTemplates } from "@/utils/email-templates";
-import { sendEmailService } from "~/src/features/authentication/services/email";
+import { sendEmailService } from "@/services/email";
 
 export const useConfirmEmailHandler = (params: ConfirmEmailParamsType) => {
   const { oobCode } = params;

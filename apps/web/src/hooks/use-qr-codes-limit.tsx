@@ -1,5 +1,5 @@
 import { useSystemVariables } from "@/context/system-variables";
-import { useWinery } from "@/context/winery";
+import { useWinery } from "~/src/features/wineries/context/winery";
 import { useEffect, useState } from "react";
 
 export const useQRCodesLimit = () => {

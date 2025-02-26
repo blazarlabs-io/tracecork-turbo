@@ -9,8 +9,8 @@ import {
 } from "@repo/ui/components/ui/card";
 import { PageHeader } from "../layouts/page-header";
 
-import { useAuth } from "@/context/auth";
-import { useWinery } from "@/context/winery";
+import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useWinery } from "~/src/features/wineries/context/winery";
 import { useQRCodesLimit } from "@/hooks/use-qr-codes-limit";
 import { Grape, LandPlot, Wine } from "lucide-react";
 import { UpgradePlanDialog } from "../dialogs/upgrade-plan-dialog";

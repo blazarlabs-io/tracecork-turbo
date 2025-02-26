@@ -2,7 +2,7 @@ import {defineField, defineType} from 'sanity'
 import {wines} from './wines'
 import {userSettings} from './userSettings'
 import {globals} from './globals'
-import {auth} from './auth'
+import {auth} from '@/features/authentication/context/auth'
 
 export const toasts = defineType({
   name: 'toasts',

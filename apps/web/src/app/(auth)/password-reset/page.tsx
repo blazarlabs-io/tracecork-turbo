@@ -1,5 +1,5 @@
-import { PasswordResetPage } from "~/src/features/authentication/pages";
-import { ConfirmEmailParamsType } from "@/types/authTypes";
+import { PasswordResetPage } from "@/features/authentication/pages/password-reset";
+import { ConfirmEmailParamsType } from "~/src/features/authentication/types";
 
 type Params = Promise<{ mode: string }>;
 type SearchParams = Promise<ConfirmEmailParamsType>;

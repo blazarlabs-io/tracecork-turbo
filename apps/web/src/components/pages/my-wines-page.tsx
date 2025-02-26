@@ -1,11 +1,11 @@
 "use client";
 
-import { useAuth } from "@/context/auth";
-import { useWinery } from "@/context/winery";
+import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useWinery } from "~/src/features/wineries/context/winery";
 import { useQRCodesLimit } from "@/hooks/use-qr-codes-limit";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
 import { Wine } from "@/types/db";
-import { generateWineId } from "@/utils/wine-utils";
+import { generateWineId } from "~/src/features/wineries/utils/wine-utils";
 import { Plus, QrCode } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

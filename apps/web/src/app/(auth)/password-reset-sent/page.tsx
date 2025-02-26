@@ -1,4 +1,4 @@
-import { PasswordResetSentPage } from "~/src/features/authentication/pages";
+import { PasswordResetSentPage } from "@/features/authentication/pages/password-reset-sent";
 
 export default function PasswordResetSent() {
   return <PasswordResetSentPage />;

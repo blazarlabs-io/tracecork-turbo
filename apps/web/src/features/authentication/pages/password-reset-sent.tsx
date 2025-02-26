@@ -6,10 +6,10 @@ import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import { useCustomCountDown } from "@/hooks/use-custom-count-down";
-import { sendPasswordRecoveryEmailService } from "~/src/features/authentication/services/auth-emails";
+import { sendPasswordRecoveryEmailService } from "../services";
 import { useState } from "react";
 import { cn } from "@repo/ui/lib/utils";
-import { useGetForgotPassEmail } from "~/src/features/authentication/hooks";
+import { useGetForgotPassEmail } from "../hooks";
 
 export const PasswordResetSentPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);

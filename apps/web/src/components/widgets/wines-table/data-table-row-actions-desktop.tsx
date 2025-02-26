@@ -1,12 +1,12 @@
 "use client";
 
-import { DeleteWineDialog } from "@/components/dialogs/delete-wine-dialog";
-import { EditWineDialog } from "@/components/dialogs/edit-wine-dialog";
-import { PublishWineDialog } from "@/components/dialogs/publish-wine-dialog";
-import { RestoreWineDialog } from "@/components/dialogs/restore-wine-dialog";
-import { SecurePublishWineDialog } from "@/components/dialogs/secure-publish-wine-dialog";
-import { TokenizeWineDialog } from "@/components/dialogs/tokenize-wine-dialog";
-import { UnpublishWineDialog } from "@/components/dialogs/unpublish-wine-dialog";
+import { DeleteWineDialog } from "~/src/features/wineries/components/dialogs/delete-wine";
+import { EditWineDialog } from "~/src/features/wineries/components/dialogs/edit-wine";
+import { PublishWineDialog } from "~/src/features/wineries/components/dialogs/publish-wine";
+import { RestoreWineDialog } from "~/src/features/wineries/components/dialogs/restore-wine";
+import { SecurePublishWineDialog } from "~/src/features/wineries/components/dialogs/secure-publish-wine";
+import { TokenizeWineDialog } from "~/src/features/wineries/components/dialogs/tokenize-wine";
+import { UnpublishWineDialog } from "~/src/features/wineries/components/dialogs/unpublish-wine";
 import {
   Tooltip,
   TooltipContent,

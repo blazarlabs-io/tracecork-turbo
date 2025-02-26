@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { checkIdToken } from "./services/middleware/authMiddleware";
-import { AUTH_COOKIE } from "./utils/cookieConstants";
-import { CheckIdTokenResp } from "./types/authTypes";
+import { AUTH_COOKIE } from "./features/authentication/utils/cookie-constants";
+import { CheckIdTokenResp } from "./features/authentication/types";
 
 const authProtectedRoutes = [
   "/login",

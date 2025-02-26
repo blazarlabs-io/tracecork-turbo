@@ -1,9 +1,9 @@
 "use client";
 
-import { useHandleWineToEdit } from "@/hooks/use-handle-wine-to-edit";
+import { useHandleWineToEdit } from "~/src/features/wineries/hooks/use-handle-wine-to-edit";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { useRouter } from "next/navigation";
-import { WineDetailsPrivatePage } from "@/components/pages/wine-details-private-page";
+import { WineDetailsPrivatePage } from "~/src/features/wineries/pages/wines/wine-details-private";
 
 export interface WinePreviewProps {
   wineId: string;

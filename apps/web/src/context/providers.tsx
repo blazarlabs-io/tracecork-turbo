@@ -1,9 +1,9 @@
 "use client";
 
-import { AuthProvider } from "./auth";
+import { AuthProvider } from "~/src/features/authentication/context/auth-provider";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import { Toaster } from "@repo/ui/components/ui/toaster";
-import { WineryProvider } from "./winery";
+import { WineryProvider } from "../features/wineries/context/winery";
 import { ExplorerProvider } from "./explorer";
 import { SystemVariablesProvider } from "./system-variables";
 import { CmsProvider } from "./cms";

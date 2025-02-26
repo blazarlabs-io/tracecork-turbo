@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@repo/ui/components/ui/dialog";
-import { useAuth } from "@/context/auth";
+import { useAuth } from "~/src/features/authentication/context/auth-provider";
 import { useQRCodesLimit } from "@/hooks/use-qr-codes-limit";
 import { toast } from "@repo/ui/hooks/use-toast";
 import { PageHeader } from "../layouts/page-header";
@@ -21,7 +21,7 @@ import { cn } from "@/utils/shadcn";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 import { NEXT_PUBLIC_TRACECORK_EMAIL } from "@/utils/envConstants";
-import { sendEmailService } from "~/src/features/authentication/services/email";
+import { sendEmailService } from "@/services/email";
 import { emailTemplates } from "@/utils/email-templates";
 
 export const SubscriptionPage = () => {

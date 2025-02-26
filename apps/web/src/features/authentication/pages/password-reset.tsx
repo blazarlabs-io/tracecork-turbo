@@ -4,9 +4,9 @@ import { auth } from "@/lib/firebase/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { ConfirmEmailParamsType } from "@/types/authTypes";
+import { ConfirmEmailParamsType } from "../types";
 import { checkActionCode, confirmPasswordReset } from "firebase/auth";
-import { ResetPasswordForm } from "../../../components/forms/reset-password-form";
+import { ResetPasswordForm } from "../components/forms/reset-password";
 import { passwordResetFormSchema } from "@/data/form-schemas";
 import { z } from "zod";
 import {
@@ -18,7 +18,7 @@ import { Button } from "@repo/ui/components/ui/button";
 import { cn } from "@repo/ui/lib/utils";
 
 export const PasswordResetPage = ({ oobCode }: ConfirmEmailParamsType) => {
-  const [isSubmiting, setIsSubmiting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { t } = useTranslationHandler();
   // * HOOKS
   const router = useRouter();
@@ -29,7 +29,7 @@ export const PasswordResetPage = ({ oobCode }: ConfirmEmailParamsType) => {
 
   const onSubmit = async (values: z.infer<typeof passwordResetFormSchema>) => {
     try {
-      setIsSubmiting(true);
+      setIsSubmitting(true);
       const action = await checkActionCode(auth, oobCode);
       if (action.operation !== "PASSWORD_RESET")
         throw new Error("Operation not allowed");
@@ -39,7 +39,7 @@ export const PasswordResetPage = ({ oobCode }: ConfirmEmailParamsType) => {
     } catch (error) {
       console.error(error);
     } finally {
-      setIsSubmiting(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -71,7 +71,7 @@ export const PasswordResetPage = ({ oobCode }: ConfirmEmailParamsType) => {
         <ResetPasswordForm
           form={form}
           onSubmit={onSubmit}
-          disalbed={isSubmiting}
+          disalbed={isSubmitting}
         />
       )}
     </div>

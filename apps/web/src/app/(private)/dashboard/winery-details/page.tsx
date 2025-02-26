@@ -1,4 +1,4 @@
-import { WineryDetailsPage } from "@/components/pages/winery-details-page";
+import { WineryDetailsPage } from "~/src/features/wineries/pages/wineries/winery-details";
 
 export default function WineryDetails() {
   return <WineryDetailsPage />;

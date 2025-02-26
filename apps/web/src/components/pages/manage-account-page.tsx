@@ -17,7 +17,7 @@ import {
   DialogClose,
 } from "@repo/ui/components/ui/dialog";
 import { Input } from "@repo/ui/components/ui/input";
-import { useAuth } from "@/context/auth";
+import { useAuth } from "~/src/features/authentication/context/auth-provider";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
 import { toast } from "@repo/ui/hooks/use-toast";
 import { auth } from "@/lib/firebase/client";
@@ -25,7 +25,7 @@ import { cn } from "@/utils/shadcn";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { ChangePasswordForm } from "../forms/change-password-form";
+import { ChangePasswordForm } from "../../features/authentication/components/forms/change-password";
 import { PageHeader } from "@/components/layouts/page-header";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { Button } from "@repo/ui/components/ui/button";

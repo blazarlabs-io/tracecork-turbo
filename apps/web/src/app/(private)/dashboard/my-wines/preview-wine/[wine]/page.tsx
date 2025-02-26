@@ -1,4 +1,4 @@
-import { WinePreviewPage } from "@/components/pages/wine-preview-page";
+import { WinePreviewPage } from "~/src/features/wineries/pages/wines/wine-preview";
 
 type Params = Promise<{ wine: string }>;
 

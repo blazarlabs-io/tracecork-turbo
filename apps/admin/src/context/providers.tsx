@@ -1,4 +1,4 @@
-import { AuthProvider } from "./auth";
+import { AuthProvider } from "@/features/authentication/context/auth";
 import { NavigationProvider } from "./navigation";
 import { WineriesProvider } from "./wineries";
 
