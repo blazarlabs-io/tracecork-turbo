@@ -9,7 +9,7 @@ import { useAuth } from "@/context/auth";
 import { auth } from "@/lib/firebase/client";
 import { ConfirmEmailParamsType } from "@/types/authTypes";
 import { emailTemplates } from "@/utils/email-templates";
-import { sendEmailService } from "@/services/email-services";
+import { sendEmailService } from "~/src/features/authentication/services/email";
 
 export const useConfirmEmailHandler = (params: ConfirmEmailParamsType) => {
   const { oobCode } = params;

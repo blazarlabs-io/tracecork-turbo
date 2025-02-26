@@ -1,6 +1,6 @@
 import { ForgotPassStorage } from "@/types/authTypes";
 import { FORGOT_PASS_KEY } from "@/utils/authConstants";
-import { useLocalStorage } from "../use-local-storage";
+import { useLocalStorage } from "../../../hooks/use-local-storage";
 import { useEffect, useState } from "react";
 
 export const useGetForgotPassEmail = () => {

@@ -1,7 +1,7 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "@/lib/firebase/client";
 import { useState } from "react";
-import { sendEmailService } from "@/services/email-services";
+import { sendEmailService } from "~/src/features/authentication/services/email";
 import { emailTemplates } from "@/utils/email-templates";
 
 export const useGoogleSignIn = () => {

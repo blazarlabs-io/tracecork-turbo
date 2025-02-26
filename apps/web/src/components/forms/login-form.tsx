@@ -27,12 +27,15 @@ import {
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 import "./login-form-styles.css";
-import { sendVerificationEmailService } from "@/services/auth";
+import { sendVerificationEmailService } from "~/src/features/authentication/services";
 import { NEXT_PUBLIC_CAPTCHA_SITE_KEY } from "@/utils/envConstants";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/local-storage";
 import { LoginStorage } from "@/types/authTypes";
 import { LOGIN_CREDENTIALS_KEY } from "@/utils/authConstants";
-import { useGoogleSignIn, useCaptcha } from "@/hooks/auth";
+import {
+  useGoogleSignIn,
+  useCaptcha,
+} from "~/src/features/authentication/hooks";
 import { AUTH_COOKIE } from "@/utils/cookieConstants";
 import { setCookie } from "cookies-next";
 import { useAuth } from "@/context/auth";

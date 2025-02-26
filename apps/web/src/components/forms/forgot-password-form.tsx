@@ -18,7 +18,7 @@ import {
 import { Input } from "@repo/ui/components/ui/input";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import { useState } from "react";
-import { sendPasswordRecoveryEmailService } from "@/services/auth/auth-emails-services";
+import { sendPasswordRecoveryEmailService } from "~/src/features/authentication/services/auth-emails";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/local-storage";
 import { ForgotPassStorage } from "@/types/authTypes";
 import { FORGOT_PASS_KEY } from "@/utils/authConstants";

@@ -1,8 +1,8 @@
 import {
   sendPasswordRecoveryEmailService,
   sendVerificationEmailService,
-} from "./auth-emails-services";
-import { sendRecaptchaService } from "./recaptcha-services";
+} from "~/src/features/authentication/services/auth-emails";
+import { sendRecaptchaService } from "~/src/features/authentication/services/recaptcha";
 
 export {
   sendRecaptchaService,

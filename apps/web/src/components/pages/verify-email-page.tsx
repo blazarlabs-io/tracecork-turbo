@@ -4,7 +4,7 @@ import { useAuth } from "@/context/auth";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
-import { sendVerificationEmailService } from "@/services/auth/auth-emails-services";
+import { sendVerificationEmailService } from "~/src/features/authentication/services/auth-emails";
 import { useCustomCountDown } from "@/hooks/use-custom-count-down";
 import { cn } from "@repo/ui/lib/utils";
 import { useRouter } from "next/navigation";

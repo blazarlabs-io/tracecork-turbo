@@ -16,7 +16,7 @@ import { useAuth } from "@/context/auth";
 import "./upgrade-plan-dialog-styles.css";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
-import { sendEmailService } from "@/services/email-services";
+import { sendEmailService } from "~/src/features/authentication/services/email";
 import { emailTemplates } from "@/utils/email-templates";
 import { NEXT_PUBLIC_TRACECORK_EMAIL } from "@/utils/envConstants";
 

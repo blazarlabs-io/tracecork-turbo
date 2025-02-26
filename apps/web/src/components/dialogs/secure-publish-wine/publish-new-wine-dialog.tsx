@@ -26,7 +26,7 @@ import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 import { SecurePublishWineDialogProps } from "../secure-publish-wine-dialog";
 import MarkdownPreviewer from "../../markdown-previewer/MarkdownPreviewer";
-import { sendEmailService } from "@/services/email-services";
+import { sendEmailService } from "~/src/features/authentication/services/email";
 import { emailTemplates } from "@/utils/email-templates";
 import {
   NEXT_PUBLIC_APP_URL,

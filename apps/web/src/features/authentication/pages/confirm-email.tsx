@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@repo/ui/components/ui/button";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import { ConfirmEmailParamsType } from "@/types/authTypes";
-import { useConfirmEmailHandler } from "@/hooks/auth";
+import { useConfirmEmailHandler } from "~/src/features/authentication/hooks";
 
 export const ConfirmEmailPage = (params: ConfirmEmailParamsType) => {
   const { t } = useTranslationHandler();

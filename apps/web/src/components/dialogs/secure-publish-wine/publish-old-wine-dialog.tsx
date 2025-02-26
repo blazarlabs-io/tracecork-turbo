@@ -20,7 +20,7 @@ import { db } from "@/lib/firebase/services/db";
 import { useCallback } from "react";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../../markdown-previewer/MarkdownPreviewer";
-import { sendEmailService } from "@/services/email-services";
+import { sendEmailService } from "~/src/features/authentication/services/email";
 import { emailTemplates } from "@/utils/email-templates";
 import { NEXT_PUBLIC_QR_CODES_URL } from "@/utils/envConstants";
 

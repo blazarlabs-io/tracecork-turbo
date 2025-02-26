@@ -18,8 +18,11 @@ import { SignUpPasswordInputField } from "./signup-password-input-field";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import "./login-form-styles.css";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
-import { sendVerificationEmailService } from "@/services/auth/auth-emails-services";
-import { useCaptcha, useGoogleSignIn } from "@/hooks/auth";
+import { sendVerificationEmailService } from "~/src/features/authentication/services/auth-emails";
+import {
+  useCaptcha,
+  useGoogleSignIn,
+} from "~/src/features/authentication/hooks";
 import { toast } from "@repo/ui/hooks/use-toast";
 import { firebaseAuthErrors } from "@/utils/firebaseAuthErrors";
 import { NEXT_PUBLIC_CAPTCHA_SITE_KEY } from "@/utils/envConstants";

@@ -6,10 +6,13 @@ import { useState } from "react";
 
 import { ConfirmEmailParamsType } from "@/types/authTypes";
 import { checkActionCode, confirmPasswordReset } from "firebase/auth";
-import { ResetPasswordForm } from "../../forms/reset-password-form";
+import { ResetPasswordForm } from "../../../components/forms/reset-password-form";
 import { passwordResetFormSchema } from "@/data/form-schemas";
 import { z } from "zod";
-import { useConfirmResetPassword, useResetPasswordForm } from "@/hooks/auth";
+import {
+  useConfirmResetPassword,
+  useResetPasswordForm,
+} from "~/src/features/authentication/hooks";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import { Button } from "@repo/ui/components/ui/button";
 import { cn } from "@repo/ui/lib/utils";
