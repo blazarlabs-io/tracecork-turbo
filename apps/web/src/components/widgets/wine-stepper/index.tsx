@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/role-supports-aria-props */
 "use client";
 
-import { SecurePublishWineDialog } from "~/src/features/wineries/components/dialogs/secure-publish-wine";
-import { WineForm } from "~/src/features/wineries/components/forms/wine";
+import { SecurePublishWineDialog } from "~/src/features/wineries/components/dialogs/secure-publish-wine-dialog";
+import { WineForm } from "~/src/features/wineries/components/forms/wine-form";
 import { DraftIcon } from "@/components/icons/draft";
 import { PublishedIcon } from "@/components/icons/published";
 import { PageHeader } from "@/components/layouts/page-header";

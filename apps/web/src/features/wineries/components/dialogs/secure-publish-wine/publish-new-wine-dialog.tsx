@@ -24,7 +24,7 @@ import { useCallback, useState } from "react";
 import { DynamicQrCodeGenerator } from "@/components/widgets/dynamic-qr-code-generator";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
-import { SecurePublishWineDialogProps } from "@/features/wineries/components/dialogs/secure-publish-wine";
+import { SecurePublishWineDialogProps } from "~/src/features/wineries/components/dialogs/secure-publish-wine-dialog";
 import MarkdownPreviewer from "@/components/markdown-previewer/MarkdownPreviewer";
 import { sendEmailService } from "@/services/email";
 import { emailTemplates } from "@/utils/email-templates";

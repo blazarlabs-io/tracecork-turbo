@@ -8,11 +8,11 @@ import { PublishedIcon } from "../../../../components/icons/published";
 import { PageHeader } from "../../../../components/layouts/page-header";
 import { Button } from "@repo/ui/components/ui/button";
 import { Separator } from "@repo/ui/components/ui/separator";
-import { WineDetailsPrivatePage } from "./wine-details-private";
-import { EditWineDialog } from "../../components/dialogs/edit-wine";
-import { PublishWineDialog } from "../../components/dialogs/publish-wine";
-import { UnpublishWineDialog } from "../../components/dialogs/unpublish-wine";
-import { SecurePublishWineDialog } from "../../components/dialogs/secure-publish-wine";
+import { WineDetailsPrivatePage } from "./wine-details-private-page";
+import { EditWineDialog } from "../../components/dialogs/edit-wine-dialog";
+import { PublishWineDialog } from "../../components/dialogs/publish-wine-dialog";
+import { UnpublishWineDialog } from "../../components/dialogs/unpublish-wine-dialog";
+import { SecurePublishWineDialog } from "../../components/dialogs/secure-publish-wine-dialog";
 
 export interface WinePreviewPageProps {
   wineId: string;

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { checkIdToken } from "./services/middleware/authMiddleware";
+import { checkIdToken } from "./features/authentication/middlewares/authMiddleware";
 import { AUTH_COOKIE } from "./features/authentication/utils/cookie-constants";
 import { CheckIdTokenResp } from "./features/authentication/types";
 

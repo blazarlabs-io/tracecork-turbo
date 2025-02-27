@@ -25,7 +25,7 @@ import { cn } from "@/utils/shadcn";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { ChangePasswordForm } from "../../features/authentication/components/forms/change-password";
+import { ChangePasswordForm } from "../../features/authentication/components/forms/change-password-form";
 import { PageHeader } from "@/components/layouts/page-header";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { Button } from "@repo/ui/components/ui/button";

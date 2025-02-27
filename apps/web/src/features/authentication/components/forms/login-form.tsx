@@ -3,7 +3,7 @@
 import { loginFormSchema } from "@/data/form-schemas";
 import { toast } from "@repo/ui/hooks/use-toast";
 import { auth } from "@/lib/firebase/client";
-import { firebaseAuthErrors } from "@/utils/firebaseAuthErrors";
+import { firebaseAuthErrors } from "../../utils";
 import { cn } from "@/utils/shadcn";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInWithEmailAndPassword } from "firebase/auth";

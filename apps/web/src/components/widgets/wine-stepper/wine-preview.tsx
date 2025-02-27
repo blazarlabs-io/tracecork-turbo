@@ -3,7 +3,7 @@
 import { useHandleWineToEdit } from "~/src/features/wineries/hooks/use-handle-wine-to-edit";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { useRouter } from "next/navigation";
-import { WineDetailsPrivatePage } from "~/src/features/wineries/pages/wines/wine-details-private";
+import { WineDetailsPrivatePage } from "~/src/features/wineries/pages/wines/wine-details-private-page";
 
 export interface WinePreviewProps {
   wineId: string;

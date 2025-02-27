@@ -10,7 +10,7 @@ import {
 import { PageHeader } from "../layouts/page-header";
 
 import { useAuth } from "@/features/authentication";
-import { useWinery } from "~/src/features/wineries/context/winery";
+import { useWinery } from "~/src/features/wineries/context/winery-provider";
 import { useQRCodesLimit } from "~/src/features/wineries/hooks/use-qr-codes-limit";
 import { Grape, LandPlot, Wine } from "lucide-react";
 import { UpgradePlanDialog } from "../dialogs/upgrade-plan-dialog";

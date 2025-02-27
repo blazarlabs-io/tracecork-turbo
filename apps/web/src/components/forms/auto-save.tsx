@@ -17,7 +17,7 @@ import { autosaveFormSchema } from "@/data/form-schemas";
 import { db } from "@/lib/firebase/services/db";
 import { useAuth } from "@/features/authentication";
 import { DbResponse } from "@/types/db";
-import { useWinery } from "~/src/features/wineries/context/winery";
+import { useWinery } from "~/src/features/wineries/context/winery-provider";
 import { useEffect, useRef } from "react";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 

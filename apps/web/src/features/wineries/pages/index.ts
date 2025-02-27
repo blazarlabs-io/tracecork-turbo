@@ -1,11 +1,11 @@
 // WINES
-import { DynamicWineDetailsPage } from "./wines/dynamic-wine-details";
-import { WineDetailsPage } from "./wines/wine-details";
-import { WineDetailsPrivatePage } from "./wines/wine-details-private";
-import { WinePreviewPage } from "./wines/wine-preview";
+import { DynamicWineDetailsPage } from "./wines/dynamic-wine-details-page";
+import { WineDetailsPage } from "./wines/wine-details-page";
+import { WineDetailsPrivatePage } from "./wines/wine-details-private-page";
+import { WinePreviewPage } from "./wines/wine-preview-page";
 
 // WINERIES
-import { WineryDetailsPage } from "./wineries/winery-details";
+import { WineryDetailsPage } from "./wineries/winery-details-page";
 
 export {
   DynamicWineDetailsPage,

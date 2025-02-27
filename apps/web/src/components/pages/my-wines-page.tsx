@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/features/authentication";
-import { useWinery } from "~/src/features/wineries/context/winery";
+import { useWinery } from "~/src/features/wineries/context/winery-provider";
 import { useQRCodesLimit } from "~/src/features/wineries/hooks/use-qr-codes-limit";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
 import { Wine } from "@/types/db";

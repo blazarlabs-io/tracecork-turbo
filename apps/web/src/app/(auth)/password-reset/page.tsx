@@ -1,4 +1,4 @@
-import { PasswordResetPage } from "@/features/authentication/pages/password-reset";
+import { PasswordResetPage } from "~/src/features/authentication/pages/password-reset-page";
 import { ConfirmEmailParamsType } from "~/src/features/authentication/types";
 
 type Params = Promise<{ mode: string }>;

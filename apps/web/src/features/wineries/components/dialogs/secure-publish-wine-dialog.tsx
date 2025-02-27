@@ -1,9 +1,9 @@
 import { useQrCodeExists } from "~/src/features/wineries/hooks/use-qr-code-exists";
 import { useQRCodesLimit } from "~/src/features/wineries/hooks/use-qr-codes-limit";
-import { PublishOldWineDialog } from "./secure-publish-wine/publish-old-wine";
-import { MissingFieldsDialog } from "./secure-publish-wine/missing-fields";
-import { PublishNewWineDialog } from "./secure-publish-wine/publish-new-wine";
-import { QrCodeQuotaExceededDialog } from "./secure-publish-wine/qr-code-quota-exceeded";
+import { PublishOldWineDialog } from "./secure-publish-wine/publish-old-wine-dialog";
+import { MissingFieldsDialog } from "./secure-publish-wine/missing-fields-dialog";
+import { PublishNewWineDialog } from "./secure-publish-wine/publish-new-wine-dialog";
+import { QrCodeQuotaExceededDialog } from "./secure-publish-wine/qr-code-quota-exceeded-dialog";
 
 export interface SecurePublishWineDialogProps {
   uid: string;

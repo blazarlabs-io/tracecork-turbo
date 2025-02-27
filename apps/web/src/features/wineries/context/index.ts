@@ -1,2 +1,2 @@
-import { WineryProvider, useWinery } from "./winery";
+import { WineryProvider, useWinery } from "./winery-provider";
 export { WineryProvider, useWinery };

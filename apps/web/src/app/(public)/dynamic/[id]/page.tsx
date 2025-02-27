@@ -1,4 +1,4 @@
-import { DynamicWineDetailsPage } from "~/src/features/wineries/pages/wines/dynamic-wine-details";
+import { DynamicWineDetailsPage } from "~/src/features/wineries/pages/wines/dynamic-wine-details-page";
 
 type Params = Promise<{ id: string }>;
 

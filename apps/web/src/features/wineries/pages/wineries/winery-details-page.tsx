@@ -1,7 +1,7 @@
 "use client";
 
 import { Save } from "lucide-react";
-import { WineryForm } from "~/src/features/wineries/components/forms/winery";
+import { WineryForm } from "~/src/features/wineries/components/forms/winery-form";
 import { PageHeader } from "@/components/layouts/page-header";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";

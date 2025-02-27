@@ -1,4 +1,4 @@
-import { WineDetailsPage } from "~/src/features/wineries/pages/wines/wine-details";
+import { WineDetailsPage } from "~/src/features/wineries/pages/wines/wine-details-page";
 
 type Params = Promise<{ id: string }>;
 

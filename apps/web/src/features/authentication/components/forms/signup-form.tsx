@@ -13,18 +13,18 @@ import { Control, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@repo/ui/components/ui/button";
 import { Form } from "@repo/ui/components/ui/form";
-import { SignUpInputField } from "@/features/authentication/components/fields/signup-input";
-import { SignUpPasswordInputField } from "@/features/authentication/components/fields/signup-password-input";
+import { SignUpInputField } from "../fields/signup-input";
+import { SignUpPasswordInputField } from "../fields/signup-password-input";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import "./../../styles/signup-form.css";
 import MarkdownPreviewer from "@/components/markdown-previewer/MarkdownPreviewer";
-import { sendVerificationEmailService } from "@/features/authentication/services/auth-emails";
+import { sendVerificationEmailService } from "../../services";
 import {
   useCaptcha,
   useGoogleSignIn,
 } from "~/src/features/authentication/hooks";
 import { toast } from "@repo/ui/hooks/use-toast";
-import { firebaseAuthErrors } from "@/utils/firebaseAuthErrors";
+import { firebaseAuthErrors } from "../../utils";
 import { NEXT_PUBLIC_CAPTCHA_SITE_KEY } from "@/utils/envConstants";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../context/auth-provider";

@@ -1,4 +1,4 @@
-import { ConfirmEmailPage } from "@/features/authentication/pages/confirm-email";
+import { ConfirmEmailPage } from "~/src/features/authentication/pages/confirm-email-page";
 import { ConfirmEmailParamsType } from "~/src/features/authentication/types";
 
 type Params = Promise<{ mode: string }>;
