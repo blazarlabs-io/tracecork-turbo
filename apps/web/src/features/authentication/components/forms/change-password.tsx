@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useAuth } from "@/features/authentication";
 import { changePasswordFormSchema } from "@/data/form-schemas";
 import { toast } from "@repo/ui/hooks/use-toast";
 import { auth } from "@/lib/firebase/client";

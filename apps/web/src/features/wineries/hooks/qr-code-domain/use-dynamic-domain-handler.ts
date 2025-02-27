@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { NEXT_PUBLIC_APP_URL } from "../../utils/envConstants";
+import { NEXT_PUBLIC_APP_URL } from "../../../../utils/envConstants";
 
 /*
   This hooks redirects all to the app rul to an especific path to

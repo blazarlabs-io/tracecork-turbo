@@ -5,7 +5,7 @@ import {
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { use, useCallback, useEffect, useRef, useState } from "react";
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useAuth } from "./../context/auth-provider";
 import { auth } from "@/lib/firebase/client";
 import { ConfirmEmailParamsType } from "@/features/authentication/types";
 import { emailTemplates } from "@/utils/email-templates";

@@ -1,7 +1,7 @@
 "use client";
 
 import { DbResponse, DynamicQrCode, Wine, Winery } from "@/types/db";
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useAuth } from "@/features/authentication";
 
 // LIBS
 import { wineryTemplate } from "@/data/templates";

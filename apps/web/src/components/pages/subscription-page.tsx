@@ -10,8 +10,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@repo/ui/components/ui/dialog";
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
-import { useQRCodesLimit } from "@/hooks/use-qr-codes-limit";
+import { useAuth } from "@/features/authentication";
+import { useQRCodesLimit } from "~/src/features/wineries/hooks/use-qr-codes-limit";
 import { toast } from "@repo/ui/hooks/use-toast";
 import { PageHeader } from "../layouts/page-header";
 import { Button } from "@repo/ui/components/ui/button";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useDynamicDomainHandler } from "@/hooks/qr-code-domain/use-dynamic-domain-handler";
+import { useDynamicDomainHandler } from "~/src/features/wineries/hooks/qr-code-domain/use-dynamic-domain-handler";
 
 export interface WineDetailsPageProps {
   wineId: string;

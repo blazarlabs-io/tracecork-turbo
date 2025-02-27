@@ -22,7 +22,7 @@ export interface QrCodeQuotaExceededDialogProps {
   onAction?: (state: string) => void;
 }
 
-export const QrCodeQuaotaExceededDialog = ({
+export const QrCodeQuotaExceededDialog = ({
   children,
   onAction = () => {},
 }: QrCodeQuotaExceededDialogProps) => {

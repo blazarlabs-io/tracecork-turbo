@@ -27,7 +27,7 @@ import { toast } from "@repo/ui/hooks/use-toast";
 import { firebaseAuthErrors } from "@/utils/firebaseAuthErrors";
 import { NEXT_PUBLIC_CAPTCHA_SITE_KEY } from "@/utils/envConstants";
 import { useRouter } from "next/navigation";
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useAuth } from "../../context/auth-provider";
 
 export const SignUpForm = () => {
   // * STATE

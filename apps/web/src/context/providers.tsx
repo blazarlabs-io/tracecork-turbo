@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthProvider } from "~/src/features/authentication/context/auth-provider";
+import { AuthProvider } from "@/features/authentication";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import { Toaster } from "@repo/ui/components/ui/toaster";
 import { WineryProvider } from "../features/wineries/context/winery";

@@ -16,7 +16,7 @@ import {
 } from "@repo/ui/components/ui/tooltip";
 import { useRouter } from "next/navigation";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
-import MarkdownPreviewer from "../../markdown-previewer/MarkdownPreviewer";
+import MarkdownPreviewer from "@/components/markdown-previewer/MarkdownPreviewer";
 import "./missing-fields-dialog.css";
 
 export interface MissingFieldsDialogProps {

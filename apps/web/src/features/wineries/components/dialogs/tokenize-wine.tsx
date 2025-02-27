@@ -18,7 +18,7 @@ import {
 // import { toast } from "@/hooks/use-toast";
 // import { db } from "@/lib/firebase/services/db";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
-import MarkdownPreviewer from "../../../../components/markdown-previewer/MarkdownPreviewer";
+import MarkdownPreviewer from "@/components/markdown-previewer/MarkdownPreviewer";
 
 export interface TokenizeWineDialogProps {
   uid: string;

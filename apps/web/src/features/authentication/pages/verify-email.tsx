@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useAuth } from "../context/auth-provider";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";

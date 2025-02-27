@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@repo/ui/components/ui/button";
 import Link from "next/link";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useAuth } from "@/features/authentication";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 import "./home-page-styles.css";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";

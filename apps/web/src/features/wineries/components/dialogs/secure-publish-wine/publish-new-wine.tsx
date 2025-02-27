@@ -14,7 +14,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@repo/ui/components/ui/tooltip";
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useAuth } from "@/features/authentication";
 import { dynamicQrCodeTemplate } from "@/data/templates";
 import { toast } from "@repo/ui/hooks/use-toast";
 import { db } from "@/lib/firebase/services/db";
@@ -24,8 +24,8 @@ import { useCallback, useState } from "react";
 import { DynamicQrCodeGenerator } from "@/components/widgets/dynamic-qr-code-generator";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
-import { SecurePublishWineDialogProps } from "../../../features/wineries/components/dialogs/secure-publish-wine-dialog";
-import MarkdownPreviewer from "../../markdown-previewer/MarkdownPreviewer";
+import { SecurePublishWineDialogProps } from "@/features/wineries/components/dialogs/secure-publish-wine";
+import MarkdownPreviewer from "@/components/markdown-previewer/MarkdownPreviewer";
 import { sendEmailService } from "@/services/email";
 import { emailTemplates } from "@/utils/email-templates";
 import {

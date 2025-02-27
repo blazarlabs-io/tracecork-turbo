@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NEXT_PUBLIC_APP_URL } from "../../utils/envConstants";
+import { NEXT_PUBLIC_APP_URL } from "../../../../utils/envConstants";
 
 /*
   This hook takes care of confirming if the host is the same as the configured

@@ -1,8 +1,8 @@
 "use client";
 
 import { Form } from "@repo/ui/components/ui/form";
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
-import { useWinery } from "~/src/features/wineries/context/winery";
+import { useAuth } from "@/features/authentication";
+import { useWinery } from "../../context";
 import { wineryInfoFormSchema } from "@/data/form-schemas";
 import { initialCoordinates } from "@/data/templates";
 import { useAutosave } from "@/hooks/use-autosave";

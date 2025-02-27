@@ -14,7 +14,7 @@ import { DataTableColumnHeaderSimple } from "./data-table-column-header-simple";
 import { DataTableRowActions } from "./data-table-row-actions";
 import { statuses } from "./data/data";
 import { TaskType } from "./data/schema";
-import { QRCodeDialog } from "@/components/dialogs/qrcode-dialog";
+import { QRCodeDialog } from "~/src/features/wineries/components/dialogs/qr-code-dialog";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export const columns = () => {

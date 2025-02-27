@@ -14,12 +14,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@repo/ui/components/ui/tooltip";
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useAuth } from "@/features/authentication";
 import { toast } from "@repo/ui/hooks/use-toast";
 import { db } from "@/lib/firebase/services/db";
 import { useCallback } from "react";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
-import MarkdownPreviewer from "../../markdown-previewer/MarkdownPreviewer";
+import MarkdownPreviewer from "@/components/markdown-previewer/MarkdownPreviewer";
 import { sendEmailService } from "@/services/email";
 import { emailTemplates } from "@/utils/email-templates";
 import { NEXT_PUBLIC_QR_CODES_URL } from "@/utils/envConstants";

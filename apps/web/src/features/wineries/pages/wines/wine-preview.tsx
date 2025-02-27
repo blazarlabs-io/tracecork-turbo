@@ -1,6 +1,6 @@
 "use client";
 
-import { useHandleWineToEdit } from "~/src/features/wineries/hooks/use-handle-wine-to-edit";
+import { useHandleWineToEdit } from "../../hooks";
 import { ChevronLeft, Clock, Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { DraftIcon } from "../../../../components/icons/draft";
@@ -82,7 +82,7 @@ export const WinePreviewPage = ({ wineId }: WinePreviewPageProps) => {
               <SecurePublishWineDialog
                 uid={wine.uid}
                 wineId={wine.id}
-                isReadytoPublish={wine.isReadyToPublish}
+                isReadyToPublish={wine.isReadyToPublish}
                 collectionName={wine.generalInfo.collectionName}
               >
                 <div className="flex min-h-10 min-w-32 items-center justify-center rounded-md bg-primary font-medium text-primary-foreground transition duration-200 ease-in-out hover:bg-primary/80">

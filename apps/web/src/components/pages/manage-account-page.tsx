@@ -17,7 +17,7 @@ import {
   DialogClose,
 } from "@repo/ui/components/ui/dialog";
 import { Input } from "@repo/ui/components/ui/input";
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useAuth } from "@/features/authentication";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
 import { toast } from "@repo/ui/hooks/use-toast";
 import { auth } from "@/lib/firebase/client";

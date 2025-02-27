@@ -7,9 +7,9 @@ import Image from "next/image";
 import { NutritionTable } from "@/components/widgets/nutrition-table";
 import { useGetWine } from "~/src/features/wineries/hooks/use-get-wine";
 import { DynamicIngredients } from "@/components/widgets/dynamic-ingredients";
-import { useQrCodeDomainHandler } from "@/hooks/qr-code-domain";
+import { useQrCodeDomainHandler } from "~/src/features/wineries/hooks/qr-code-domain";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
-import MarkdownPreviewer from "../../../../components/markdown-previewer/MarkdownPreviewer";
+import MarkdownPreviewer from "@/components/markdown-previewer/MarkdownPreviewer";
 import { setUserLocale } from "@/services/locale";
 import { useLocaleContext } from "@/context/LanguageProvider";
 

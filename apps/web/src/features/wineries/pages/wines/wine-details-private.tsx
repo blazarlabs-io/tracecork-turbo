@@ -8,7 +8,7 @@ import { NutritionTable } from "@/components/widgets/nutrition-table";
 import { useGetWine } from "~/src/features/wineries/hooks/use-get-wine";
 import { DynamicIngredients } from "@/components/widgets/dynamic-ingredients";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
-import MarkdownPreviewer from "../../../../components/markdown-previewer/MarkdownPreviewer";
+import MarkdownPreviewer from "@/components/markdown-previewer/MarkdownPreviewer";
 
 export interface WineDetailsPageProps {
   wineId: string;

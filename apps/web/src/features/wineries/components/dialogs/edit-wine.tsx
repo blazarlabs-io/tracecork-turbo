@@ -19,7 +19,7 @@ import { toast } from "@repo/ui/hooks/use-toast";
 import { db } from "@/lib/firebase/services/db";
 import { useRouter } from "next/navigation";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
-import MarkdownPreviewer from "../../../../components/markdown-previewer/MarkdownPreviewer";
+import MarkdownPreviewer from "@/components/markdown-previewer/MarkdownPreviewer";
 
 export interface EditWineDialogProps {
   uid: string;

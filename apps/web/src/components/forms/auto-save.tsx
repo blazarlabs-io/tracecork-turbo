@@ -15,7 +15,7 @@ import { Switch } from "@repo/ui/components/ui/switch";
 import { toast } from "@repo/ui/hooks/use-toast";
 import { autosaveFormSchema } from "@/data/form-schemas";
 import { db } from "@/lib/firebase/services/db";
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useAuth } from "@/features/authentication";
 import { DbResponse } from "@/types/db";
 import { useWinery } from "~/src/features/wineries/context/winery";
 import { useEffect, useRef } from "react";

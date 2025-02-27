@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/ui/components/ui/card";
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useAuth } from "@/features/authentication";
 import { useGetVintage } from "@/hooks/use-get-vintage";
 import { Wine } from "@/types/db";
 import { useRouter } from "next/navigation";

@@ -14,7 +14,7 @@ import {
 } from "@repo/ui/components/ui/dropdown-menu";
 import { Separator } from "@repo/ui/components/ui/separator";
 import { SidebarTrigger } from "@repo/ui/components/ui/sidebar";
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useAuth } from "@/features/authentication";
 import { useWinery } from "~/src/features/wineries/context/winery";
 import { auth } from "@/lib/firebase/client";
 import { signOut } from "firebase/auth";

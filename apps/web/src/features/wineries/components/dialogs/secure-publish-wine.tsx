@@ -1,15 +1,15 @@
-import { useQrCodeExists } from "@/hooks/use-qr-code-exists";
-import { useQRCodesLimit } from "@/hooks/use-qr-codes-limit";
-import { PublishOldWineDialog } from "../../../../components/dialogs/secure-publish-wine/publish-old-wine-dialog";
-import { MissingFieldsDialog } from "../../../../components/dialogs/secure-publish-wine/missing-fields-dialog";
-import { PublishNewWineDialog } from "../../../../components/dialogs/secure-publish-wine/publish-new-wine-dialog";
-import { QrCodeQuaotaExceededDialog } from "../../../../components/dialogs/secure-publish-wine/qr-code-quota-excedded-dialog";
+import { useQrCodeExists } from "~/src/features/wineries/hooks/use-qr-code-exists";
+import { useQRCodesLimit } from "~/src/features/wineries/hooks/use-qr-codes-limit";
+import { PublishOldWineDialog } from "./secure-publish-wine/publish-old-wine";
+import { MissingFieldsDialog } from "./secure-publish-wine/missing-fields";
+import { PublishNewWineDialog } from "./secure-publish-wine/publish-new-wine";
+import { QrCodeQuotaExceededDialog } from "./secure-publish-wine/qr-code-quota-exceeded";
 
 export interface SecurePublishWineDialogProps {
   uid: string;
   wineId: string;
   collectionName: string;
-  isReadytoPublish: boolean;
+  isReadyToPublish: boolean;
   className?: string;
   children?: React.ReactNode;
   onChange?: (open: boolean) => void;
@@ -21,7 +21,7 @@ export const SecurePublishWineDialog = ({
   uid,
   wineId,
   collectionName,
-  isReadytoPublish,
+  isReadyToPublish,
   className,
   children,
   onPublish = async () => {},
@@ -36,7 +36,7 @@ export const SecurePublishWineDialog = ({
     <>
       {qrCodeExists ? (
         <>
-          {isReadytoPublish ? (
+          {isReadyToPublish ? (
             <>
               {/* * PUBLISH WINE (OLD WINE) */}
               <PublishOldWineDialog
@@ -59,7 +59,7 @@ export const SecurePublishWineDialog = ({
         </>
       ) : (
         <>
-          {isReadytoPublish ? (
+          {isReadyToPublish ? (
             <>
               {qrCodesLeft > 0 ? (
                 <>
@@ -67,7 +67,7 @@ export const SecurePublishWineDialog = ({
                   <PublishNewWineDialog
                     uid={uid}
                     wineId={wineId}
-                    isReadytoPublish={isReadytoPublish}
+                    isReadyToPublish={isReadyToPublish}
                     collectionName={collectionName}
                     onPublish={onPublish}
                     onAction={onAction}
@@ -78,9 +78,9 @@ export const SecurePublishWineDialog = ({
               ) : (
                 <>
                   {/* * QR CODE QUOTA EXCEEDED */}
-                  <QrCodeQuaotaExceededDialog onAction={onAction}>
+                  <QrCodeQuotaExceededDialog onAction={onAction}>
                     {children}
-                  </QrCodeQuaotaExceededDialog>
+                  </QrCodeQuotaExceededDialog>
                 </>
               )}
             </>

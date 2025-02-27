@@ -12,7 +12,7 @@ import {
 } from "@repo/ui/components/ui/dialog";
 import { toast } from "@repo/ui/hooks/use-toast";
 import { useState } from "react";
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useAuth } from "@/features/authentication";
 import "./upgrade-plan-dialog-styles.css";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";

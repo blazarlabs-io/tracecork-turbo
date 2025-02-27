@@ -2,8 +2,8 @@
 "use client";
 
 import { Form } from "@repo/ui/components/ui/form";
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
-import { useWinery } from "~/src/features/wineries/context/winery";
+import { useAuth } from "@/features/authentication";
+import { useWinery } from "../../context";
 import { wineFormSchema } from "@/data/form-schemas";
 import { useAutosave } from "@/hooks/use-autosave";
 import { db } from "@/lib/firebase/services/db";
@@ -36,7 +36,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import isEmpty from "lodash.isempty";
 import { useRouter } from "next/navigation";
 import { FileWithPath, useDropzone } from "react-dropzone";
-import { QRCodeDialog } from "../../../../components/dialogs/qrcode-dialog";
+import { QRCodeDialog } from "../dialogs/qr-code-dialog";
 import { ImageCropper } from "@/components/widgets/image-cropper";
 import { WineCarbohydratesField } from "../fields/wines/wine-carbohydrates";
 import { WineCrudField } from "../fields/wines/wine-crud";

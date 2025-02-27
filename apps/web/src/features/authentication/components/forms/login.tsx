@@ -25,7 +25,7 @@ import {
   TooltipTrigger,
 } from "@repo/ui/components/ui/tooltip";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
-import MarkdownPreviewer from "../../../../components/markdown-previewer/MarkdownPreviewer";
+import MarkdownPreviewer from "@/components/markdown-previewer/MarkdownPreviewer";
 import "./../../styles/login-form.css";
 import { sendVerificationEmailService } from "~/src/features/authentication/services";
 import { NEXT_PUBLIC_CAPTCHA_SITE_KEY } from "@/utils/envConstants";
@@ -38,7 +38,7 @@ import {
 } from "~/src/features/authentication/hooks";
 import { AUTH_COOKIE } from "~/src/features/authentication/utils/cookie-constants";
 import { setCookie } from "cookies-next";
-import { useAuth } from "~/src/features/authentication/context/auth-provider";
+import { useAuth } from "../../context/auth-provider";
 import { AuthInputField } from "../fields/auth-input";
 
 export const LoginForm = () => {
