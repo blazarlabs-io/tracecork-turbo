@@ -6,7 +6,7 @@ import {
   FormControl,
   FormMessage,
 } from "@repo/ui/components/ui/form";
-import { wineryInfoFormSchema } from "@/data/form-schemas";
+import { wineryInfoFormSchema } from "~/src/features/wineries/data/form-schemas";
 import { dynamicYears } from "@/utils/dynamic-years";
 import {
   Select,

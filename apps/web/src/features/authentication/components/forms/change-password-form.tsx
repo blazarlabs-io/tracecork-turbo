@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/features/authentication";
-import { changePasswordFormSchema } from "@/data/form-schemas";
+import { changePasswordFormSchema } from "../../data";
 import { toast } from "@repo/ui/hooks/use-toast";
 import { auth } from "@/lib/firebase/client";
 import { firebaseAuthErrors } from "../../utils";

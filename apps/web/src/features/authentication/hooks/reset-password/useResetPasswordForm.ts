@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { passwordResetFormSchema } from "@/data/form-schemas";
+import { passwordResetFormSchema } from "~/src/features/wineries/data/form-schemas";
 
 export const useResetPasswordForm = () => {
   const form = useForm<z.infer<typeof passwordResetFormSchema>>({

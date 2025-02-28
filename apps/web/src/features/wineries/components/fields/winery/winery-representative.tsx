@@ -8,7 +8,7 @@ import {
 } from "@repo/ui/components/ui/form";
 import { PhoneInput } from "@/components/widgets/phone-input";
 import { Input } from "@repo/ui/components/ui/input";
-import { wineryInfoFormSchema } from "@/data/form-schemas";
+import { wineryInfoFormSchema } from "~/src/features/wineries/data/form-schemas";
 import { z } from "zod";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 

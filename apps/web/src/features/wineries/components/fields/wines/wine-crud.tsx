@@ -6,7 +6,7 @@ import {
   FormControl,
   FormMessage,
 } from "@repo/ui/components/ui/form";
-import { wineFormSchema } from "@/data/form-schemas";
+import { wineFormSchema } from "~/src/features/wineries/data/form-schemas";
 import { X, Plus } from "lucide-react";
 import { Input } from "@repo/ui/components/ui/input";
 import { Button } from "@repo/ui/components/ui/button";

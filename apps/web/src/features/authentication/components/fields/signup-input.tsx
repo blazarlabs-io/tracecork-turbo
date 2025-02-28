@@ -3,7 +3,7 @@ import {
   forgotPasswordSchema,
   loginFormSchema,
   signUpFormSchema,
-} from "@/data/form-schemas";
+} from "../../data";
 import type { Control, FieldPath } from "react-hook-form";
 import { z } from "zod";
 import {

@@ -6,7 +6,7 @@ import {
   FormControl,
   FormMessage,
 } from "@repo/ui/components/ui/form";
-import { wineFormSchema } from "@/data/form-schemas";
+import { wineFormSchema } from "~/src/features/wineries/data/form-schemas";
 import { sweetness } from "@/data/systemVariables";
 import {
   Select,

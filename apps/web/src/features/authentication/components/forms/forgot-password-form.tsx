@@ -1,6 +1,6 @@
 "use client";
 
-import { forgotPasswordSchema } from "@/data/form-schemas";
+import { forgotPasswordSchema } from "../../data";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";

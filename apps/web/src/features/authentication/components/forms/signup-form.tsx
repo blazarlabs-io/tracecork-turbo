@@ -1,6 +1,6 @@
 "use client";
 
-import { signUpFormSchema } from "@/data/form-schemas";
+import { signUpFormSchema } from "../../data";
 import { auth } from "@/lib/firebase/client";
 import { cn } from "@/utils/shadcn";
 import { zodResolver } from "@hookform/resolvers/zod";

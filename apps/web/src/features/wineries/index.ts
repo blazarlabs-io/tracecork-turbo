@@ -27,7 +27,21 @@ import {
 
 import { generateWineId, isWineReadyToPublish } from "./utils/wine-utils";
 
+import {
+  wineryTemplate,
+  wineTemplate,
+  dynamicQrCodeTemplate,
+  initialCoordinates,
+  settingsTemplate,
+  wineryInfoTemplate,
+} from "./data";
 export {
+  wineryTemplate,
+  wineTemplate,
+  dynamicQrCodeTemplate,
+  initialCoordinates,
+  settingsTemplate,
+  wineryInfoTemplate,
   WineForm,
   WineryForm,
   MissingFieldsDialog,

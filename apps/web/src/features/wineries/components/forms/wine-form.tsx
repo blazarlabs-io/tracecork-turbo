@@ -4,7 +4,7 @@
 import { Form } from "@repo/ui/components/ui/form";
 import { useAuth } from "@/features/authentication";
 import { useWinery } from "../../context";
-import { wineFormSchema } from "@/data/form-schemas";
+import { wineFormSchema } from "~/src/features/wineries/data/form-schemas";
 import { useAutosave } from "@/hooks/use-autosave";
 import { db } from "@/lib/firebase/services/db";
 import { storage } from "@/lib/firebase/services/storage";

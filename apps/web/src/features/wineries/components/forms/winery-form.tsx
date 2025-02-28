@@ -3,8 +3,8 @@
 import { Form } from "@repo/ui/components/ui/form";
 import { useAuth } from "@/features/authentication";
 import { useWinery } from "../../context";
-import { wineryInfoFormSchema } from "@/data/form-schemas";
-import { initialCoordinates } from "@/data/templates";
+import { wineryInfoFormSchema } from "~/src/features/wineries/data/form-schemas";
+import { initialCoordinates } from "../../data";
 import { useAutosave } from "@/hooks/use-autosave";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
 import { db } from "@/lib/firebase/services/db";

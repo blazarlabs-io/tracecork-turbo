@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { initialCoordinates } from "@/data/templates";
+import { initialCoordinates } from "@/features/wineries";
 import { Coordinates } from "@/types/db";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { PositionSetMap } from "../position-set-map";
+import { PositionSetMap } from "./position-set-map";
 import { NEXT_PUBLIC_GOOGLE_MAPS_API_KEY } from "@/utils/envConstants";
 
 export interface MapItemProps {

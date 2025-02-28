@@ -8,7 +8,7 @@ import {
   FormMessage,
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
-import { wineryInfoFormSchema } from "@/data/form-schemas";
+import { wineryInfoFormSchema } from "~/src/features/wineries/data/form-schemas";
 import { Coordinates } from "@/types/db";
 import { z } from "zod";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";

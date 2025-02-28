@@ -4,7 +4,7 @@ import { DbResponse, DynamicQrCode, Wine, Winery } from "@/types/db";
 import { useAuth } from "@/features/authentication";
 
 // LIBS
-import { wineryTemplate } from "@/data/templates";
+import { wineryTemplate } from "../data";
 import { db as firestoreDb } from "@/lib/firebase/client";
 import { db } from "@/lib/firebase/services/db";
 import { collection, doc, onSnapshot, Unsubscribe } from "firebase/firestore";

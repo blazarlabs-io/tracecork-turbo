@@ -17,7 +17,7 @@ import { Input } from "@repo/ui/components/ui/input";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import { useResetPasswordForm } from "~/src/features/authentication/hooks/reset-password/useResetPasswordForm";
 import { z } from "zod";
-import { passwordResetFormSchema } from "@/data/form-schemas";
+import { passwordResetFormSchema } from "../../data";
 
 type Props = {
   disalbed: boolean;

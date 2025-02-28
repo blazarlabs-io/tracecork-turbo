@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { loginFormSchema, signUpFormSchema } from "@/data/form-schemas";
+import { loginFormSchema, signUpFormSchema } from "../../data";
 import type { Control, FieldPath } from "react-hook-form";
 import { z } from "zod";
 import {

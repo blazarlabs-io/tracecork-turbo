@@ -15,7 +15,7 @@ import {
   TooltipTrigger,
 } from "@repo/ui/components/ui/tooltip";
 import { useAuth } from "@/features/authentication";
-import { dynamicQrCodeTemplate } from "@/data/templates";
+import { dynamicQrCodeTemplate } from "../../../data";
 import { toast } from "@repo/ui/hooks/use-toast";
 import { db } from "@/lib/firebase/services/db";
 import { storage } from "@/lib/firebase/services/storage";

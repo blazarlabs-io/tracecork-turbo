@@ -3,7 +3,7 @@ import { useAuth } from "@/features/authentication";
 import { useWinery } from "~/src/features/wineries/context/winery-provider";
 import { DbResponse, Wine } from "@/types/db";
 import { db } from "@/lib/firebase/services/db";
-import { wineTemplate } from "@/data/templates";
+import { wineTemplate } from "../data";
 import { Timestamp } from "firebase/firestore";
 
 export const useHandleWineToEdit = (wineId: string) => {
