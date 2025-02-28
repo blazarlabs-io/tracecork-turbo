@@ -1,4 +1,4 @@
-import { MapItem } from "@/components/maps/map-item";
+import { MapItem } from "~/src/features/maps/components/map-item";
 import {
   FormLabel,
   FormDescription,

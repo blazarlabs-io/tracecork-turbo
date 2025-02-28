@@ -13,7 +13,7 @@ export const generateWineId = (length: number = 16) => {
   return key;
 };
 
-const isWineReadyToPublish = async (form: any) => {
+export const isWineReadyToPublish = async (form: any) => {
   // * make sure there are no errors in form
   // * If no errors
   if (isEmpty(form.formState.errors)) {
