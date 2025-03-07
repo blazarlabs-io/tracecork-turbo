@@ -7,7 +7,7 @@ import { useState } from "react";
 import { ConfirmEmailParamsType } from "../types";
 import { checkActionCode, confirmPasswordReset } from "firebase/auth";
 import { ResetPasswordForm } from "../components/forms/reset-password-form";
-import { passwordResetFormSchema } from "~/src/features/wineries/data/form-schemas";
+import { passwordResetFormSchema } from "../data";
 import { z } from "zod";
 import {
   useConfirmResetPassword,
