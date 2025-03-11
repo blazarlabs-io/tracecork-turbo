@@ -1,8 +1,6 @@
 import { useSystemVariables } from "@/context/system-variables";
 import { useSortIngredients } from "@/hooks/use-sort-ingredients";
 import { Wine } from "@/types/db";
-import { it } from "node:test";
-import { useEffect, useState } from "react";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
@@ -25,7 +23,12 @@ export const DynamicIngredients = ({ wine }: DynamicIngredientsProps) => {
         stabilizers &&
         finingAgents && (
           <span className="text-justify">
-            <span>{wine.ingredients.rawMaterial}</span>;{" "}
+            <span>
+              {t(
+                `systemVariables.dictRawMaterials.${wine.ingredients.rawMaterial}`,
+              )}
+            </span>
+            ;{" "}
             {acidityRegulators.length > 0 && (
               <span>
                 acidity regulators:{" "}
@@ -98,13 +101,11 @@ export const DynamicIngredients = ({ wine }: DynamicIngredientsProps) => {
                 ;{" "}
               </span>
             )}
-            {t("wineStepper.previewWine.bottledText")}
+            {t("wineDetails.bottledText")}
           </span>
         )}
       <span className="text-sm">
-        <MarkdownPreviewer
-          content={t("wineStepper.previewWine.reminderText")}
-        />
+        <MarkdownPreviewer content={t("wineDetails.reminderText")} />
       </span>
     </>
   );

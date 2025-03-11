@@ -29,8 +29,8 @@ import MarkdownPreviewer from "../../markdown-previewer/MarkdownPreviewer";
 import { sendEmailService } from "@/services/email-services";
 import { emailTemplates } from "@/utils/email-templates";
 import {
-  NEXT_PUBLIC_DYNAMIC_QR_CODES_REDIRECT_URL,
-  NEXT_PUBLIC_DYNAMIC_QR_CODES_STATIC_URL,
+  NEXT_PUBLIC_APP_URL,
+  NEXT_PUBLIC_QR_CODES_URL,
 } from "@/utils/envConstants";
 
 export const PublishNewWineDialog = ({
@@ -79,8 +79,8 @@ export const PublishNewWineDialog = ({
               dynamicQrCodeTemplate.uid = uid as string;
               dynamicQrCodeTemplate.wineId = wineId;
               dynamicQrCodeTemplate.imageUrl = url;
-              dynamicQrCodeTemplate.staticUrl = `${NEXT_PUBLIC_DYNAMIC_QR_CODES_STATIC_URL}${wineId}`;
-              dynamicQrCodeTemplate.redirectUrl = `${NEXT_PUBLIC_DYNAMIC_QR_CODES_REDIRECT_URL}${wineId}`;
+              dynamicQrCodeTemplate.staticUrl = `${NEXT_PUBLIC_QR_CODES_URL}/explore/wine/${wineId}`;
+              dynamicQrCodeTemplate.redirectUrl = `${NEXT_PUBLIC_APP_URL}/explore/wine/${wineId}`;
 
               // * Set dynamic QR code in DB
               await db.qrCode.set(uid, dynamicQrCodeTemplate);

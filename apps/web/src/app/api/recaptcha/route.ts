@@ -1,4 +1,5 @@
 import axios from "axios";
+import { NEXT_PUBLIC_CAPTCHA_SECRET_KEY } from "@/utils/envConstants";
 
 export async function POST(req: Request) {
   if (req.method !== "POST") {
@@ -10,8 +11,7 @@ export async function POST(req: Request) {
 
   const data = await req.json();
   const { token } = data;
-  const secretKey: string = process.env
-    .NEXT_PUBLIC_CAPTCHA_SECRET_KEY as string;
+  const secretKey: string = NEXT_PUBLIC_CAPTCHA_SECRET_KEY;
 
   if (!token) {
     return new Response(JSON.stringify({ message: "Token not found" }), {
@@ -20,9 +20,8 @@ export async function POST(req: Request) {
   }
 
   try {
-    const response = await axios.post(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`,
-    );
+    const basedUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`;
+    const response = await axios.post(basedUrl);
 
     if (response.data.success) {
       return new Response(JSON.stringify({ message: "Success" }), {

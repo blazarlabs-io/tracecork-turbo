@@ -3,10 +3,10 @@ import { AppSidebar } from "@/components/navigation/app-sidebar";
 
 export const PrivateLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <SidebarProvider>
-      <AppSidebar>
-        <main className="p-6">{children}</main>
-      </AppSidebar>
-    </SidebarProvider>
+    <AppSidebar>
+      <main className="overflow-hidden p-1 sm:p-2 md:p-3 lg:p-6">
+        {children}
+      </main>
+    </AppSidebar>
   );
 };

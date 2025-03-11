@@ -5,7 +5,7 @@ export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="w-full">
       <NavigationBar />
 
-      <main className="flex h-[calc(100vh-68px)] w-full items-center justify-center">
+      <main className="flex h-[calc(100dvh-68px)] w-full items-center justify-center">
         {children}
       </main>
     </div>

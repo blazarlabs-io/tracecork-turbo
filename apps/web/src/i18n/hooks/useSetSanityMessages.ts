@@ -3,9 +3,12 @@ import { client } from "../../lib/sanity/client";
 import {
   cleanedObj,
   setLanguageObject,
-  setLanguagesArray,
+  setMainLanguages,
   setObjectContent,
 } from "../utils/objectHandlres";
+
+// import { writeFile } from "fs/promises";
+// import path from "path";
 
 export const useSetSanityMessages = async () => {
   // const sanityData = await client.fetch<SanityDocument>(
@@ -17,11 +20,7 @@ export const useSetSanityMessages = async () => {
 
   const sanityData = await client.fetch<SanityDocument>("*");
 
-  const mainData: any = {
-    LocaleSwitcher: {
-      label: "Language",
-    },
-  };
+  const mainData: { [key: string]: any } = {};
 
   const langObject: { [key: string]: Set<string> } = {};
 
@@ -40,7 +39,15 @@ export const useSetSanityMessages = async () => {
     setLanguageObject(page["_type"], lang, langObject);
   });
 
-  setLanguagesArray(mainData, langObject);
+  setMainLanguages(mainData, langObject);
+
+  // const filePath1 = path.join(process.cwd(), "public", "sanityData.json");
+  // const jsonData1 = JSON.stringify(sanityData, null, 2);
+  // await writeFile(filePath1, jsonData1, "utf-8");
+
+  // const filePath2 = path.join(process.cwd(), "public", "mainData.json");
+  // const jsonData2 = JSON.stringify(mainData, null, 2);
+  // await writeFile(filePath2, jsonData2, "utf-8");
 
   return mainData;
 };

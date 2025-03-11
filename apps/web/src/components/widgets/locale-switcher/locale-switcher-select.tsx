@@ -1,8 +1,6 @@
 "use client";
 
 // import {CheckIcon, LanguageIcon} from '@heroicons/react/24/solid';
-import { Locale } from "@/i18n/config";
-import { setUserLocale } from "@/services/locale";
 import {
   Select,
   SelectContent,
@@ -11,8 +9,8 @@ import {
   SelectValue,
 } from "@repo/ui/components/ui/select";
 import clsx from "clsx";
-import { Check, Languages } from "lucide-react";
-import { useState, useTransition } from "react";
+import { Languages } from "lucide-react";
+import { useLocaleContext } from "@/context/LanguageProvider";
 
 type Props = {
   defaultValue: string;
@@ -21,23 +19,20 @@ type Props = {
 };
 
 export const LocaleSwitcherSelect = ({ defaultValue, items, label }: Props) => {
-  const [isPending, startTransition] = useTransition();
-
-  function onChange(value: string) {
-    const locale = value as Locale;
-
-    startTransition(() => {
-      setUserLocale(locale);
-    });
-  }
+  const { isPending, localeSelected, onLocaleChange } = useLocaleContext();
 
   return (
     <div className="relative">
-      <Select defaultValue={defaultValue} onValueChange={onChange}>
+      <Select
+        defaultValue={defaultValue}
+        value={localeSelected}
+        onValueChange={onLocaleChange}
+      >
         <SelectTrigger
           aria-label={label}
+          disabled={isPending}
           className={clsx(
-            "rounded-sm p-2 transition-colors hover:bg-slate-200 gap-2",
+            "rounded-sm p-1 sm:p-2 transition-colors hover:bg-slate-200 gap-1 sm:gap-2",
             isPending && "pointer-events-none opacity-60",
           )}
         >

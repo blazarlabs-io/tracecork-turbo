@@ -7,7 +7,11 @@ import Image from "next/image";
 import { NutritionTable } from "@/components/widgets/nutrition-table";
 import { useGetWine } from "@/hooks/use-get-wine";
 import { DynamicIngredients } from "@/components/widgets/dynamic-ingredients";
-import { useEffect } from "react";
+import { useQrCodeDomainHandler } from "@/hooks/qr-code-domain";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
+import { setUserLocale } from "@/services/locale";
+import { useLocaleContext } from "@/context/LanguageProvider";
 
 export interface WineDetailsPageProps {
   wineId: string;
@@ -15,12 +19,16 @@ export interface WineDetailsPageProps {
 
 export const WineDetailsPage = ({ wineId }: WineDetailsPageProps) => {
   // * HOOKS
+  const { t } = useTranslationHandler();
+  const { isChecking } = useQrCodeDomainHandler(wineId);
   const { wine } = useGetWine(wineId);
   const { vintage } = useGetVintage(wine as Wine);
 
-  // useEffect(() => {
-  //   console.log(wine);
-  // }, [wine]);
+  if (isChecking) return <h1>Loading...</h1>;
+  if (!wine) return <h1>Lading Wine...</h1>;
+
+  const { generalInfo, profile } = wine;
+  const { type: wineType } = generalInfo;
 
   return (
     <>
@@ -62,9 +70,9 @@ export const WineDetailsPage = ({ wineId }: WineDetailsPageProps) => {
                 <div className="flex w-full flex-col items-center justify-center gap-2">
                   <div className="flex w-full items-center justify-center gap-4 text-sm font-semibold text-muted-foreground">
                     <div className="flex flex-col items-center justify-center gap-1">
-                      {wine.generalInfo.type ? (
+                      {wineType && profile ? (
                         <span className="capitalize">
-                          {wine.profile?.sweetness} {wine.generalInfo.type}
+                          {`${t(`systemVariables.dictSweetness.${profile.sweetness?.split("-")[0]}.${profile.sweetness}`)} ${t(`systemVariables.dictWineTypes.${wineType}`)}`}
                         </span>
                       ) : (
                         <span className="text-destructive">
@@ -154,7 +162,9 @@ export const WineDetailsPage = ({ wineId }: WineDetailsPageProps) => {
                 </div>
                 {/* * INGREDIENTS */}
                 <div className="mt-8 flex max-w-[640px] flex-col items-start justify-start gap-4 sm:min-w-[320px] md:min-w-[640px]">
-                  <h2 className="text-base font-bold">INGREDIENTS</h2>
+                  <h2 className="text-base font-bold">
+                    {t("wineDetails.ingredientsTitle")}
+                  </h2>
                   <DynamicIngredients wine={wine} />
                 </div>
                 {/* * NUTRITION INFORMATION */}
@@ -175,11 +185,9 @@ export const WineDetailsPage = ({ wineId }: WineDetailsPageProps) => {
                   />
                 </div>
                 <div className="max-w-[640px]">
-                  <span>
-                    <span className="font-bold">Please Drink Responsibly:</span>{" "}
-                    We encourage you to enjoy the beverages with mindfulness and
-                    moderation.
-                  </span>
+                  <MarkdownPreviewer
+                    content={t("wineDetails.drinkResponsiblyText")}
+                  />
                 </div>
               </div>
             </div>

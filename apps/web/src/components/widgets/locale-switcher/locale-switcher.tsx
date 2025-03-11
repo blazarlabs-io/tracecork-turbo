@@ -1,32 +1,26 @@
 "use client";
 
+import { useEffect } from "react";
 import { LocaleSwitcherSelect } from "./locale-switcher-select";
-import { useMemo } from "react";
-import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import { useLocaleOptions } from "@/hooks/use-locale-options";
+import { useLocaleContext } from "@/context/LanguageProvider";
 
 export const LocaleSwitcher = () => {
-  const { locale, msg } = useTranslationHandler();
+  const { locale, items, label } = useLocaleOptions();
+  const { localeSelected, onLocaleChange } = useLocaleContext();
 
-  const items = useMemo(() => {
-    if (!msg["LocaleSwitcher"]) return [];
-    return Object.keys(msg["LocaleSwitcher"])
-      .filter((key) => key.length <= 2)
-      .map((key) => {
-        return {
-          value: key,
-
-          label: key,
-        };
-      });
-  }, [msg["LocaleSwitcher"]]);
-
-  const label = useMemo(() => {
-    if (!msg["LocaleSwitcher"] || typeof msg["LocaleSwitcher"] === "string")
-      return "Language";
-    const { label } = msg["LocaleSwitcher"];
-    if (!label || typeof label != "string") return "Language";
-    return label;
-  }, [msg["LocaleSwitcher"]]);
+  /* Thi is in charge to validate if the locale selected is in the locale options
+    this could happen when go to a page with many languages and select one outisede
+    the short options available (6), then this will set as locale selected english
+   */
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      const current = items.find((v) => v.value === localeSelected);
+      if (current) return;
+      onLocaleChange("en");
+    }, 100);
+    return () => clearTimeout(timeoutId);
+  }, [items, localeSelected]);
 
   return (
     <LocaleSwitcherSelect defaultValue={locale} items={items} label={label} />

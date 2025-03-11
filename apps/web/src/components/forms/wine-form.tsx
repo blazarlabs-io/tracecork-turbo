@@ -42,9 +42,10 @@ import { WineCarbohydratesField } from "./fields/wine/wine-carbohydrates-field";
 import { WineCrudField } from "./fields/wine/wine-crud-field";
 import { WineGrapeVarietiesField } from "./fields/wine/wine-grape-varieties-field";
 import { WineNumberField } from "./fields/wine/wine-number-field";
-import { WineSelectField } from "./fields/wine/wine-select-field";
+import { WineSelectRawMaterialsField } from "./fields/wine/wine-select-raw-materials-field";
 import { WineTextField } from "./fields/wine/wine-text-field";
 import { WineTypeAndSweetnessField } from "./fields/wine/wine-type-and-sweetness-field";
+import { WineSelectStringField } from "./fields/wine/wine-select-string-field";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 /*
@@ -60,8 +61,7 @@ export const WineForm = ({ wine }: WineFormProps) => {
   const { t } = useTranslationHandler();
   const { user } = useAuth();
   const { winery } = useWinery();
-  const { countries, wineTypes, volumes, sweetness, rawMaterials } =
-    useSystemVariables();
+  const { countries, wineTypes, volumes } = useSystemVariables();
   const form = useForm<z.infer<typeof wineFormSchema>>({
     mode: winery?.settings?.autosave ? "onChange" : "onSubmit",
     resolver: zodResolver(wineFormSchema),
@@ -222,7 +222,7 @@ export const WineForm = ({ wine }: WineFormProps) => {
       setQrCodeUrl(wine.qrCode || "");
       // * autopopulate form by reseting it with wine values from DB
       form.reset(wine as any);
-      console.log("autopopulated", wine);
+      // console.log("autopopulated", wine);
       form.setValue(
         "generalInfo.wineryName",
         wine.generalInfo.wineryName || winery?.info?.name || "",
@@ -390,7 +390,7 @@ export const WineForm = ({ wine }: WineFormProps) => {
             />
 
             {/* * VOLUME */}
-            <WineSelectField
+            <WineSelectStringField
               name="generalInfo.volume"
               label={t(
                 "wineStepper.wineryDetails.generalInformation.volume.label",
@@ -439,7 +439,7 @@ export const WineForm = ({ wine }: WineFormProps) => {
               autosave={winery?.settings?.autosave || true}
             />
             {/* * COUNTRY */}
-            <WineSelectField
+            <WineSelectStringField
               name="generalInfo.country"
               label={t(
                 "wineStepper.wineryDetails.generalInformation.countries.label",
@@ -485,18 +485,8 @@ export const WineForm = ({ wine }: WineFormProps) => {
             )}
           >
             {/* * RAW MATERIAL */}
-            <WineSelectField
-              name="ingredients.rawMaterial"
-              label={t(
-                "wineStepper.wineryDetails.ingredients.rawMaterial.label",
-              )}
-              placeholder={t(
-                "wineStepper.wineryDetails.ingredients.rawMaterial.placeholder",
-              )}
-              description={t(
-                "wineStepper.wineryDetails.ingredients.rawMaterial.description",
-              )}
-              options={rawMaterials}
+            <WineSelectRawMaterialsField
+              name={"ingredients.rawMaterial"}
               onSubmit={onSubmit}
               form={form}
               autosave={winery?.settings?.autosave as boolean}

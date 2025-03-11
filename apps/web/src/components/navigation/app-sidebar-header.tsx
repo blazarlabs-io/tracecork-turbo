@@ -23,27 +23,41 @@ import { useRouter } from "next/navigation";
 import { Button } from "@repo/ui/components/ui/button";
 import { LocaleSwitcher } from "../widgets/locale-switcher/locale-switcher";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import { cn } from "@repo/ui/lib/utils";
+import { AUTH_COOKIE } from "@/utils/cookieConstants";
+import { deleteCookie } from "cookies-next";
 
 export function AppSidebarHeader() {
   // * HOOKS
   const { t } = useTranslationHandler();
-  const { user } = useAuth();
+  const { user, singOutUserHandler } = useAuth();
   const { winery } = useWinery();
   const router = useRouter();
 
   // * HANDLERS
-  const handleSignOut = () => {
-    signOut(auth);
+  const handleSignOut = async () => {
+    await singOutUserHandler();
     router.replace("/home");
   };
 
   return (
-    <header className="flex h-16 w-full shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-      <div className="flex w-full items-center gap-2 px-4">
+    <header
+      className={cn(
+        "flex h-16 w-full shrink-0 items-center sm:gap-2",
+        "transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12",
+      )}
+    >
+      <div className="flex w-fit sm:w-full items-center sm:gap-2 px-2 sm:px-4">
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mr-2 h-6" />
       </div>
-      <div className="flex h-full w-full items-center justify-end gap-4 pr-4">
+      <div
+        className={cn(
+          "flex h-full w-full items-center justify-end",
+          "gap-0 sm:gap-2 md:gap-3 lg:gap-4",
+          "pr-1 sm:pr-2 lg:pr-4",
+        )}
+      >
         <LocaleSwitcher />
         <Button
           variant="outline"
@@ -53,7 +67,7 @@ export function AppSidebarHeader() {
           {t("dashboardGlobalComponents.topBar.buttons.exploreWines.label")}
         </Button>
         <Separator orientation="vertical" className="h-6" />
-        {user && winery && (
+        {user && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar className="cursor-pointer border">

@@ -13,6 +13,7 @@ import { useGetVintage } from "@/hooks/use-get-vintage";
 import { Wine } from "@/types/db";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { useTranslationHandler } from "@/hooks/use-translation-handler";
 
 export interface ExplorerCardProps {
   wine: Wine;
@@ -20,6 +21,7 @@ export interface ExplorerCardProps {
 
 export const ExplorerCard = ({ wine }: ExplorerCardProps) => {
   // * HOOKS
+  const { t } = useTranslationHandler();
   const { vintage } = useGetVintage(wine);
   const router = useRouter();
   const { user } = useAuth();
@@ -48,6 +50,9 @@ export const ExplorerCard = ({ wine }: ExplorerCardProps) => {
   //     });
   //   }
   // };
+
+  const { generalInfo, profile } = wine;
+  const { type: wineType } = generalInfo;
 
   return (
     <Card
@@ -103,9 +108,13 @@ export const ExplorerCard = ({ wine }: ExplorerCardProps) => {
       <CardContent className="px-4">
         <div className="flex w-full flex-col gap-2">
           <div className="flex w-full items-center justify-start gap-2 text-xs text-muted-foreground">
-            <p>
-              {wine.profile?.sweetness} {wine.generalInfo.type}
-            </p>
+            {wineType && profile ? (
+              <p>
+                {`${t(`systemVariables.dictSweetness.${profile?.sweetness?.split("-")[0]}.${profile?.sweetness}`)} ${t(`systemVariables.dictWineTypes.${wineType}`)}`}
+              </p>
+            ) : (
+              <span className="text-destructive">Type Not specified</span>
+            )}
             <div className="h-1 w-1 rounded-full bg-muted-foreground" />
             <p>{wine.generalInfo.volume}</p>
             <div className="h-1 w-1 rounded-full bg-muted-foreground" />

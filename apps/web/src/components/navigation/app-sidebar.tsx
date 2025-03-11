@@ -25,7 +25,7 @@ const dataLogo = {
 export function AppSidebar({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
-      <Sidebar collapsible="offcanvas">
+      <Sidebar collapsible="offcanvas" className="overflow-hidden">
         <SidebarHeader>
           <div className="flex items-center gap-4">
             <div className="flex items-center justify-center rounded-lg p-2 text-sidebar-primary-foreground">

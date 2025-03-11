@@ -87,3 +87,21 @@ export function parseStatCardSanityData(data: SanityStatCardType[]) {
   if (!Object.keys(linksObj).length) return;
   return linksObj;
 }
+
+type RictionaryObjType = {
+  _type: string;
+  _key: string;
+  value: string;
+  key: string;
+};
+
+export function parseDictionarySanityData(data: RictionaryObjType[]) {
+  const dictionaryObj: { [key: string]: string } = {};
+  data.forEach((d, i) => {
+    if (d._type !== "dictionary") return;
+    if (!d.key) return;
+    dictionaryObj[`${d.key}`] = d.value;
+  });
+  if (!Object.keys(dictionaryObj).length) return;
+  return dictionaryObj;
+}

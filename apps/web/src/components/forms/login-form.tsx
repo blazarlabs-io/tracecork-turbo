@@ -10,7 +10,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -33,17 +33,18 @@ import { getFromLocalStorage, setToLocalStorage } from "@/utils/local-storage";
 import { LoginStorage } from "@/types/authTypes";
 import { LOGIN_CREDENTIALS_KEY } from "@/utils/authConstants";
 import { useGoogleSignIn, useCaptcha } from "@/hooks/auth";
+import { AUTH_COOKIE } from "@/utils/cookieConstants";
+import { setCookie } from "cookies-next";
+import { useAuth } from "@/context/auth";
 
 export const LoginForm = () => {
   const { t } = useTranslationHandler();
+  const { setUserHandler } = useAuth();
   const router = useRouter();
-  const [isSubmiting, setIsSubmiting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // * HOOKS
-  const { recaptchaRef, isVerified, handleExpired, handleChange } =
-    useCaptcha();
   const { isGoogleLogin, handleSignInWithGoogle } = useGoogleSignIn();
-
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -52,11 +53,22 @@ export const LoginForm = () => {
       password: "",
     },
   });
-
+  // This avoid doing validation and showing errors after captcha validation if the input values are not dirty (different from the default values)
+  const handleRefreshForm = useCallback(() => {
+    try {
+      if (form.formState.isDirty) form.trigger();
+      return;
+    } catch (e) {
+      console.error(e);
+    }
+  }, [form.formState.isDirty]);
+  const { recaptchaRef, isVerified, handleExpired, handleChange } = useCaptcha({
+    synchWithFormState: handleRefreshForm,
+  });
   // * HANDLERS
   const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
     try {
-      setIsSubmiting(true);
+      setIsSubmitting(true);
       setToLocalStorage<LoginStorage>(LOGIN_CREDENTIALS_KEY, {
         email: values.email,
       });
@@ -68,13 +80,20 @@ export const LoginForm = () => {
 
       // Signed in
       const user = userCredential.user;
-
+      await setUserHandler(user);
+      const idToken = await user.getIdToken();
+      setCookie(AUTH_COOKIE, idToken, {
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+      });
       if (user.emailVerified) {
         toast({
           variant: "default",
           title: t("toasts.auth.loginSuccess.title"),
           description: t("toasts.auth.loginSuccess.description"),
         });
+        router.replace("/dashboard/home");
       } else {
         toast({
           variant: "destructive",
@@ -82,7 +101,7 @@ export const LoginForm = () => {
           description: t("toasts.auth.verifyEmailError.description"),
         });
         await sendVerificationEmailService(values.email);
-        router.push("/verify-email");
+        router.replace("/verify-email");
       }
     } catch (error: any) {
       console.error(error);
@@ -93,8 +112,7 @@ export const LoginForm = () => {
           message: firebaseAuthErrors[error.code],
         }),
       });
-    } finally {
-      setIsSubmiting(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -102,10 +120,16 @@ export const LoginForm = () => {
     router.push("/forgot-password");
   };
 
-  const isProcessing = isGoogleLogin || isSubmiting;
-
+  // * It will be on processing if the Google sign-in process is initiated (Google modal Open) and when form is submitting
+  const isProcessing = isGoogleLogin || isSubmitting;
   return (
-    <div className="flex w-full min-w-[360px] max-w-[360px] flex-col gap-3 rounded-[12px] border p-6">
+    <div
+      className={cn(
+        "w-full sm:w-[360px] max-w-[360px]",
+        "flex flex-col gap-3",
+        "rounded-[12px] border px-2 py-4 sm:p-6",
+      )}
+    >
       <div className="mb-4">
         <h1 className="text-center text-2xl font-semibold">
           {t("publicComponents.login.title")}
@@ -115,10 +139,10 @@ export const LoginForm = () => {
         <Tooltip>
           <TooltipTrigger
             onClick={handleSignInWithGoogle}
-            disabled={!isVerified}
+            disabled={!isVerified || isSubmitting}
             type="button"
             className={cn(
-              "flex w-full min-w-[320px] max-w-[320px] items-center justify-center gap-3",
+              "flex w-full sm:w-[320px] items-center justify-center gap-3",
               "rounded-md border border-border bg-foreground px-4 py-2 text-base text-background",
               "disabled:bg-slate-400 disabled:text-slate-300",
             )}
@@ -202,7 +226,7 @@ export const LoginForm = () => {
           {t("publicComponents.login.register.buttonLabel")}
         </Link>
       </div>
-      <div className="mt-[16px] min-w-[320px] max-w-[320px]">
+      <div className="mt-[16px] w-full sm:w-[320px] px-2">
         <MarkdownPreviewer
           className="text-xs leading-[20px] text-muted-foreground legal-text-container"
           content={t("publicComponents.login.legalText")}

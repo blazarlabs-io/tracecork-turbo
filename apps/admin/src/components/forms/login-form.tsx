@@ -4,12 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@repo/ui/components/ui/form";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { loginFormSchema } from "~/src/data/form-schemas";
+import { loginFormSchema } from "@/data/form-schemas";
 import { EmailInputField } from "./fields/email-input-field";
 import { PasswordInputField } from "./fields/password-input-field";
 import { Button } from "@repo/ui/components/ui/button";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "~/src/lib/firebase/client";
+import { auth } from "@/lib/firebase/client";
 
 export const LoginForm = () => {
   // * HOOKS

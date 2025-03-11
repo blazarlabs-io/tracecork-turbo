@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Control, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -21,17 +21,20 @@ import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
 import { sendVerificationEmailService } from "@/services/auth/auth-emails-services";
 import { useCaptcha, useGoogleSignIn } from "@/hooks/auth";
 import { toast } from "@repo/ui/hooks/use-toast";
-import { firebaseAuthErrors } from "~/src/utils/firebaseAuthErrors";
+import { firebaseAuthErrors } from "@/utils/firebaseAuthErrors";
+import { NEXT_PUBLIC_CAPTCHA_SITE_KEY } from "@/utils/envConstants";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/auth";
 
 export const SignUpForm = () => {
+  // * STATE
+  const router = useRouter();
+  const { setUserHandler } = useAuth();
   const [isSingingUp, setIsSingingUp] = useState(false);
-  const { t } = useTranslationHandler();
 
   // * HOOKS
-  const { recaptchaRef, isVerified, handleExpired, handleChange } =
-    useCaptcha();
+  const { t } = useTranslationHandler();
   const { isGoogleLogin, handleSignInWithGoogle } = useGoogleSignIn();
-
   const form = useForm<z.infer<typeof signUpFormSchema>>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
@@ -40,6 +43,18 @@ export const SignUpForm = () => {
       confirmPassword: "",
     },
     mode: "onChange",
+  });
+  // This avoid doing validation and showing errors after captcha validation if the input values are not dirty (different from the default values)
+  const handleRefreshForm = useCallback(() => {
+    try {
+      if (form.formState.isDirty) form.trigger();
+      return;
+    } catch (e) {
+      console.error(e);
+    }
+  }, [form.formState.isDirty]);
+  const { recaptchaRef, isVerified, handleExpired, handleChange } = useCaptcha({
+    synchWithFormState: handleRefreshForm,
   });
 
   // * HANDLERS
@@ -54,10 +69,12 @@ export const SignUpForm = () => {
       );
       // Signed in
       const user = userCredential.user;
+      await setUserHandler(user);
       const userEmail = user.email ? user.email : values.email;
 
       // console.log("USER:", user);
       await sendVerificationEmailService(userEmail);
+      router.replace("/verify-email");
     } catch (error: any) {
       console.error(error);
       toast({
@@ -71,11 +88,16 @@ export const SignUpForm = () => {
       setIsSingingUp(false);
     }
   };
-
   const isProcessing = isSingingUp || isGoogleLogin;
 
   return (
-    <div className="mb-4 flex w-full min-w-[360px] max-w-[360px] flex-col gap-3 rounded-[12px] border p-6">
+    <div
+      className={cn(
+        "w-full sm:w-[360px] max-w-[360px]",
+        "flex flex-col gap-3",
+        "rounded-[12px] border px-2 py-4 sm:p-6",
+      )}
+    >
       <h1 className="pb-4 text-center text-2xl font-semibold">
         {t("publicComponents.signup.title")}
       </h1>
@@ -113,9 +135,7 @@ export const SignUpForm = () => {
           />
           <div className="flex w-full items-center justify-center">
             <ReCAPTCHA
-              sitekey={
-                (process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY as string) || ""
-              }
+              sitekey={NEXT_PUBLIC_CAPTCHA_SITE_KEY}
               ref={recaptchaRef}
               onChange={handleChange}
               onExpired={handleExpired}
@@ -153,7 +173,7 @@ export const SignUpForm = () => {
         disabled={!isVerified || isProcessing}
         onClick={handleSignInWithGoogle}
         className={cn(
-          "w-full min-w-[320px] max-w-[320px]",
+          "flex w-full sm:w-[320px]",
           "flex items-center justify-center gap-3",
           "rounded-md border border-border bg-foreground px-4 py-2 text-base text-background",
           "disabled:bg-slate-400 disabled:text-slate-300",
@@ -168,7 +188,7 @@ export const SignUpForm = () => {
         />
         {t("publicComponents.signup.googleButtonLabel")}
       </button>
-      <div className="mt-[16px]">
+      <div className="mt-[16px] w-full sm:w-[320px] px-2">
         <MarkdownPreviewer
           className="text-xs leading-[20px] text-muted-foreground legal-text-container"
           content={t("publicComponents.login.legalText")}

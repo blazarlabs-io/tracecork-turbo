@@ -1,19 +1,27 @@
-import { Ingredient, Wine } from "@/types/db";
+import { Ingredient, KeyValueType, Wine } from "@/types/db";
 import { useEffect, useState } from "react";
+import { useTranslationHandler } from "./use-translation-handler";
 
-export const useSortIngredients = (wine: Wine, allergens: string[]) => {
+export const useSortIngredients = (wine: Wine, allergens: KeyValueType[]) => {
   const [acidityRegulators, setAcidityRegulators] = useState<
     Ingredient[] | null
   >(null);
+
   const [stabilizers, setStabilizers] = useState<Ingredient[] | null>(null);
   const [finingAgents, setFiningAgents] = useState<Ingredient[] | null>(null);
   const [antioxidants, setAntioxidants] = useState<Ingredient[] | null>(null);
 
+  const { t } = useTranslationHandler();
+
   const checkAllergens = (
-    allergens: string[],
+    allergens: KeyValueType[],
     ingredients: Ingredient[],
   ): Ingredient[] => {
-    const allergenSet = new Set(allergens.map((a) => a.toLowerCase())); // Normalize allergens to lowercase
+    const allergenSet = new Set(
+      allergens.map((a) => {
+        return t(`systemVariables.dictAllergens.${a.key}`).toLowerCase();
+      }),
+    ); // Normalize allergens to lowercase
     return ingredients.map((ingredient) => ({
       ...ingredient,
       isAllergen: allergenSet.has(ingredient.name.toLowerCase()), // Check case-insensitively
