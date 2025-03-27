@@ -82,6 +82,12 @@ export interface Terroir {
   };
 }
 
+export interface Tokenization {
+  tokenRefId: string;
+  isTokenized: boolean;
+  txId: string;
+}
+
 export interface Wine {
   uid: string;
   id: string;
@@ -98,6 +104,7 @@ export interface Wine {
   makingTechnique?: WineMakingTechnique;
   terroir?: Terroir;
   likes?: number;
+  tokenization?: Tokenization;
 }
 
 export interface Grape {

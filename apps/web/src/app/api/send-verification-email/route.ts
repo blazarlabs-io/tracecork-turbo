@@ -13,6 +13,12 @@ export async function POST(request: Request) {
 
   const data = await request.json();
 
+  if (!data) {
+    return Response.json({
+      success: false,
+    });
+  }
+
   sgMail.setApiKey(NEXT_PUBLIC_SENDGRID_API_KEY as string);
 
   const baseUrl = NEXT_PUBLIC_APP_URL + "/confirm-email";
@@ -22,10 +28,16 @@ export async function POST(request: Request) {
     handleCodeInApp: true,
   };
 
-  const url = await adminAuth.generateEmailVerificationLink(
-    data.email as string,
-    actionCodeSettings,
-  );
+  let url = "";
+
+  try {
+    url = await adminAuth.generateEmailVerificationLink(
+      data.email as string,
+      actionCodeSettings,
+    );
+  } catch (error) {
+    console.log(error);
+  }
 
   const params = url.split("?")[1];
   const verificationUrl = `${baseUrl}?${params}`;
@@ -44,7 +56,11 @@ export async function POST(request: Request) {
     ],
   };
 
-  await sgMail.send(msg);
+  try {
+    await sgMail.send(msg);
+  } catch (error) {
+    console.log(error);
+  }
 
   return Response.json({
     success: true,

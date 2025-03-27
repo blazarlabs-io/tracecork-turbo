@@ -50,7 +50,7 @@ export const MissingFieldsDialog = ({
                 {children}
               </TooltipTrigger>
               <TooltipContent>
-                <p>{t("myWines.table.rowsActions.1.tooltip")}</p>
+                <p>{t("myWines.table.rowsActions.1.tooltip") || ""}</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -58,14 +58,18 @@ export const MissingFieldsDialog = ({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {t("dashboardGlobalComponents.dialogs.missingFieldsDialog.title")}
+              {t(
+                "dashboardGlobalComponents.dialogs.missingFieldsDialog.title",
+              ) || ""}
             </DialogTitle>
             <DialogDescription>
               <span className="description-container">
                 <MarkdownPreviewer
-                  content={t(
-                    "dashboardGlobalComponents.dialogs.missingFieldsDialog.description",
-                  )}
+                  content={
+                    t(
+                      "dashboardGlobalComponents.dialogs.missingFieldsDialog.description",
+                    ) || ""
+                  }
                 />
               </span>
             </DialogDescription>
@@ -75,7 +79,7 @@ export const MissingFieldsDialog = ({
               <span className="flex h-10 cursor-pointer items-center justify-center rounded-md bg-primary px-6 text-primary-foreground transition duration-200 ease-in-out hover:bg-primary/80">
                 {t(
                   "dashboardGlobalComponents.dialogs.missingFieldsDialog.buttons.cancelButtonLabel",
-                )}
+                ) || ""}
               </span>
             </DialogClose>
           </DialogFooter>

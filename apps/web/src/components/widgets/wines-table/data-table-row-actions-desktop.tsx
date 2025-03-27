@@ -25,6 +25,8 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
+import { useAuth } from "@/context/auth";
+import { useEffect } from "react";
 
 interface DataTableRowActionsProps<TData> {
   row: any;
@@ -33,12 +35,13 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActionsDesktop<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
+  const { user } = useAuth();
+
   return (
     <div className="flex items-center justify-end gap-1">
       {row.original.status === "draft" && (
         <>
           <EditWine row={row} />
-          {/* <PreviewWine row={row} /> */}
           <PublishWine row={row} />
           <DeleteWine row={row} />
         </>
@@ -46,9 +49,14 @@ export function DataTableRowActionsDesktop<TData>({
       {row.original.status === "published" && (
         <>
           <EditWineWithDialog row={row} />
-          {/* <PreviewWine row={row} /> */}
+          <PreviewWine row={row} />
+          {user &&
+            user.uid === "3ABS7fc8Xng8JeLlTWQv2fH0Q3d2" &&
+            (row.original.tokenization === undefined ||
+              !row.original.tokenization?.isTokenized) && (
+              <TokenizeWine row={row} />
+            )}
           <UnpublishWine row={row} />
-          <TokenizeWine row={row} />
           <DeleteWine row={row} />
         </>
       )}
@@ -188,11 +196,7 @@ const RestoreWine = ({ row }: any) => {
 
 const TokenizeWine = ({ row }: any) => {
   return (
-    <TokenizeWineDialog
-      uid={row.original.uid}
-      wineId={row.original.id}
-      collectionName={row.original.generalInfo.collectionName}
-    >
+    <TokenizeWineDialog uid={row.original.uid} wine={row.original}>
       <div className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background p-[10px] shadow-sm hover:bg-accent hover:text-accent-foreground">
         <Network size={16} />
       </div>

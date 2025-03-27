@@ -26,6 +26,9 @@ import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import { cn } from "@repo/ui/lib/utils";
 import { AUTH_COOKIE } from "@/utils/cookieConstants";
 import { deleteCookie } from "cookies-next";
+import { helix } from "ldrs";
+
+helix.register();
 
 export function AppSidebarHeader() {
   // * HOOKS
@@ -58,6 +61,13 @@ export function AppSidebarHeader() {
           "pr-1 sm:pr-2 lg:pr-4",
         )}
       >
+        {/*  */}
+        {/* <div className="flex items-center gap-1 border px-3 py-2 rounded-full">
+          <l-helix size="16" speed="2.0" color="#333"></l-helix>
+          <p className="text-xs">Tokenizing...</p>
+        </div>
+        <Separator orientation="vertical" className="h-6" /> */}
+        {/*  */}
         <LocaleSwitcher />
         <Button
           variant="outline"

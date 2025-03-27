@@ -10,6 +10,13 @@ export async function POST(req: Request) {
   }
 
   const data = await req.json();
+
+  if (!data) {
+    return Response.json({
+      success: false,
+    });
+  }
+
   const { token } = data;
   const secretKey: string = NEXT_PUBLIC_CAPTCHA_SECRET_KEY;
 

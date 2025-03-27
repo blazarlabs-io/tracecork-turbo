@@ -16,7 +16,10 @@ export function useQrCodeDomainHandler(wineId: string) {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      if (window.location.origin !== NEXT_PUBLIC_APP_URL) {
+      if (
+        typeof window !== "undefined" &&
+        window.location.origin !== NEXT_PUBLIC_APP_URL
+      ) {
         const newUrl = `${NEXT_PUBLIC_APP_URL}/explore/wine/${wineId}`;
         window.location.href = newUrl;
       }

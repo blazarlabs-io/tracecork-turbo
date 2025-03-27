@@ -12,6 +12,12 @@ export async function POST(request: Request) {
 
   const data = await request.json();
 
+  if (!data) {
+    return Response.json({
+      success: false,
+    });
+  }
+
   const msg: any = {
     to: data.email,
     from: NEXT_PUBLIC_TRACECORK_EMAIL, // Use the email address or domain you verified above
