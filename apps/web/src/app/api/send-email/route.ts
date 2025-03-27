@@ -7,6 +7,12 @@ import {
 export async function POST(request: Request) {
   const data = await request.json();
 
+  if (!data) {
+    return Response.json({
+      success: false,
+    });
+  }
+
   sgMail.setApiKey(NEXT_PUBLIC_SENDGRID_API_KEY as string);
 
   let msg: sgMail.MailDataRequired = {
@@ -38,7 +44,11 @@ export async function POST(request: Request) {
     };
   }
 
-  await sgMail.send(msg);
+  try {
+    await sgMail.send(msg);
+  } catch (error) {
+    console.error(error);
+  }
 
   return Response.json({
     success: true,

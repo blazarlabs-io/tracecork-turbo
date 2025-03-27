@@ -3,6 +3,7 @@ import { Providers } from "../context/providers";
 import "@repo/ui/globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Tracecork by Blazar Labs",
@@ -44,9 +45,11 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body suppressHydrationWarning>
-        <NextIntlClientProvider messages={messages}>
-          <Providers>{children}</Providers>
-        </NextIntlClientProvider>
+        <Suspense>
+          <NextIntlClientProvider messages={messages}>
+            <Providers>{children}</Providers>
+          </NextIntlClientProvider>
+        </Suspense>
       </body>
     </html>
   );

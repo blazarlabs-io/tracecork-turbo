@@ -1,4 +1,8 @@
 import { WineStepper } from "@/components/widgets/wine-stepper";
+import { Suspense } from "react";
+
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 type Params = Promise<{ wine: string; step: string }>;
 type SearchParams = Promise<{ step: "editor" | "preview" | "publish" }>;
@@ -9,7 +13,18 @@ export default async function Wine(props: {
 }) {
   const params = await props.params;
   const searchParams = await props.searchParams;
+
+  if (!params || !searchParams) {
+    return Response.json({
+      success: false,
+    });
+  }
+
   const wine = params.wine;
   const step = searchParams.step;
-  return <WineStepper wineId={wine} selectedStep={step} />;
+  return (
+    <Suspense fallback={<>Loading...</>}>
+      <WineStepper wineId={wine} selectedStep={step} />
+    </Suspense>
+  );
 }

@@ -28,12 +28,20 @@ export const columns = () => {
       ),
       cell: ({ row }) => {
         return (
-          <div className="w-[64px]">
+          <div className="w-[64px] relative">
             <img
               src={row.original.generalInfo.image}
               alt=""
               className="w-[64px] rounded-md ring-2 ring-muted ring-offset-2 ring-offset-background"
             />
+            {(row.original as any).tokenization !== undefined &&
+              (row.original as any).tokenization.isTokenized && (
+                <img
+                  src="/images/nft-badge.png"
+                  alt=""
+                  className="w-[24px] absolute bottom-[-16px] right-[-8px] z-10"
+                />
+              )}
           </div>
         );
       },

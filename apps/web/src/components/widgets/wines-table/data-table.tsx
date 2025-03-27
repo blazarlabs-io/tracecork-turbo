@@ -28,6 +28,7 @@ import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
 import { cn } from "@/utils/shadcn";
+import { Tokenization } from "~/src/types/db";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -35,7 +36,7 @@ interface DataTableProps<TData, TValue> {
   qrCodesLeft: number;
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends Tokenization, TValue>({
   columns,
   data,
   qrCodesLeft,

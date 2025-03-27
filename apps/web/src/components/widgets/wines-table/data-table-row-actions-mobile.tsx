@@ -151,11 +151,7 @@ const PublishedMenu = ({ row }: any) => {
               {t("myWines.table.rowsActions.2.label")}
             </span>
           </UnpublishWineDialog>
-          <TokenizeWineDialog
-            uid={row.original.uid}
-            wineId={row.original.id}
-            collectionName={row.original.generalInfo.collectionName}
-          >
+          <TokenizeWineDialog uid={row.original.uid} wine={row.original}>
             <span className="flex items-center py-1.5 pl-8 text-sm">
               {t("myWines.table.rowsActions.3.label")}
             </span>

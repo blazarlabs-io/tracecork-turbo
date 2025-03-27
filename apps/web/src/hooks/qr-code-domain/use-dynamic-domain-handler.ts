@@ -13,7 +13,7 @@ export function useDynamicDomainHandler(wineId: string) {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       const newUrl = `${NEXT_PUBLIC_APP_URL}/explore/wine/${wineId}`;
-      window.location.href = newUrl;
+      if (typeof window !== "undefined") window.location.href = newUrl;
     }, 300);
     return () => {
       clearTimeout(timeoutId);

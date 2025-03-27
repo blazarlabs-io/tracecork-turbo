@@ -22,31 +22,43 @@ export async function POST(request: Request) {
 
   const data = await request.json();
 
-  const url = await adminAuth.generatePasswordResetLink(
-    data.email,
-    actionCodeSettings,
-  );
+  if (!data) {
+    return Response.json({
+      success: false,
+    });
+  }
 
-  const params = url.split("?")[1];
-  const recoveryLink = `${baseUrl}?${params}`;
+  try {
+    const url = await adminAuth.generatePasswordResetLink(
+      data.email,
+      actionCodeSettings,
+    );
 
-  const msg: sgMail.MailDataRequired = {
-    to: data.email,
-    from: NEXT_PUBLIC_TRACECORK_EMAIL, // Use the email address or domain you verified above
-    templateId: emailTemplates["password-recovery"],
-    personalizations: [
-      {
-        to: [{ email: data.email }],
-        dynamicTemplateData: {
-          recoveryLink,
+    const params = url.split("?")[1];
+    const recoveryLink = `${baseUrl}?${params}`;
+
+    const msg: sgMail.MailDataRequired = {
+      to: data.email,
+      from: NEXT_PUBLIC_TRACECORK_EMAIL, // Use the email address or domain you verified above
+      templateId: emailTemplates["password-recovery"],
+      personalizations: [
+        {
+          to: [{ email: data.email }],
+          dynamicTemplateData: {
+            recoveryLink,
+          },
         },
-      },
-    ],
-  };
+      ],
+    };
 
-  await sgMail.send(msg);
+    await sgMail.send(msg);
 
-  return Response.json({
-    success: true,
-  });
+    return Response.json({
+      success: true,
+    });
+  } catch (error) {
+    return Response.json({
+      success: false,
+    });
+  }
 }
