@@ -2,7 +2,7 @@
 
 import { useResponsiveSize } from "@/hooks/use-responsive-size";
 import { Flame, Pickaxe, RefreshCw } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useTokenizer } from "~/src/context/tokenizer";
 import { BurnTokenDialog } from "../../dialogs/burn-token-dialog";
 import { UpdateTokenDialog } from "../../dialogs/update-token-dialog";
@@ -18,15 +18,18 @@ export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const { device } = useResponsiveSize();
-
   const { batchDetails, getBatch, batch } = useTokenizer();
+
+  const mountRef = useRef<boolean>(false);
 
   useEffect(() => {
     if (
+      !mountRef.current &&
       row.original.tokenization !== undefined &&
       row.original.tokenization.isTokenized
     ) {
-      // console.log("row", row.original.tokenization.tokenRefId);
+      console.log("row", row.original.tokenization.tokenRefId);
+      mountRef.current = true;
       getBatch(row.original.tokenization.tokenRefId);
     }
   }, []);

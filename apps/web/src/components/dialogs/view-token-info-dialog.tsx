@@ -37,7 +37,7 @@ export const ViewTokenInfoDialog = ({
   batchDetails,
   children,
 }: ViewTokenInfoDialogProps) => {
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
   const [thumbnail, setThumbnail] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
 
@@ -61,12 +61,12 @@ export const ViewTokenInfoDialog = ({
     }
   };
 
-  useEffect(() => {
-    if (batchDetails) {
-      const splitted = batchDetails.batch_meta.description.split("ipfs://");
-      setThumbnail(`https://ipfs.io/ipfs/${splitted[1]}`);
-    }
-  }, [batchDetails]);
+  // useEffect(() => {
+  //   if (batchDetails) {
+  //     const splitted = batchDetails.batch_meta.description.split("ipfs://");
+  //     setThumbnail(`https://ipfs.io/ipfs/${splitted[1]}`);
+  //   }
+  // }, [batchDetails]);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <TooltipProvider>
