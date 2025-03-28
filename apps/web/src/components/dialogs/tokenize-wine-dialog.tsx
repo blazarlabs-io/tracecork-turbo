@@ -37,33 +37,27 @@ export const TokenizeWineDialog = ({
   children,
 }: TokenizeWineDialogProps) => {
   const { t } = useTranslationHandler();
-  const { tokenizeBatch, updateTokenizing, updateBatch } = useTokenizer();
-
+  const { tokenizeBatch } = useTokenizer();
   const [open, setOpen] = useState<boolean>(false);
-  const [url, setUrl] = useState<string>("");
-  const [uploading, setUploading] = useState<boolean>(false);
 
   const uploadFile = async (imgFile: File) => {
-    try {
-      if (!imgFile) {
-        alert("No file selected");
-        return;
-      }
+    if (!imgFile) {
+      alert("No file selected");
+      return;
+    }
 
-      setUploading(true);
-      const data = new FormData();
-      data.set("file", imgFile);
+    const data = new FormData();
+    data.set("file", imgFile);
+
+    try {
       const uploadRequest = await fetch("/api/files", {
         method: "POST",
         body: data,
       });
       const signedUrl = await uploadRequest.json();
-      setUrl(signedUrl);
-      setUploading(false);
       return signedUrl;
     } catch (e) {
       console.log(e);
-      setUploading(false);
       alert("Trouble uploading file");
       return null;
     }
@@ -133,15 +127,23 @@ export const TokenizeWineDialog = ({
     };
 
     tokenizeBatch(newBatchData, async (data: any) => {
-      updateBatch(data);
+      console.log("\n\n+++++++++++++++++++\n");
+      console.log("newBatchData:", newBatchData);
+      console.log("UID:", uid);
+      console.log("WINE:", wine);
+      console.log("DATA:", data);
+      console.log("tokenRefId:", data.tokenRefId);
+      console.log("txId:", data.txId);
+      console.log("\n+++++++++++++++++++\n\n");
       try {
-        await db.wine.update(uid, wine.id, {
+        const res = await db.wine.update(uid, wine.id, {
           tokenization: {
             isTokenized: true,
             tokenRefId: data.tokenRefId,
             txId: data.txId,
           },
         });
+        console.log("TOKENIZE DONE && DB UPDATED", res);
       } catch (error) {
         console.log(error);
       }

@@ -42,30 +42,37 @@ export const UpdateTokenDialog = ({
   const handleUpdate = async () => {
     setOpen(false);
 
-    // * Upload image to pinata IPFS
-    const imgIpfs = await ipfs.storage.uploadFile(wine.generalInfo.image, wine);
-    // * Update token data
-    const updatedBatch = {
-      batch_data: {
-        info: JSON.stringify(wine),
-        mdata: JSON.stringify(mDataSample),
-        minscr: "",
-      },
-      batch_meta: {
-        description:
-          "This token binds a unique wine collection from tracecorck.com on the cardano blockchain.",
-        image: imgIpfs,
-        name: wine?.generalInfo.collectionName,
-      },
-      batch_quantity: [
-        parseInt(wine?.generalInfo.collectionSize as string),
-        parseInt(wine?.generalInfo.collectionSize as string),
-      ],
-    };
-    // * Update token on blockchain using TWS
-    updateBatchToken(batch.tokenRefId, updatedBatch, (data: any) => {
-      console.log("UPDATE DONE", data);
-    });
+    try {
+      // * Upload image to pinata IPFS
+      const imgIpfs = await ipfs.storage.uploadFile(
+        wine.generalInfo.image,
+        wine,
+      );
+      // * Update token data
+      const updatedBatch = {
+        batch_data: {
+          info: JSON.stringify(wine),
+          mdata: JSON.stringify(mDataSample),
+          minscr: "",
+        },
+        batch_meta: {
+          description:
+            "This token binds a unique wine collection from tracecorck.com on the cardano blockchain.",
+          image: imgIpfs,
+          name: wine?.generalInfo.collectionName,
+        },
+        batch_quantity: [
+          parseInt(wine?.generalInfo.collectionSize as string),
+          parseInt(wine?.generalInfo.collectionSize as string),
+        ],
+      };
+      // * Update token on blockchain using TWS
+      updateBatchToken(batch.tokenRefId, updatedBatch, (data: any) => {
+        console.log("UPDATE DONE", data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

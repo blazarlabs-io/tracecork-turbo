@@ -2,6 +2,7 @@
 
 // LIBS
 import { createContext, useContext, useState } from "react";
+import { TokenAction } from "../types/db";
 
 export interface TokenizerContextInterface {
   tokenizing: boolean;
@@ -18,7 +19,7 @@ export interface TokenizerContextInterface {
   ) => void;
   burnBatchToken: (tokenId: string, cb: (data: any) => void) => void;
   tokenizeBottle: (data: any, cb: (data: any) => void) => void;
-  action: "get" | "create" | "update" | "burn" | null;
+  action: TokenAction;
 }
 
 const contextInitialData: TokenizerContextInterface = {
@@ -74,7 +75,7 @@ export const TokenizerProvider = ({
   // * ///////////////// BATCH ///////////////////
 
   const getBatch = (batchId: string) => {
-    setAction("get");
+    // setAction("get");
     fetch(`${process.env.NEXT_PUBLIC_TOKENIZATION_API_URL}/wine/${batchId}`, {
       method: "GET",
       headers: {
@@ -91,7 +92,7 @@ export const TokenizerProvider = ({
     })
       .then(async (res) => {
         const data = await res.json();
-        // console.log("GET BATCH RESULTS:", data);
+        console.log("GET BATCH RESULTS:", data);
         setBatchDetails(data);
       })
       .catch((error) => {
@@ -100,9 +101,14 @@ export const TokenizerProvider = ({
       });
   };
 
-  const tokenizeBatch = (data: any, cb: (data: any) => void) => {
-    setAction("create");
+  const tokenizeBatch = (data: any, cb: (cbData: any) => void) => {
     setTokenizing(true);
+    setAction("create");
+
+    console.log("\n\nXXXXXXXXXXXXXXXXXX");
+    console.log("TOKENIZE BATCH DATA", data);
+    console.log("XXXXXXXXXXXXXXXXXX\n\n");
+
     fetch(
       `${process.env.NEXT_PUBLIC_TOKENIZATION_API_URL}/tx/true/mint-batch`,
       {
@@ -121,10 +127,10 @@ export const TokenizerProvider = ({
       },
     )
       .then(async (res) => {
-        const data = await res.json();
+        const resData = await res.json();
         setTokenizing(false);
         // console.log("TOKENIZE BATCH RESULT", data);
-        cb(data);
+        cb(resData);
       })
       .catch((error) => {
         setTokenizing(false);

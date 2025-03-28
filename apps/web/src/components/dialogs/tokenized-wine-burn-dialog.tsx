@@ -50,7 +50,7 @@ export const TokenizedWineBurnDialog = ({
   const [isOpen, setIsOpen] = useState<boolean>(true);
   return (
     <>
-      <Dialog open={isOpen} onOpenChange={() => {}}>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTitle></DialogTitle>
         <DialogContent className="flex flex-col items-center justify-center gap-4">
           <DialogHeader className="flex flex-col items-center justify-center gap-2">
