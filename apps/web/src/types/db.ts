@@ -216,3 +216,5 @@ export interface DynamicQrCode {
   createdAt: Timestamp;
   lastUpdated: Timestamp;
 }
+
+export type TokenAction = "create" | "update" | "burn" | null;
