@@ -218,3 +218,12 @@ export interface DynamicQrCode {
 }
 
 export type TokenAction = "create" | "update" | "burn" | null;
+
+export interface StorageSensors {
+  date: Date;
+  id: string;
+  temperature: number;
+  humidity: number;
+  light: number;
+  vibration: number;
+}

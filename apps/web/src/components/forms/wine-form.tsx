@@ -150,6 +150,7 @@ export const WineForm = ({ wine }: WineFormProps) => {
   // * Upload image to storage and url to DB + update form with url data
   const handleImageUpload = (image: File) => {
     if (!user?.uid) return;
+    console.log("image", image);
     setImageUploading(true);
     storage.winery
       .upload(

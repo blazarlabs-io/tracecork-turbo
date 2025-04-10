@@ -9,6 +9,10 @@ import { useGetWine } from "@/hooks/use-get-wine";
 import { DynamicIngredients } from "@/components/widgets/dynamic-ingredients";
 import { useTranslationHandler } from "@/hooks/use-translation-handler";
 import MarkdownPreviewer from "../markdown-previewer/MarkdownPreviewer";
+import { useTokenizer } from "~/src/context/tokenizer";
+import { useEffect, useRef } from "react";
+import { useStorageSensorData } from "~/src/hooks/useStorageSensorData";
+import { StorageDataChart } from "@/components/charts/storage-data-chart";
 
 export interface WineDetailsPageProps {
   wineId: string;
@@ -19,8 +23,12 @@ export const WineDetailsPrivatePage = ({ wineId }: WineDetailsPageProps) => {
   const { t } = useTranslationHandler();
   const { wine } = useGetWine(wineId);
   const { vintage } = useGetVintage(wine as Wine);
+  const { getBatch } = useTokenizer();
+  const { sensorData } = useStorageSensorData(wine as Wine, wineId);
 
-  if (!wine) return <h1>Lading Wine...</h1>;
+  const mountRef = useRef<boolean>(false);
+
+  if (!wine) return <h1>Loading Wine...</h1>;
 
   const { generalInfo, profile } = wine;
   const { type: wineType } = generalInfo;
@@ -39,6 +47,13 @@ export const WineDetailsPrivatePage = ({ wineId }: WineDetailsPageProps) => {
                 className="rounded-lg rounded-t-lg object-cover"
                 style={{ aspectRatio: "400/400", objectFit: "cover" }}
               />
+              {wine.tokenization?.isTokenized && (
+                <img
+                  src="/images/nft-badge.png"
+                  alt=""
+                  className="absolute right-12 bottom-4"
+                />
+              )}
             </div>
             <div className="flex w-full flex-col items-center justify-start gap-8 px-4">
               {/* * HEADER */}
@@ -166,6 +181,13 @@ export const WineDetailsPrivatePage = ({ wineId }: WineDetailsPageProps) => {
                 abv={wine.ingredients.alcoholByVolume as string}
                 volume={wine.generalInfo.volume}
               />
+              {/* * STORAGE DATA VIZ */}
+              {wine.tokenization?.isTokenized && sensorData && (
+                <div className="w-full max-w-[640px]">
+                  <StorageDataChart data={sensorData} />
+                </div>
+              )}
+
               {/* * WARNINGS */}
               <div className="max-w-[520px] p-8">
                 <Image

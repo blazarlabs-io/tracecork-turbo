@@ -1,4 +1,9 @@
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+} from "firebase/storage";
 import { storage } from "../../client";
 
 export const winery: any = {

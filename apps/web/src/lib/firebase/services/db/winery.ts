@@ -25,6 +25,7 @@ export const winery = {
       const res = await updateDoc(docRef, data);
       return { data: res, error: null, code: 200 };
     } catch (error) {
+      console.log(error);
       return { data: null, error, code: 500 };
     }
   },

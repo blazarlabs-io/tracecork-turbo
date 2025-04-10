@@ -76,6 +76,10 @@ export const TokenizerProvider = ({
 
   const getBatch = (batchId: string) => {
     // setAction("get");
+    console.log(
+      "TOKENIZATION URL",
+      `${process.env.NEXT_PUBLIC_TOKENIZATION_API_URL}/wine/${batchId}`,
+    );
     fetch(`${process.env.NEXT_PUBLIC_TOKENIZATION_API_URL}/wine/${batchId}`, {
       method: "GET",
       headers: {

@@ -108,10 +108,21 @@ export const TokenizeWineDialog = ({
 
     // TODO: Add collectionSize = 0 error dialog preventing the tokenization if collectionSize is not set properly.
 
+    // * Get storage sensor data
+    const storageRes = await fetch("/api/sensors/today", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    const storageData = await storageRes.json();
+
     const newBatchData = {
       batch_data: {
         info: JSON.stringify(wine),
-        mdata: JSON.stringify(mDataSample),
+        mdata: JSON.stringify(storageData.data),
         minscr: "",
       },
       batch_meta: {
