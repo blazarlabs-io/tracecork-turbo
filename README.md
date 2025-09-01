@@ -1,6 +1,6 @@
 ![Tracecork](./assets/cover.png)
 
-# Tracecork Monorepo
+# Tracecork Monorepo Docs
 
 ## Table of Contents
 
