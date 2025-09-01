@@ -86,7 +86,7 @@ export const SubscriptionPage = () => {
             </div>
             {device === "mobile" ? (
               <div className="flex flex-col items-center justify-center">
-                {qrCodesLeft > 0 ? (
+                {Number(qrCodesLeft) > 0 || qrCodesLeft === "Unlimited" ? (
                   <span className="text-foreground">
                     {qrCodesLeft} / {qrCodesLimit} labels
                   </span>
@@ -98,7 +98,7 @@ export const SubscriptionPage = () => {
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center">
-                {qrCodesLeft > 0 ? (
+                {Number(qrCodesLeft) > 0 || qrCodesLeft === "Unlimited" ? (
                   <span className="text-foreground">
                     {`${qrCodesLeft} / ${qrCodesLimit} ${t("subscription.subscriptionCard.labelsRemainingText")}`}
                   </span>

@@ -61,7 +61,7 @@ export const SecurePublishWineDialog = ({
         <>
           {isReadytoPublish ? (
             <>
-              {qrCodesLeft > 0 ? (
+              {Number(qrCodesLeft) > 0 || qrCodesLeft === "Unlimited" ? (
                 <>
                   {/* * PUBLISH WINE (NEW WINE) */}
                   <PublishNewWineDialog

@@ -33,13 +33,11 @@ import { Tokenization } from "~/src/types/db";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  qrCodesLeft: number;
 }
 
 export function DataTable<TData extends Tokenization, TValue>({
   columns,
   data,
-  qrCodesLeft,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =

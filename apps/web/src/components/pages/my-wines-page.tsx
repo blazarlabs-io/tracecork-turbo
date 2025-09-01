@@ -103,13 +103,7 @@ export const MyWinesPage = () => {
         </Button>
       </div>
       {/* *TABLE */}
-      {localWines && (
-        <WinesTable
-          data={localWines}
-          columns={columns()}
-          qrCodesLeft={qrCodesLeft}
-        />
-      )}
+      {localWines && <WinesTable data={localWines} columns={columns()} />}
     </div>
   );
 };
