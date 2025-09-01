@@ -27,6 +27,12 @@ export async function middleware(request: NextRequest) {
   const onConfirmEmail = pathname.startsWith("/confirm-email");
   const OnVerifyEmail = pathname.startsWith("/verify-email");
 
+  console.log("authData", authData);
+  console.log("pathname", pathname);
+  console.log("onPrivateRoute", onPrivateRoute);
+  console.log("onConfirmEmail", onConfirmEmail);
+  console.log("OnVerifyEmail", OnVerifyEmail);
+
   if (authData) {
     const {
       decodedData: { email_verified },
