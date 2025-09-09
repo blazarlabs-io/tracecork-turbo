@@ -43,7 +43,7 @@ export const wineryTemplate: Winery = {
   info: wineryInfoTemplate,
   settings: settingsTemplate,
   billing: {
-    level: "bronze",
+    level: "platinum",
   },
   isVerified: false,
 };
