@@ -8,7 +8,7 @@ export const fetchCache = "force-no-store";
 export default function Home() {
   return (
     <Suspense fallback={<LoadingPage containerHeight={400} />}>
-      <DashboardHomePage />;
+      <DashboardHomePage />
     </Suspense>
   );
 }

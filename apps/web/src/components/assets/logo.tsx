@@ -7,7 +7,7 @@ export interface LogoProps {
 export const Logo = ({ className }: LogoProps) => {
   return (
     <Image
-      src="/images/tracecork-logo-3.svg"
+      src="/images/tracecork-logo-4.svg"
       alt="Logo"
       width={148}
       height={48}
